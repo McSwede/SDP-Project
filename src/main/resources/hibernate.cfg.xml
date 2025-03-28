@@ -22,5 +22,6 @@
         <mapping class="org.grupp2.sdpproject.entities.Country" />
         <mapping class="org.grupp2.sdpproject.entities.City" />
         <mapping class="org.grupp2.sdpproject.entities.Address" />
+        <mapping class="org.grupp2.sdpproject.entities.Customer" />
     </session-factory>
 </hibernate-configuration>
