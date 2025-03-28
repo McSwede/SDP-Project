@@ -33,9 +33,6 @@
     -fx-background-color: #004c8a;
 }
 .label {
-    -fx-background-radius: 3px;
     -fx-padding: 10;
     -fx-wrap-text: true;
-    -fx-background-color: white;
-    -fx-max-width: 210;
 }
