@@ -12,7 +12,7 @@ public class Country {
     private short countryId;
 
     @Size(max = 50)
-    @Column(name = "country", nullable = false)
+    @Column(name = "country", nullable = false, length = 50)
     private String country;
 
     // I believe this should have a OneToMany relationship to cities
