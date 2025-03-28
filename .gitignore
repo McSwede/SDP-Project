@@ -1,3 +1,9 @@
+# Ignore entire .idea folder
+.idea/
+
+# Ignore Maven/Gradle build output folder
+target/
+
 # Compiled class file
 *.class
 

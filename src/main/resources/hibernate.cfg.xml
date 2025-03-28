@@ -21,6 +21,7 @@
         <!-- Classes -->
         <mapping class="org.grupp2.sdpproject.entities.Country" />
         <mapping class="org.grupp2.sdpproject.entities.City" />
+        <mapping class="org.grupp2.sdpproject.entities.Address" />
         <mapping class="org.grupp2.sdpproject.entities.Film" />
         <mapping class="org.grupp2.sdpproject.entities.Category" />
         <mapping class="org.grupp2.sdpproject.entities.Language" />
