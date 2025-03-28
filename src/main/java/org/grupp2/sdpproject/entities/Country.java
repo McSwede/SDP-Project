@@ -1,4 +1,4 @@
-package org.grupp2.sdpproject.Entities;
+package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
