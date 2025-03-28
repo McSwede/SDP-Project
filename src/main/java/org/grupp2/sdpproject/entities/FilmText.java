@@ -17,6 +17,14 @@ public class FilmText {
     @Column
     private String description;
 
+    public FilmText() {
+    }
+
+    public FilmText(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
     public short getFilmId() {
         return filmId;
     }

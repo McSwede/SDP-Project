@@ -17,4 +17,27 @@ public class Inventory {
     @Column(name = "store_id", nullable = false)
     private byte storeId;
 
+    public Inventory() {
+    }
+
+    public Inventory(short filmId, byte storeId) {
+        this.filmId = filmId;
+        this.storeId = storeId;
+    }
+
+    public short getFilmId() {
+        return filmId;
+    }
+
+    public void setFilmId(short filmId) {
+        this.filmId = filmId;
+    }
+
+    public byte getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(byte storeId) {
+        this.storeId = storeId;
+    }
 }
