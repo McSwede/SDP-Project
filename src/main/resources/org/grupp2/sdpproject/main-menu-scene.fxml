@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.MainMenuScene">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" text="Filmer" />
+            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" text="Skådespelare" />
+            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" text="Kunder" />
+            <Button mnemonicParsing="false" prefWidth="111.0" text="Adresser" />
+            <Button mnemonicParsing="false" prefWidth="111.0" text="Betalningar" />
+            <Button mnemonicParsing="false" prefWidth="111.0" text="Uthyrningar" />
+            <Button mnemonicParsing="false" prefWidth="111.0" text="Anställda" />
+            <Button mnemonicParsing="false" prefWidth="111.0" text="Butiker" />
+            <Button mnemonicParsing="false" prefWidth="111.0" text="Lager" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
