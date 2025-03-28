@@ -20,8 +20,7 @@ public class Country {
     public Country() {
     }
 
-    public Country(short countryId, String country) {
-        this.countryId = countryId;
+    public Country(String country) {
         this.country = country;
     }
 
