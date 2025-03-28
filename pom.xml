@@ -129,7 +129,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.grupp2.sdpproject/org.grupp2.sdpproject.HelloApplication</mainClass>
+                            <mainClass>org.grupp2.sdpproject/org.grupp2.sdpproject.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

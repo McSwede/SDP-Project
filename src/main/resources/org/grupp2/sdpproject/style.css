@@ -1,0 +1,41 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-background-color: #F4F4F4; /* Ljus bakgrund */
+}
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-hbar-policy: never;
+}
+.hbox {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+.vbox {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+}
+.button {
+    -fx-background-color: #006aca;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10;
+    -fx-min-height: 36;
+    -fx-min-width: 111;
+}
+.button:hover {
+    -fx-background-color: #0086ff;
+}
+.button:pressed {
+    -fx-background-color: #004c8a;
+}
+.label {
+    -fx-background-radius: 3px;
+    -fx-padding: 10;
+    -fx-wrap-text: true;
+    -fx-background-color: white;
+    -fx-max-width: 210;
+}
