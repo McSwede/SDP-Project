@@ -28,4 +28,62 @@ public class Rental {
     @Column(name = "staff_id", nullable = false)
     private byte staffId;
 
+    public Rental() {
+    }
+
+    public Rental(Date rentalDate, int inventoryId, short customerId, Date returnDate, byte staffId) {
+        this.rentalDate = rentalDate;
+        this.inventoryId = inventoryId;
+        this.customerId = customerId;
+        this.returnDate = returnDate;
+        this.staffId = staffId;
+    }
+
+    public int getRentalId() {
+        return rentalId;
+    }
+
+    public void setRentalId(int rentalId) {
+        this.rentalId = rentalId;
+    }
+
+    public Date getRentalDate() {
+        return rentalDate;
+    }
+
+    public void setRentalDate(Date rentalDate) {
+        this.rentalDate = rentalDate;
+    }
+
+    public int getInventoryId() {
+        return inventoryId;
+    }
+
+    public void setInventoryId(int inventoryId) {
+        this.inventoryId = inventoryId;
+    }
+
+    public short getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(short customerId) {
+        this.customerId = customerId;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    public byte getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(byte staffId) {
+        this.staffId = staffId;
+    }
 }
