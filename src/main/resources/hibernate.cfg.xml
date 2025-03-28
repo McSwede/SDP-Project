@@ -20,5 +20,6 @@
 
         <!-- Classes -->
         <mapping class="org.grupp2.sdpproject.entities.Country" />
+        <mapping class="org.grupp2.sdpproject.entities.City" />
     </session-factory>
 </hibernate-configuration>
