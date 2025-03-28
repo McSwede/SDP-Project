@@ -28,5 +28,9 @@
         <mapping class="org.grupp2.sdpproject.entities.Actor" />
         <mapping class="org.grupp2.sdpproject.entities.Inventory" />
         <mapping class="org.grupp2.sdpproject.entities.FilmText" />
+        <mapping class="org.grupp2.sdpproject.entities.Payment" />
+        <mapping class="org.grupp2.sdpproject.entities.Rental" />
+        <mapping class="org.grupp2.sdpproject.entities.Staff" />
+        <mapping class="org.grupp2.sdpproject.entities.Store" />
     </session-factory>
 </hibernate-configuration>
