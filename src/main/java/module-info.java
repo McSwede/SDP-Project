@@ -2,6 +2,7 @@ module org.grupp2.sdpproject {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires java.naming;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -12,6 +13,7 @@ module org.grupp2.sdpproject {
     requires jakarta.persistence;
     requires jakarta.validation;
     requires org.hibernate.validator;
+    requires org.hibernate.orm.core;
 
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
