@@ -9,6 +9,9 @@ module org.grupp2.sdpproject {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires jakarta.persistence;
+    requires jakarta.validation;
+    requires org.hibernate.validator;
 
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
