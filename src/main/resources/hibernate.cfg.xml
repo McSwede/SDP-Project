@@ -21,5 +21,11 @@
         <!-- Classes -->
         <mapping class="org.grupp2.sdpproject.entities.Country" />
         <mapping class="org.grupp2.sdpproject.entities.City" />
+        <mapping class="org.grupp2.sdpproject.entities.Film" />
+        <mapping class="org.grupp2.sdpproject.entities.Category" />
+        <mapping class="org.grupp2.sdpproject.entities.Language" />
+        <mapping class="org.grupp2.sdpproject.entities.Actor" />
+        <mapping class="org.grupp2.sdpproject.entities.Inventory" />
+        <mapping class="org.grupp2.sdpproject.entities.FilmText" />
     </session-factory>
 </hibernate-configuration>

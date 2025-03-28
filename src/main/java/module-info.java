@@ -12,6 +12,7 @@ module org.grupp2.sdpproject {
     requires jakarta.persistence;
     requires jakarta.validation;
     requires org.hibernate.validator;
+    requires org.hibernate.orm.core;
 
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
