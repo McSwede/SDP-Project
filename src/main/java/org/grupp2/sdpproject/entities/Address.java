@@ -35,6 +35,8 @@ public class Address {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
+    // Should probably have 3 OneToMany relations to Customer, Staff and Store
+
     public Address() {
     }
 
