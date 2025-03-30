@@ -23,19 +23,23 @@ public class SceneController {
 
     private Stage primaryStage;
     private final FXMLLoader mainMenuScene = new FXMLLoader(Main.class.getResource("main-menu-scene.fxml"));
+    private final FXMLLoader loginScene = new FXMLLoader(Main.class.getResource("login-scene.fxml"));
 
     public void startApplication(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        setScene(mainMenuScene);
+        setScene(loginScene);
     }
 
     public void switchScene(String sceneName) {
         switch (sceneName) {
+            case "login":
+                setScene(loginScene);
+                break;
             case "main menu":
                 setScene(mainMenuScene);
                 break;
             default:
-                primaryStage.close();
+                throw new IllegalStateException("Unexpected value: " + sceneName);
         }
     }
 
