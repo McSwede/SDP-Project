@@ -14,6 +14,7 @@ module org.grupp2.sdpproject {
     requires jakarta.validation;
     requires org.hibernate.validator;
     requires org.hibernate.orm.core;
+    requires jbcrypt;
 
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;

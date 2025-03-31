@@ -35,7 +35,10 @@ public class LoginScene {
             //boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
             boolean success = true;
             if (success) {
-                sceneController.switchScene("main menu");
+                //sceneController.switchScene("main menu");
+                sceneController.switchScene("home");
+
+
             }
             else {
                 messageLabel.setText("Inloggning misslyckades. Kontrollera dina uppgifter");

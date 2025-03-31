@@ -1,40 +1,33 @@
 package org.grupp2.sdpproject.dao;
 
-import org.grupp2.sdpproject.entities.Customer;
-import org.grupp2.sdpproject.entities.Staff;
+import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 public class UserDAO {
-    private SessionFactory sessionFactory;
+    //private static final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
-    public UserDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public void saveUser(User user, String role) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        if ("customer".equals(role)) {
-            Customer customer = session.get(Customer.class, user.getCustomer().getCustomerId());
-            user.setCustomer(customer);
-        } else if ("staff".equals(role)) {
-            Staff staff = session.get(Staff.class, user.getStaff().getStaffId());
-            user.setStaff(staff);
+    public void saveUser(User user) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(user);
+            session.getTransaction().commit();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
         }
-
-        session.save(user);
-        transaction.commit();
-        session.close();
     }
 
-    public User findByUsername(String username) {
-        Session session = sessionFactory.openSession();
-        User user = session.get(User.class, username);
-        session.close();
-        return user;
+    public User findByEmail(String email) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM User WHERE email = :email", User.class)
+                    .setParameter("email", email)
+                    .uniqueResult();
+        }
     }
 }

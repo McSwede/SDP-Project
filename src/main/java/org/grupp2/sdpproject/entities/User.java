@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import org.grupp2.sdpproject.ENUM.Role;
 
 @Entity
 @Table(name = "users")
@@ -11,14 +12,14 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "role", nullable = false)
-    private String role;
+    private Role role;
 
     @OneToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
@@ -27,6 +28,15 @@ public class User {
     @OneToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
     private Staff staff;
+
+    // constructor
+ public User(){}
+
+    public User(String email, String password, Role role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     // Getters and setters
     public int getUserId() {
@@ -37,12 +47,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -53,11 +63,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -75,5 +85,17 @@ public class User {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", customer=" + customer +
+                ", staff=" + staff +
+                '}';
     }
 }
