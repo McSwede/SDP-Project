@@ -55,6 +55,8 @@ public class Staff {
         this.password = password;
     }
 
+    public byte getStaffId() {return staffId;}
+
     public String getFirstName() {
         return firstName;
     }
