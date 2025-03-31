@@ -9,7 +9,7 @@ import java.util.Date;
 public class Rental {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rental_id", nullable = false)
     private int rentalId;
 

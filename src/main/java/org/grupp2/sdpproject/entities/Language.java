@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Language {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "language_id")
     private byte langueId;
 

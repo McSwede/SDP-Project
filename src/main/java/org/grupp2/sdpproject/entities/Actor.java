@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Actor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "actor_id", nullable = false)
     private short actorId;
 

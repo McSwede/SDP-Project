@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Staff {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "staff_id")
     private byte staffId;
 
@@ -20,6 +20,7 @@ public class Staff {
     @Column(name = "address_id", nullable = false)
     private short addressId;
 
+    @Lob
     @Column()
     private byte[] picture;
 

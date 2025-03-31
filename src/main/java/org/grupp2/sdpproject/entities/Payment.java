@@ -10,7 +10,7 @@ import java.util.Date;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id")
     private short paymentId;
 
@@ -26,6 +26,7 @@ public class Payment {
     @Column(precision = 5, scale = 2, nullable = false)
     private BigDecimal amount;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "payment_date", nullable = false)
     private Date paymentDate;
 
