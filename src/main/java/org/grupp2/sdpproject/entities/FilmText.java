@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class FilmText {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id", nullable = false)
     private short filmId;
 
