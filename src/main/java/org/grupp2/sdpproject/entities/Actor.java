@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "actor")
@@ -16,6 +17,9 @@ public class Actor {
 
     @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
+
+    @ManyToMany(mappedBy = "actorList")
+    private List<Film> filmList;
 
     public Actor() {
     }

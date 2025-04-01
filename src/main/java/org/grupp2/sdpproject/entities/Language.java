@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "language")
 public class Language {
@@ -9,10 +11,16 @@ public class Language {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "language_id")
-    private byte langueId;
+    private byte languageId;
 
     @Column(length = 20, nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "language")
+    private List<Film> films;
+
+    @OneToMany(mappedBy = "originalLanguage")
+    private List<Film> originalFilms;
 
     public Language(String name) {
         this.name = name;
@@ -21,12 +29,12 @@ public class Language {
     public Language() {
     }
 
-    public byte getLangueId() {
-        return langueId;
+    public byte getLanguageId() {
+        return languageId;
     }
 
-    public void setLangueId(byte langueId) {
-        this.langueId = langueId;
+    public void setLanguageId(byte languageId) {
+        this.languageId = languageId;
     }
 
     public String getName() {

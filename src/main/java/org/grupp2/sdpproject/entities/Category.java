@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "category")
 public class Category {
@@ -13,6 +15,9 @@ public class Category {
 
     @Column(length = 25, nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "categoryList")
+    private List<Film> filmList;
 
     public Category() {
     }

@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "inventory")
 public class Inventory {
@@ -11,33 +13,15 @@ public class Inventory {
     @Column(name = "inventory_id", nullable = false)
     private int inventoryId;
 
-    @Column(name = "film_id", nullable = false)
-    private short filmId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "film_id", nullable = false)
+    private Film film;
 
-    @Column(name = "store_id", nullable = false)
-    private byte storeId;
+    @ManyToOne
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
 
-    public Inventory() {
-    }
+    @OneToMany(targetEntity = Rental.class)
+    private List<Rental> rentalList;
 
-    public Inventory(short filmId, byte storeId) {
-        this.filmId = filmId;
-        this.storeId = storeId;
-    }
-
-    public short getFilmId() {
-        return filmId;
-    }
-
-    public void setFilmId(short filmId) {
-        this.filmId = filmId;
-    }
-
-    public byte getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(byte storeId) {
-        this.storeId = storeId;
-    }
 }

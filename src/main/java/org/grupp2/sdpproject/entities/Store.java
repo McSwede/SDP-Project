@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "store")
 public class Store {
@@ -16,6 +18,9 @@ public class Store {
 
     @Column(name = "address_id", nullable = false)
     private short addressId;
+
+    @OneToMany(mappedBy = "store")
+    private List<Inventory> inventories;
 
     public Store() {
     }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -39,18 +40,23 @@ public class Customer {
     @Column(name = "create_date", nullable = false)
     private LocalDate createDate;
 
+    @OneToMany(mappedBy = "customer_id")
+    private List<Rental> rentals;
+
     // I'm not completely sure here but this needs to relate to Rental and Payment so we should probably do two OneToMany relations to them right?
 
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email, Address address, boolean active, LocalDate createDate) {
+    public Customer(String firstName, String lastName, String email, Address address, boolean active,
+                    LocalDate createDate, List<Rental> rentals) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
         this.active = active;
         this.createDate = createDate;
+        this.rentals = rentals;
     }
 
     public int getCustomerId() {
@@ -107,5 +113,13 @@ public class Customer {
 
     public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
+    }
+
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
     }
 }

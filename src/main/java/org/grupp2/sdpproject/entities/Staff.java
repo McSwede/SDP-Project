@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "staff")
 public class Staff {
@@ -38,6 +40,10 @@ public class Staff {
 
     @Column(nullable = false, length = 40) // binary?
     private String password;
+
+    @OneToMany(mappedBy = "staff_id")
+    private List<Rental> rentals;
+
 
     public Staff() {
     }
