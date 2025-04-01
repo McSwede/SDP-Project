@@ -33,6 +33,10 @@
     -fx-background-color: #004c8a;
 }
 .label {
-    -fx-padding: 10;
+    -fx-padding: 5;
     -fx-wrap-text: true;
+}
+.message-label {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
 }

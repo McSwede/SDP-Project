@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.Main;
+import org.grupp2.sdpproject.Utils.DatabaseLoginManager;
+import org.grupp2.sdpproject.Utils.HibernateUtil;
 
 public class SceneController {
 
@@ -27,7 +29,30 @@ public class SceneController {
 
     public void startApplication(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        setScene(loginScene);
+        boolean shouldShowLogin = true;
+        if (DatabaseLoginManager.configFileExists()) {
+            try {
+                DatabaseLoginManager.DatabaseLogin config = DatabaseLoginManager.readConfigFromFile();
+
+                boolean success = HibernateUtil.initializeDatabase(
+                        config.username(),
+                        config.password(),
+                        config.ip(),
+                        config.port()
+                );
+
+                if (success) {
+                    setScene(mainMenuScene);
+                    shouldShowLogin = false;
+                }
+
+            } catch (Exception e) {
+                System.err.println("Kunde inte läsa från fil eller ansluta till databas: " + e.getMessage());
+            }
+        }
+        if (shouldShowLogin) {
+            setScene(loginScene);
+        }
     }
 
     public void switchScene(String sceneName) {

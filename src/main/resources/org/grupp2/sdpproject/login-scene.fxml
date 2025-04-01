@@ -7,15 +7,16 @@
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="424.0" prefWidth="600.0" styleClass="vbox">
          <children>
-            <Label text="Skriv in inloggningsuppgifter till en MySQL databas." />
+            <Label text="Skriv in inloggningsuppgifter till din MySQL databas." />
+            <Label text="Uppgifterna kommer sparas till fil och användas vid nästa start av programmet." />
             <TextField maxWidth="200.0" promptText="Användarnamn" fx:id="usernameField"/>
             <TextField maxWidth="200.0" promptText="Lösenord" fx:id="passwordField"/>
             <TextField maxWidth="200.0" promptText="IP-adress" text="localhost" fx:id="ipField"/>
             <TextField maxWidth="200.0" promptText="Port" text="3306" fx:id="portField"/>
-            <Label fx:id="messageLabel" text=""/>
+            <Label fx:id="messageLabel" styleClass="message-label"/>
             <HBox alignment="TOP_CENTER" prefHeight="23.0" prefWidth="580.0" styleClass="hbox">
                <children>
-                  <Button maxWidth="90.0" mnemonicParsing="false" text="Logga in" onAction="#handleLogin"/>
+                  <Button maxWidth="90.0" mnemonicParsing="false" text="Spara" onAction="#handleLogin"/>
                </children>
             </HBox>
          </children>
