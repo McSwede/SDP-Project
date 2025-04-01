@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import org.grupp2.sdpproject.ENUM.Rating;
 
 import java.math.BigDecimal;
@@ -37,12 +38,14 @@ public class Film {
     @Column(name = "rental_duration", nullable = false)
     private byte rentalDuration;
 
+    @Digits(integer = 2, fraction = 2)
     @Column(name = "rental_rate", precision = 4, scale = 2, nullable = false)
     private BigDecimal rentalRate;
 
     @Column
     private short length;
 
+    @Digits(integer = 3, fraction = 2)
     @Column(name = "replacement_cost", precision = 5, scale = 2, nullable = false)
     private BigDecimal replacementCost;
 
@@ -75,8 +78,9 @@ public class Film {
     public Film() {
     }
 
-    public Film(String title, String description, short releaseYear, Language language, Language originalLanguage, byte rentalDuration, BigDecimal rentalRate,
-                short length, BigDecimal replacementCost, Rating rating, Set<String> specialFeatures, List<Actor> actorList, List<Category> categoryList) {
+    public Film(String title, String description, short releaseYear, Language language, Language originalLanguage,
+                byte rentalDuration, BigDecimal rentalRate, short length, BigDecimal replacementCost, Rating rating,
+                Set<String> specialFeatures, List<Actor> actorList, List<Category> categoryList) {
         this.title = title;
         this.description = description;
         this.releaseYear = releaseYear;

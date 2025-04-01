@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Language {
     @Column(name = "language_id")
     private byte languageId;
 
+    @Size(max = 20)
     @Column(length = 20, nullable = false)
     private String name;
 

@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -37,9 +38,11 @@ public class Staff {
     @Column(nullable = false)
     private boolean active; //ska vara true by default så kanske måste göra något här
 
+    @Size(max = 16)
     @Column(nullable = false, length = 16)
     private String username;
 
+    @Size(max = 40)
     @Column(nullable = false, length = 40) // binary?
     private String password;
 

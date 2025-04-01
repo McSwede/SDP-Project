@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class Payment {
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
+    @Digits(integer = 3, fraction = 2)
     @Column(precision = 5, scale = 2, nullable = false)
     private BigDecimal amount;
 
