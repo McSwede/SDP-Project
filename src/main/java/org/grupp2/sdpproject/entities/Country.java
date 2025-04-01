@@ -3,6 +3,9 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "country")
 public class Country {
@@ -15,7 +18,8 @@ public class Country {
     @Column(name = "country", nullable = false, length = 50)
     private String country;
 
-    // I believe this should have a OneToMany relationship to cities
+    @OneToMany(mappedBy = "country")
+    private List<City> cities = new ArrayList<>();
 
     public Country() {
     }
@@ -38,5 +42,13 @@ public class Country {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
     }
 }
