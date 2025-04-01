@@ -4,10 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import org.grupp2.sdpproject.Utils.DatabaseLoginManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
-import org.grupp2.sdpproject.GUI.SceneController;
 
 public class LoginScene {
 
@@ -28,18 +26,23 @@ public class LoginScene {
 
         if (username.isEmpty() || password.isEmpty() || ip.isEmpty() || port.isEmpty()) {
             messageLabel.setText("Fyll i alla fält");
-            messageLabel.setStyle("-fx-text-fill: red;");
         }
         else {
-            //toDO måste ha alla entitys mappade först
-            //boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
-            boolean success = true;
+            // TODO: När alla entities är mappade ska den kommenterade koden tas med igen
+            boolean success = true; //HibernateUtil.initializeDatabase(username, password, ip, port);
             if (success) {
-                sceneController.switchScene("main menu");
+                try {
+                    DatabaseLoginManager.DatabaseLogin config = new DatabaseLoginManager.DatabaseLogin(username, password, ip, port);
+                    DatabaseLoginManager.writeConfigToFile(config);
+
+                    sceneController.switchScene("main menu");
+
+                } catch (Exception e) {
+                    messageLabel.setText("Kunde inte spara inloggningsuppgifter");
+                }
             }
             else {
                 messageLabel.setText("Inloggning misslyckades. Kontrollera dina uppgifter");
-                messageLabel.setStyle("-fx-text-fill: red;");
             }
         }
     }
