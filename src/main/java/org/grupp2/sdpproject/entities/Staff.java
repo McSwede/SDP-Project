@@ -19,8 +19,9 @@ public class Staff {
     @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @Column(name = "address_id", nullable = false)
-    private short addressId;
+    @ManyToOne
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
 
     @Lob
     @Column()
@@ -29,8 +30,9 @@ public class Staff {
     @Column(length = 50)
     private String email;
 
-    @Column(name = "store_id", nullable = false)
-    private byte storeId;
+    @ManyToOne
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
 
     @Column(nullable = false)
     private boolean active; //ska vara true by default så kanske måste göra något här
@@ -41,24 +43,41 @@ public class Staff {
     @Column(nullable = false, length = 40) // binary?
     private String password;
 
-    @OneToMany(mappedBy = "staff_id")
+    @OneToMany(mappedBy = "staff")
     private List<Rental> rentals;
 
+    @OneToMany(mappedBy = "staff")
+    private List<Payment> payments;
+
+    @OneToMany(mappedBy = "staff")
+    private List<Store> stores;
 
     public Staff() {
     }
 
-    public Staff(String firstName, String lastName, short addressId, byte[] picture, String email,
-                 byte storeId, boolean active, String username, String password) {
+    public Staff(String firstName, String lastName, Address address, byte[] picture,
+                 String email, Store store, boolean active, String username, String password, List<Rental> rentals,
+                 List<Payment> payments, List<Store> stores) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.addressId = addressId;
+        this.address = address;
         this.picture = picture;
         this.email = email;
-        this.storeId = storeId;
+        this.store = store;
         this.active = active;
         this.username = username;
         this.password = password;
+        this.rentals = rentals;
+        this.payments = payments;
+        this.stores = stores;
+    }
+
+    public byte getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(byte staffId) {
+        this.staffId = staffId;
     }
 
     public String getFirstName() {
@@ -77,12 +96,12 @@ public class Staff {
         this.lastName = lastName;
     }
 
-    public short getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(short addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public byte[] getPicture() {
@@ -101,12 +120,12 @@ public class Staff {
         this.email = email;
     }
 
-    public byte getStoreId() {
-        return storeId;
+    public Store getStore() {
+        return store;
     }
 
-    public void setStoreId(byte storeId) {
-        this.storeId = storeId;
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     public boolean isActive() {
@@ -131,5 +150,29 @@ public class Staff {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
     }
 }
