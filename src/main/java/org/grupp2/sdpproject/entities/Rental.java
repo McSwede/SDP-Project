@@ -27,12 +27,15 @@ public class Rental {
     private Inventory inventory;
 
     @ManyToOne
-    @Column(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @ManyToOne
-    @Column(name = "staff_id", nullable = false)
+    @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
+
+    @OneToMany(mappedBy = "rental")
+    private List<Payment> payments;
 
     public Rental() {
     }
