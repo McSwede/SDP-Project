@@ -24,4 +24,44 @@ public class Inventory {
     @OneToMany(targetEntity = Rental.class)
     private List<Rental> rentalList;
 
+    public Inventory() {
+    }
+
+    public Inventory(Film film, Store store, List<Rental> rentalList) {
+        this.film = film;
+        this.store = store;
+        this.rentalList = rentalList;
+    }
+
+    public int getInventoryId() {
+        return inventoryId;
+    }
+
+    public void setInventoryId(int inventoryId) {
+        this.inventoryId = inventoryId;
+    }
+
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public List<Rental> getRentalList() {
+        return rentalList;
+    }
+
+    public void setRentalList(List<Rental> rentalList) {
+        this.rentalList = rentalList;
+    }
 }

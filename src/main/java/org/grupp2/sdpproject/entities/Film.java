@@ -211,4 +211,7 @@ public class Film {
     public void setInventories(List<Inventory> inventories) {
         this.inventories = inventories;
     }
+
+
+
 }

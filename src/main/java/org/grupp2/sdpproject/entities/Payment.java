@@ -83,4 +83,12 @@ public class Payment {
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
+
+    public short getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(short paymentId) {
+        this.paymentId = paymentId;
+    }
 }

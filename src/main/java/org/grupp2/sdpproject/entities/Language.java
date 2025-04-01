@@ -29,6 +29,12 @@ public class Language {
     public Language() {
     }
 
+    public Language(String name, List<Film> films, List<Film> originalFilms) {
+        this.name = name;
+        this.films = films;
+        this.originalFilms = originalFilms;
+    }
+
     public byte getLanguageId() {
         return languageId;
     }
@@ -43,5 +49,21 @@ public class Language {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<Film> films) {
+        this.films = films;
+    }
+
+    public List<Film> getOriginalFilms() {
+        return originalFilms;
+    }
+
+    public void setOriginalFilms(List<Film> originalFilms) {
+        this.originalFilms = originalFilms;
     }
 }

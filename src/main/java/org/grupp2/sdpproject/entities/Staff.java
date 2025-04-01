@@ -175,4 +175,6 @@ public class Staff {
     public void setStores(List<Store> stores) {
         this.stores = stores;
     }
+
+
 }

@@ -90,4 +90,7 @@ public class Store {
     public void setStaffList(List<Staff> staffList) {
         this.staffList = staffList;
     }
+
+
+
 }

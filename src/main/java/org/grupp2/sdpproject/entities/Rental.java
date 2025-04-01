@@ -40,12 +40,13 @@ public class Rental {
     public Rental() {
     }
 
-    public Rental(Date rentalDate, Date returnDate, Inventory inventory, Customer customer, Staff staff) {
+    public Rental(Date rentalDate, Date returnDate, Inventory inventory, Customer customer, Staff staff, List<Payment> payments) {
         this.rentalDate = rentalDate;
         this.returnDate = returnDate;
         this.inventory = inventory;
         this.customer = customer;
         this.staff = staff;
+        this.payments = payments;
     }
 
     public Date getRentalDate() {
@@ -86,5 +87,21 @@ public class Rental {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public int getRentalId() {
+        return rentalId;
+    }
+
+    public void setRentalId(int rentalId) {
+        this.rentalId = rentalId;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }
