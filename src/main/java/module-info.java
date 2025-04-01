@@ -20,4 +20,5 @@ module org.grupp2.sdpproject {
     exports org.grupp2.sdpproject;
     exports org.grupp2.sdpproject.GUI;
     opens org.grupp2.sdpproject.GUI to javafx.fxml;
+    opens org.grupp2.sdpproject.entities to org.hibernate.orm.core;
 }

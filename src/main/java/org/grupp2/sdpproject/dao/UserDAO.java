@@ -11,17 +11,25 @@ public class UserDAO {
     //private static final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public void saveUser(User user) {
+        Session session = HibernateUtil.getSessionFactory().openSession(); // Ensure session is opened
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+        try {
             transaction = session.beginTransaction();
-            session.persist(user);
-            session.getTransaction().commit();
+            session.save(user);
+            System.out.println("userr: " + user);
             transaction.commit();
+
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
+
 
     public User findByEmail(String email) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

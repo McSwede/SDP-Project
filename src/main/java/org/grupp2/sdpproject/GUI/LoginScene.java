@@ -1,13 +1,8 @@
 package org.grupp2.sdpproject.GUI;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
-import org.grupp2.sdpproject.GUI.SceneController;
 
 public class LoginScene {
 
@@ -17,6 +12,7 @@ public class LoginScene {
     @FXML private TextField ipField;
     @FXML private TextField portField;
     @FXML private Button loginButton;
+
     private final SceneController sceneController = SceneController.getInstance();
 
     @FXML
@@ -29,22 +25,17 @@ public class LoginScene {
         if (username.isEmpty() || password.isEmpty() || ip.isEmpty() || port.isEmpty()) {
             messageLabel.setText("Fyll i alla fält");
             messageLabel.setStyle("-fx-text-fill: red;");
+            return;  // Exit early if fields are empty
         }
-        else {
-            //toDO måste ha alla entitys mappade först
-            //boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
-            boolean success = true;
-            if (success) {
-                //sceneController.switchScene("main menu");
-                sceneController.switchScene("home");
 
+        // ✅ Initialize database connection
+        boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
 
-            }
-            else {
-                messageLabel.setText("Inloggning misslyckades. Kontrollera dina uppgifter");
-                messageLabel.setStyle("-fx-text-fill: red;");
-            }
+        if (success) {
+            sceneController.switchScene("home");
+        } else {
+            messageLabel.setText("Inloggning misslyckades. Kontrollera dina uppgifter.");
+            messageLabel.setStyle("-fx-text-fill: red;");
         }
     }
-
 }

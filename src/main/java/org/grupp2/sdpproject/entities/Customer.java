@@ -108,4 +108,18 @@ public class Customer {
     public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                ", active=" + active +
+                ", createDate=" + createDate +
+                '}';
+    }
 }
+

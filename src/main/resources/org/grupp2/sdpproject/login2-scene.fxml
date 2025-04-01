@@ -12,6 +12,6 @@
         <PasswordField fx:id="passwordField" promptText="Password"/>
         <Button text="Login" onAction="#handleLogin"/>
         <Hyperlink text="Register" onAction="#switchToRegister"/>
-        <Label fx:id="errorLabel" textFill="red"/>
+        <Label fx:id="statusLabel" textFill="red"/>
     </VBox>
 </AnchorPane>

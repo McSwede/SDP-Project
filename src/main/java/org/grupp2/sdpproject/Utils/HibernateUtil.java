@@ -35,9 +35,17 @@ public class HibernateUtil {
         }
     }
 
+    /*public static synchronized SessionFactory getSessionFactory() {
+        return sessionFactory;
+    } */
+
     public static synchronized SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            throw new IllegalStateException("SessionFactory is not initialized! Call initializeDatabase() first.");
+        }
         return sessionFactory;
     }
+
 
     public static synchronized void shutdown() {
         if (sessionFactory != null) {
