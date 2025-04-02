@@ -9,6 +9,11 @@
       <VBox prefHeight="424.0" prefWidth="300.0">
          <children>
             <ListView fx:id="filmList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="200.0" />
+            <HBox prefHeight="31.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="lastUpdate" prefHeight="36.0" prefWidth="280.0" />
+               </children>
+            </HBox>
             <HBox prefHeight="149.0" prefWidth="300.0">
                <children>
                   <VBox prefWidth="150.0" spacing="10.0">

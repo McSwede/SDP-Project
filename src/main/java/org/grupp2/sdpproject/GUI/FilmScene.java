@@ -21,6 +21,7 @@ public class FilmScene {
 
     SceneController sceneController = SceneController.getInstance();
 
+    @FXML private Label lastUpdate;
     @FXML private Button confirmNewButton;
     @FXML private Button confirmUpdateButton;
     @FXML private Label varningText;
@@ -118,7 +119,7 @@ public class FilmScene {
         actorsInfo.setText("");
         //toDO hämta kategori på filmen via film_category
         categoryInfo.setText("");
-
+        //lastUpdate.setText("Senast Uppdaterad: " + film.getLastUpdated);
 
     }
 
@@ -139,6 +140,7 @@ public class FilmScene {
         enterReplacementCost.setText("");
         enterRating.setValue(null);
         enterCategory.setValue(null);
+        lastUpdate.setText("");
     }
 
     @FXML private void updateSelected() {
@@ -166,6 +168,9 @@ public class FilmScene {
     @FXML private void removeSelected() {
         //toDO ta bort vald film från databasen
         allFilms.remove(filmList.getSelectionModel().getSelectedItem());
+        textFieldVBOX.setVisible(false);
+        labelVBOX.setVisible(false);
+        lastUpdate.setText("");
     }
 
     @FXML private void enterMainMenu() {
