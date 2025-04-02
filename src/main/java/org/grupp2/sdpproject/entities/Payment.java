@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -31,9 +32,12 @@ public class Payment {
     @Column(precision = 5, scale = 2, nullable = false)
     private BigDecimal amount;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "payment_date", nullable = false)
     private Date paymentDate;
+
+    @Column(name = "last_update")
+    private LocalDateTime lastUpdated;
 
     public Payment() {
     }
@@ -44,6 +48,12 @@ public class Payment {
         this.rental = rental;
         this.amount = amount;
         this.paymentDate = paymentDate;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public Customer getCustomer() {
@@ -92,5 +102,13 @@ public class Payment {
 
     public void setPaymentId(short paymentId) {
         this.paymentId = paymentId;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

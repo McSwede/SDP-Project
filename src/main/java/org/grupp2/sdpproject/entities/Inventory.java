@@ -2,6 +2,7 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,11 @@ public class Inventory {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @OneToMany(targetEntity = Rental.class)
+    @OneToMany(mappedBy = "inventory")
     private List<Rental> rentalList;
+
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
 
     public Inventory() {
     }
@@ -31,6 +35,12 @@ public class Inventory {
         this.film = film;
         this.store = store;
         this.rentalList = rentalList;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public int getInventoryId() {
@@ -64,4 +74,13 @@ public class Inventory {
     public void setRentalList(List<Rental> rentalList) {
         this.rentalList = rentalList;
     }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
 }

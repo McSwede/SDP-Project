@@ -3,6 +3,7 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
-    private int addressId;
+    private short addressId;
 
     @Size(max = 50)
     @Column(name = "address", nullable = false, length = 50)
@@ -47,6 +48,9 @@ public class Address {
     @OneToMany(mappedBy = "address")
     private List<Store> stores = new ArrayList<>();
 
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
+
     public Address() {
     }
 
@@ -59,11 +63,17 @@ public class Address {
         this.phone = phone;
     }
 
-    public int getAddressId() {
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
+    }
+
+    public short getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(short addressId) {
         this.addressId = addressId;
     }
 
@@ -139,6 +149,11 @@ public class Address {
         this.customers = customers;
     }
 
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
 
-
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }

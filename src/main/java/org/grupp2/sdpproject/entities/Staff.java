@@ -3,6 +3,7 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class Staff {
     private Address address;
 
     @Lob
-    @Column()
+    @Column(columnDefinition = "BLOB")
     private byte[] picture;
 
     @Column(length = 50)
@@ -55,7 +56,16 @@ public class Staff {
     @OneToMany(mappedBy = "staff")
     private List<Store> stores;
 
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
+
     public Staff() {
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public Staff(String firstName, String lastName, Address address, byte[] picture,
@@ -179,5 +189,11 @@ public class Staff {
         this.stores = stores;
     }
 
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
 
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }
