@@ -24,7 +24,7 @@ public class Film {
     @Column
     private String description;
 
-    @Column(name = "release_Year", columnDefinition = "YEAR")
+    @Column(name = "release_Year", columnDefinition = "YEAR(4)")
     private short releaseYear;
 
     @ManyToOne(targetEntity = Language.class, fetch = FetchType.EAGER)
