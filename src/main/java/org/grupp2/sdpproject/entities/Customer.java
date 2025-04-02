@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Payment> payments = new ArrayList<>();
 
+    @Column(name = "last_updated", nullable = false)
+    private LocalDateTime lastUpdated;
+
     public Customer() {
     }
 
@@ -57,6 +61,12 @@ public class Customer {
         this.address = address;
         this.active = active;
         this.createDate = createDate;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public int getCustomerId() {
@@ -137,5 +147,13 @@ public class Customer {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

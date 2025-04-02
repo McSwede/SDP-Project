@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Digits;
 import org.grupp2.sdpproject.ENUM.Rating;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -75,6 +76,9 @@ public class Film {
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventory> inventories;
 
+    @Column(name = "last_updated", nullable = false)
+    private LocalDateTime lastUpdated;
+
     public Film() {
     }
 
@@ -94,6 +98,12 @@ public class Film {
         this.specialFeatures = specialFeatures;
         this.actorList = actorList;
         this.categoryList = categoryList;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public short getFilmId() {
@@ -216,6 +226,11 @@ public class Film {
         this.inventories = inventories;
     }
 
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
 
-
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }

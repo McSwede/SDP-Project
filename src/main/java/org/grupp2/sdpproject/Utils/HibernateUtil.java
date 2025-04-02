@@ -24,8 +24,10 @@ public class HibernateUtil {
             configuration.setProperty("hibernate.connection.username", username);
             configuration.setProperty("hibernate.connection.password", password);
 
+/*
             sessionFactory = configuration.buildSessionFactory();
             sessionFactory.openSession().close();
+*/
 
             return true;
         } catch (Exception e) {
