@@ -18,13 +18,21 @@
     -fx-spacing: 10;
     -fx-padding: 10;
 }
-.button {
+.bigbutton {
     -fx-background-color: #006aca;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-padding: 10;
     -fx-min-height: 36;
     -fx-min-width: 111;
+}
+.smallbutton {
+    -fx-background-color: #006aca;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 2;
+    -fx-min-width: 111;
+    -fx-min-height: 20;
 }
 .button:hover {
     -fx-background-color: #0086ff;
@@ -39,4 +47,9 @@
 .message-label {
     -fx-text-fill: red;
     -fx-font-weight: bold;
+}
+.smalllabel {
+    -fx-padding: 2;
+    -fx-wrap-text: false;
+    -fx-pref-height: 26;
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.FilmScene">
+   <children>
+      <VBox prefHeight="424.0" prefWidth="300.0">
+         <children>
+            <ListView fx:id="filmList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="200.0" />
+            <HBox prefHeight="149.0" prefWidth="300.0">
+               <children>
+                  <VBox prefWidth="150.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Lägg till ny" />
+                        <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Uppdatera" />
+                        <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Ta bort" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin></VBox>
+                  <VBox prefWidth="150.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addFilm" styleClass="bigbutton" text="Lägg till" visible="false" />
+                        <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateFilm" styleClass="bigbutton" text="Uppdatera" visible="false" />
+                        <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" top="10.0" />
+                     </padding></VBox>
+               </children></HBox>
+            <Label fx:id="varningText" prefWidth="300.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="TOP_RIGHT" layoutX="300.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+         <children>
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Titel:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Beskrivning:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Utgivningsår:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Språk:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Original språk:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Hyrestid:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Hyrespris:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Längd:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Ersättningspris:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="gradering:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Specialinnehåll:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Skådespelare:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Kategori:" />
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="labelVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+         <children>
+            <Label fx:id="titleInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="descriptionInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="releaseYearInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="languageInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="ogLanguageInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="rentalDurationInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="rentalRateInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="lengthInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="replacementCostInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="ratingInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="specialFeaturesInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="actorsInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            <Label fx:id="categoryInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+         </children>
+         <padding>
+            <Insets right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
+         <children>
+            <TextField fx:id="enterTitle" />
+            <TextField fx:id="enterDescription" />
+            <TextField fx:id="enterReleaseYear" />
+            <ComboBox fx:id="enterLanguage" prefWidth="150.0" />
+            <ComboBox fx:id="enterOGLanguage" prefWidth="150.0" />
+            <TextField fx:id="enterRentalDuration" />
+            <TextField fx:id="enterRentalRate" />
+            <TextField fx:id="enterLength" />
+            <TextField fx:id="enterReplacementCost" />
+            <ComboBox fx:id="enterRating" prefWidth="150.0" />
+            <Button mnemonicParsing="false" onAction="#showSpecialFeatures" prefHeight="26.0" prefWidth="145.0" text="Visa/lägg till" />
+            <Button layoutX="10.0" layoutY="325.0" mnemonicParsing="false" onAction="#showActors" prefHeight="26.0" prefWidth="145.0" text="Visa/lägg till" />
+            <ComboBox fx:id="enterCategory" prefWidth="150.0" />
+         </children>
+         <padding>
+            <Insets right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

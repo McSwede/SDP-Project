@@ -18,5 +18,6 @@ module org.grupp2.sdpproject {
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
     exports org.grupp2.sdpproject.GUI;
+    exports org.grupp2.sdpproject.entities;
     opens org.grupp2.sdpproject.GUI to javafx.fxml;
 }

@@ -68,4 +68,9 @@ public class Language {
     public void setOriginalFilms(List<Film> originalFilms) {
         this.originalFilms = originalFilms;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
