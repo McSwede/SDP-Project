@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,15 +15,19 @@ public class Payment {
     @Column(name = "payment_id")
     private short paymentId;
 
-    @Column(name = "customer_id", nullable = false)
-    private short customerId;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
-    @Column(name = "staff_id", nullable = false)
-    private byte staffId;
+    @ManyToOne
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Staff staff;
 
-    @Column(name = "rental_id")
-    private int rentalId;
+    @ManyToOne
+    @JoinColumn(name = "rental_id")
+    private Rental rental;
 
+    @Digits(integer = 3, fraction = 2)
     @Column(precision = 5, scale = 2, nullable = false)
     private BigDecimal amount;
 
@@ -33,44 +38,36 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(short customerId, byte staffId, int rentalId, BigDecimal amount, Date paymentDate) {
-        this.customerId = customerId;
-        this.staffId = staffId;
-        this.rentalId = rentalId;
+    public Payment(Customer customer, Staff staff, Rental rental, BigDecimal amount, Date paymentDate) {
+        this.customer = customer;
+        this.staff = staff;
+        this.rental = rental;
         this.amount = amount;
         this.paymentDate = paymentDate;
     }
 
-    public short getPaymentId() {
-        return paymentId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setPaymentId(short paymentId) {
-        this.paymentId = paymentId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public short getCustomerId() {
-        return customerId;
+    public Staff getStaff() {
+        return staff;
     }
 
-    public void setCustomerId(short customerId) {
-        this.customerId = customerId;
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
-    public byte getStaffId() {
-        return staffId;
+    public Rental getRental() {
+        return rental;
     }
 
-    public void setStaffId(byte staffId) {
-        this.staffId = staffId;
-    }
-
-    public int getRentalId() {
-        return rentalId;
-    }
-
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
+    public void setRental(Rental rental) {
+        this.rental = rental;
     }
 
     public BigDecimal getAmount() {
@@ -87,5 +84,13 @@ public class Payment {
 
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public short getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(short paymentId) {
+        this.paymentId = paymentId;
     }
 }
