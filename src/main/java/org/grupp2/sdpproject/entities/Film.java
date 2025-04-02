@@ -2,6 +2,7 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Size;
 import org.grupp2.sdpproject.ENUM.Rating;
 
 import java.math.BigDecimal;
@@ -18,13 +19,14 @@ public class Film {
     @Column(name = "film_id", nullable = false)
     private short filmId;
 
-    @Column(nullable = false)
+    @Size(max = 128)
+    @Column(length = 128, nullable = false)
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "release_Year", columnDefinition = "YEAR")
+    @Column(name = "release_Year", columnDefinition = "YEAR(4)")
     private short releaseYear;
 
     @ManyToOne(targetEntity = Language.class, fetch = FetchType.EAGER)
