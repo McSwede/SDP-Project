@@ -24,21 +24,12 @@ public class FilmText {
     @JoinColumn(name = "film_id")
     private Film film;
 
-    @Column(name = "last_updated", nullable = false)
-    private LocalDateTime lastUpdated;
-
     public FilmText() {
     }
 
     public FilmText(String title, String description) {
         this.title = title;
         this.description = description;
-    }
-
-    @PreUpdate
-    @PrePersist
-    public void updateTimestamp(){
-        lastUpdated = LocalDateTime.now();
     }
 
     public short getFilmId() {
@@ -73,11 +64,4 @@ public class FilmText {
         this.film = film;
     }
 
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
 }

@@ -13,7 +13,7 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "country_id")
-    private int countryId;
+    private short countryId;
 
     @Size(max = 50)
     @Column(name = "country", nullable = false, length = 50)
@@ -22,7 +22,7 @@ public class Country {
     @OneToMany(mappedBy = "country")
     private List<City> cities = new ArrayList<>();
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Country() {
@@ -38,11 +38,11 @@ public class Country {
         lastUpdated = LocalDateTime.now();
     }
 
-    public int getCountryId() {
+    public short getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(int countryId) {
+    public void setCountryId(short countryId) {
         this.countryId = countryId;
     }
 

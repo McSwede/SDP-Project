@@ -31,7 +31,7 @@ public class Store {
     @OneToMany(mappedBy = "store")
     private List<Staff> staffList;
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Store() {

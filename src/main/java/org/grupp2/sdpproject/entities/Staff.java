@@ -26,7 +26,7 @@ public class Staff {
     private Address address;
 
     @Lob
-    @Column()
+    @Column(columnDefinition = "BLOB")
     private byte[] picture;
 
     @Column(length = 50)
@@ -56,7 +56,7 @@ public class Staff {
     @OneToMany(mappedBy = "staff")
     private List<Store> stores;
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Staff() {

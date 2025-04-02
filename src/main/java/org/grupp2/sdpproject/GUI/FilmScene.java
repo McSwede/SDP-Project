@@ -100,7 +100,7 @@ public class FilmScene {
         else {
             ratingInfo.setText("");
         }
-        if (film.getSpecialFeatures() != null) {
+        /*if (film.getSpecialFeatures() != null) {
             StringBuilder specialFeatures = new StringBuilder();
             Iterator<String> specialFeaturesIterator = film.getSpecialFeatures().iterator();
             while (specialFeaturesIterator.hasNext()) {
@@ -113,7 +113,7 @@ public class FilmScene {
         }
         else {
             specialFeaturesInfo.setText("");
-        }
+        }*/
         //toDO hämta actors associerade med filmen via film_actor
         actorsInfo.setText("");
         //toDO hämta kategori på filmen via film_category

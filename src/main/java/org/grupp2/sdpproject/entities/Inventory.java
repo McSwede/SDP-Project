@@ -22,10 +22,10 @@ public class Inventory {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @OneToMany(targetEntity = Rental.class)
+    @OneToMany(mappedBy = "inventory")
     private List<Rental> rentalList;
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Inventory() {

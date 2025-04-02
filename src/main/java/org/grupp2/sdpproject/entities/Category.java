@@ -22,7 +22,7 @@ public class Category {
     @ManyToMany(mappedBy = "categoryList")
     private List<Film> filmList;
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Category() {

@@ -38,7 +38,7 @@ public class Rental {
     @OneToMany(mappedBy = "rental")
     private List<Payment> payments;
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Rental() {

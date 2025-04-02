@@ -2,6 +2,7 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +27,8 @@ public class Actor {
     @ManyToMany(mappedBy = "actorList")
     private List<Film> filmList;
 
-    @Column(name = "last_updated", nullable = false)
+    @UpdateTimestamp
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Actor() {

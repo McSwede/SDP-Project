@@ -32,11 +32,11 @@ public class Payment {
     @Column(precision = 5, scale = 2, nullable = false)
     private BigDecimal amount;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "payment_date", nullable = false)
     private Date paymentDate;
 
-    @Column(name = "last_updated")
+    @Column(name = "last_update")
     private LocalDateTime lastUpdated;
 
     public Payment() {

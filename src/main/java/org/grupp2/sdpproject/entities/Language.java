@@ -16,7 +16,7 @@ public class Language {
     private byte languageId;
 
     @Size(max = 20)
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, columnDefinition = "CHAR(20)")
     private String name;
 
     @OneToMany(mappedBy = "language")
@@ -25,7 +25,7 @@ public class Language {
     @OneToMany(mappedBy = "originalLanguage")
     private List<Film> originalFilms;
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
 
     public Language(String name) {

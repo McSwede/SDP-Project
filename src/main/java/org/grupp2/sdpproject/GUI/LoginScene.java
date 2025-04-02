@@ -29,7 +29,7 @@ public class LoginScene {
         }
         else {
             // TODO: När alla entities är mappade ska den kommenterade koden tas med igen
-            boolean success = true; //HibernateUtil.initializeDatabase(username, password, ip, port);
+            boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
             if (success) {
                 try {
                     DatabaseLoginManager.DatabaseLogin config = new DatabaseLoginManager.DatabaseLogin(username, password, ip, port);
