@@ -181,27 +181,12 @@ public class FilmScene {
     }
 
     private void populateLists() {
-        //filmlista
-        //toDO hämta alla filmer från databasen
-        Film film = new Film();
-        film.setTitle("Lejonkungen");
-        film.setDescription("hakuna mattata");
-        film.setLength((short) 138);
-        Film film2 = new Film();
-        film2.setTitle("Harry Potter");
-        film2.setDescription("vergardium leviosa");
-        film.setLength((short) 138);
-        allFilms.add(film);
-        allFilms.add(film2);
+        //toDO hämta alla filmer i databasen
         filmList.setItems(allFilms);
 
         //språklista
         //toDO hämta alla språk i databasen
         List<Language> allLanguages = new ArrayList<>();
-        Language language = new Language("English");
-        Language language2 = new Language("Spanish");
-        allLanguages.add(language);
-        allLanguages.add(language2);
         enterLanguage.setItems(FXCollections.observableList(allLanguages));
         enterOGLanguage.setItems(FXCollections.observableList(allLanguages));
 
