@@ -164,4 +164,9 @@ public class Film {
     public void setFilmId(short filmId) {
         this.filmId = filmId;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
