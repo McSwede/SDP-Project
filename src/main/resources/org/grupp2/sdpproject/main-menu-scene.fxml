@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.MainMenuScene">
+<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.MainMenuScene">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
          <children>
@@ -16,6 +16,11 @@
             <Button fx:id="employeeButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Anställda" />
             <Button fx:id="storeButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Butiker" />
             <Button fx:id="inventoryButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Lager" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
+         <children>
+            <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Dark mode" />
          </children>
       </VBox>
    </children>
