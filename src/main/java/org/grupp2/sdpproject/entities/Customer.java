@@ -48,7 +48,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Payment> payments = new ArrayList<>();
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
     public Customer() {

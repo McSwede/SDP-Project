@@ -36,7 +36,7 @@ public class Payment {
     @Column(name = "payment_date", nullable = false)
     private Date paymentDate;
 
-    @Column(name = "last_updated", nullable = false)
+    @Column(name = "last_updated")
     private LocalDateTime lastUpdated;
 
     public Payment() {
