@@ -3,12 +3,10 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import org.grupp2.sdpproject.ENUM.Rating;
-import org.grupp2.sdpproject.Utils.StringListConverter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "film")
