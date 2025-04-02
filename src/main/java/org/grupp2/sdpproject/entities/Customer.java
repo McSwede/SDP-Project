@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,7 +15,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
-    private int customerId;
+    private short customerId;
 
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
@@ -39,7 +41,7 @@ public class Customer {
     private boolean active;
 
     @Column(name = "create_date", nullable = false)
-    private LocalDate createDate;
+    private Date createDate;
 
     @OneToMany(mappedBy = "customer")
     private List<Rental> rentals = new ArrayList<>();
@@ -47,10 +49,13 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Payment> payments = new ArrayList<>();
 
+    @Column(name = "last_update")
+    private LocalDateTime lastUpdated;
+
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email, Address address, boolean active, LocalDate createDate) {
+    public Customer(String firstName, String lastName, String email, Address address, boolean active, Date createDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -59,11 +64,17 @@ public class Customer {
         this.createDate = createDate;
     }
 
-    public int getCustomerId() {
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
+    }
+
+    public short getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(short customerId) {
         this.customerId = customerId;
     }
 
@@ -115,11 +126,11 @@ public class Customer {
         this.active = active;
     }
 
-    public LocalDate getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -137,5 +148,13 @@ public class Customer {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

@@ -27,7 +27,7 @@ public class AddSpecialFeatures {
     ObservableList<String> specialFeatures = FXCollections.observableList(new ArrayList<>());
     ObservableList<String> allspecialFeatures = FXCollections.observableList(new ArrayList<>());
 
-    @FXML private void addSpecialFeature() {
+/*    @FXML private void addSpecialFeature() {
         if (featureSelector.getValue() != null) {
             specialFeatures.add(featureSelector.getSelectionModel().getSelectedItem());
             if (film.getSpecialFeatures() == null) {
@@ -47,7 +47,7 @@ public class AddSpecialFeatures {
             film.getSpecialFeatures().remove(specialFeatureList.getSelectionModel().getSelectedItem());
             specialFeatures.remove(specialFeatureList.getSelectionModel().getSelectedItem());
         }
-    }
+    }*/
 
     public void setFilm(Film film) {
         this.film = film;

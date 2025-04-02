@@ -5,8 +5,8 @@ import jakarta.validation.constraints.Digits;
 import org.grupp2.sdpproject.ENUM.Rating;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "film")
@@ -24,7 +24,7 @@ public class Film {
     @Column
     private String description;
 
-    @Column(name = "release_Year")
+    @Column(name = "release_Year", columnDefinition = "YEAR")
     private short releaseYear;
 
     @ManyToOne(targetEntity = Language.class, fetch = FetchType.EAGER)
@@ -53,8 +53,8 @@ public class Film {
     @Column
     private Rating rating;
 
-    @Column(name = "special_features")
-    private Set<String> specialFeatures; //Skulle kunna ändra till en enum av special features
+    @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
+    private String specialFeatures; //Skulle kunna ändra till en enum av special features
 
     @ManyToMany(fetch = FetchType.EAGER) //not sure about the cascade type
     @JoinTable(
@@ -75,12 +75,15 @@ public class Film {
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Inventory> inventories;
 
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
+
     public Film() {
     }
 
     public Film(String title, String description, short releaseYear, Language language, Language originalLanguage,
                 byte rentalDuration, BigDecimal rentalRate, short length, BigDecimal replacementCost, Rating rating,
-                Set<String> specialFeatures, List<Actor> actorList, List<Category> categoryList) {
+                String specialFeatures, List<Actor> actorList, List<Category> categoryList) {
         this.title = title;
         this.description = description;
         this.releaseYear = releaseYear;
@@ -94,6 +97,12 @@ public class Film {
         this.specialFeatures = specialFeatures;
         this.actorList = actorList;
         this.categoryList = categoryList;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public short getFilmId() {
@@ -184,11 +193,11 @@ public class Film {
         this.rating = rating;
     }
 
-    public Set<String> getSpecialFeatures() {
+    public String getSpecialFeatures() {
         return specialFeatures;
     }
 
-    public void setSpecialFeatures(Set<String> specialFeatures) {
+    public void setSpecialFeatures(String specialFeatures) {
         this.specialFeatures = specialFeatures;
     }
 
@@ -216,6 +225,11 @@ public class Film {
         this.inventories = inventories;
     }
 
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
 
-
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 }

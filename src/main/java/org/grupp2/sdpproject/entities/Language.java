@@ -3,6 +3,7 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,7 @@ public class Language {
     private byte languageId;
 
     @Size(max = 20)
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, columnDefinition = "CHAR(20)")
     private String name;
 
     @OneToMany(mappedBy = "language")
@@ -23,6 +24,9 @@ public class Language {
 
     @OneToMany(mappedBy = "originalLanguage")
     private List<Film> originalFilms;
+
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
 
     public Language(String name) {
         this.name = name;
@@ -35,6 +39,12 @@ public class Language {
         this.name = name;
         this.films = films;
         this.originalFilms = originalFilms;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public byte getLanguageId() {
@@ -67,6 +77,14 @@ public class Language {
 
     public void setOriginalFilms(List<Film> originalFilms) {
         this.originalFilms = originalFilms;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     @Override

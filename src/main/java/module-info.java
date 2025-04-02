@@ -15,6 +15,10 @@ module org.grupp2.sdpproject {
     requires org.hibernate.validator;
     requires org.hibernate.orm.core;
 
+    opens org.grupp2.sdpproject.entities to org.hibernate.orm.core;
+
+    exports org.grupp2.sdpproject.Utils to org.hibernate.orm.core;
+
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
     exports org.grupp2.sdpproject.GUI;

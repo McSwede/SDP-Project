@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "film_text")
 public class FilmText {
@@ -61,7 +63,5 @@ public class FilmText {
     public void setFilm(Film film) {
         this.film = film;
     }
-
-
 
 }
