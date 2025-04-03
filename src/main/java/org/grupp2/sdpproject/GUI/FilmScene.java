@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.ENUM.Rating;
 import org.grupp2.sdpproject.Utils.TextformatUtil;
@@ -21,6 +22,7 @@ public class FilmScene {
 
     SceneController sceneController = SceneController.getInstance();
 
+    @FXML private AnchorPane root;
     @FXML private Label lastUpdate;
     @FXML private Button confirmNewButton;
     @FXML private Button confirmUpdateButton;
@@ -276,6 +278,11 @@ public class FilmScene {
             System.out.println("film updated");
             // TODO: Uppdatera film i databasen
         }
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 
 }
