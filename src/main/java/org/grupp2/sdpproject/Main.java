@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.GUI.SceneController;
+import org.grupp2.sdpproject.Utils.DAOManager;
+import org.grupp2.sdpproject.entities.Film;
 
 import java.io.IOException;
 

@@ -8,13 +8,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.ENUM.Rating;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.TextformatUtil;
+import org.grupp2.sdpproject.entities.Actor;
+import org.grupp2.sdpproject.entities.Category;
 import org.grupp2.sdpproject.entities.Film;
 import org.grupp2.sdpproject.entities.Language;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,14 +54,14 @@ public class FilmScene {
     @FXML private TextField enterLength;
     @FXML private TextField enterReplacementCost;
     @FXML private ComboBox<Rating> enterRating;
-    @FXML private ComboBox<String> enterCategory;
+    @FXML private ComboBox<Category> enterCategory;
     @FXML private ListView<Film> filmList;
 
-    ObservableList<Film> allFilms = FXCollections.observableArrayList();
-    Film film;
+    private ObservableList<Film> allFilms = FXCollections.observableArrayList();
+    private Film film;
+    private final DAOManager daoManager = new DAOManager();
 
 
-    //toDO läs in alla objekt i databasen och lägg till i filmList
 
     @FXML private void enhanceText(MouseEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -77,7 +79,7 @@ public class FilmScene {
         labelVBOX.setVisible(true);
 
         film = filmList.getSelectionModel().getSelectedItem();
-        //toDO visa film egenskaper
+        System.out.println(film.getSpecialFeatures());
         titleInfo.setText(film.getTitle());
         descriptionInfo.setText(film.getDescription());
         if (film.getReleaseYear() > 0) {
@@ -86,8 +88,13 @@ public class FilmScene {
         else {
             releaseYearInfo.setText("");
         }
-//        languageInfo.setText(film.getLanguageId());
-//        ogLanguageInfo.setText(film.getOriginalLanguageId());
+        languageInfo.setText(film.getLanguage().toString());
+        if (film.getOriginalLanguage() != null) {
+            ogLanguageInfo.setText(film.getOriginalLanguage().toString());
+        }
+        else {
+            ogLanguageInfo.setText("");
+        }
         rentalDurationInfo.setText(String.valueOf(film.getRentalDuration()));
         rentalRateInfo.setText(String.valueOf(film.getRentalRate()));
         if (film.getLength() > 0) {
@@ -103,25 +110,28 @@ public class FilmScene {
         else {
             ratingInfo.setText("");
         }
-        /*if (film.getSpecialFeatures() != null) {
-            StringBuilder specialFeatures = new StringBuilder();
-            Iterator<String> specialFeaturesIterator = film.getSpecialFeatures().iterator();
-            while (specialFeaturesIterator.hasNext()) {
-                specialFeatures.append(specialFeaturesIterator.next());
-                if (specialFeaturesIterator.hasNext()) {
-                    specialFeatures.append(", ");
+        specialFeaturesInfo.setText(film.getSpecialFeatures());
+
+        StringBuilder actors = new StringBuilder();
+        if (film.getActorList() != null) {
+            List<Actor> actorList = film.getActorList();
+            Iterator<Actor> iterator = actorList.iterator();
+            while(iterator.hasNext()) {
+                Actor actor = iterator.next();
+                actors.append(actor.toString());
+                if (iterator.hasNext()) {
+                    actors.append(", ");
                 }
             }
-            specialFeaturesInfo.setText(specialFeatures.toString());
+        }
+        actorsInfo.setText(actors.toString());
+        if (film.getCategoryList() != null) {
+            Category category = film.getCategoryList().getFirst();
+            categoryInfo.setText(category.toString());
         }
         else {
-            specialFeaturesInfo.setText("");
-        }*/
-        //toDO hämta actors associerade med filmen via film_actor
-        actorsInfo.setText("");
-        //toDO hämta kategori på filmen via film_category
-        categoryInfo.setText("");
-        //lastUpdate.setText("Senast Uppdaterad: " + film.getLastUpdated);
+            categoryInfo.setText("");
+        }
 
     }
 
@@ -140,7 +150,7 @@ public class FilmScene {
         enterRentalRate.setText("");
         enterLength.setText("");
         enterReplacementCost.setText("");
-        enterRating.setValue(null);
+        enterRating.setValue(Rating.G);
         enterCategory.setValue(null);
         lastUpdate.setText("");
     }
@@ -156,23 +166,32 @@ public class FilmScene {
             enterTitle.setText(film.getTitle());
             enterDescription.setText(film.getDescription());
             enterReleaseYear.setText(String.valueOf(film.getReleaseYear()));
-            //toDO
-            //enterLanguage.setValue(film.getLanguageId());
-            //enterOGLanguage.setValue(film.getOriginalLanguageId());
+            enterLanguage.setValue(film.getLanguage());
+            if (film.getOriginalLanguage() != null) {
+                enterOGLanguage.setValue(film.getOriginalLanguage());
+            }
             enterRentalDuration.setText(String.valueOf(film.getRentalDuration()));
             enterRentalRate.setText(String.valueOf(film.getRentalRate()));
             enterLength.setText(String.valueOf(film.getLength()));
             enterReplacementCost.setText(String.valueOf(film.getReplacementCost()));
             enterRating.setValue(film.getRating());
+            if (film.getCategoryList() != null) {
+                Category category = film.getCategoryList().getFirst();
+                enterCategory.setValue(category);
+            }
+            else {
+                enterCategory.setValue(null);
+            }
+            lastUpdate.setText(film.getLastUpdated().toString());
         }
     }
 
     @FXML private void removeSelected() {
-        //toDO ta bort vald film från databasen
         allFilms.remove(filmList.getSelectionModel().getSelectedItem());
         textFieldVBOX.setVisible(false);
         labelVBOX.setVisible(false);
         lastUpdate.setText("");
+        daoManager.delete(film);
     }
 
     @FXML private void enterMainMenu() {
@@ -180,7 +199,7 @@ public class FilmScene {
     }
 
     @FXML private void showActors() {
-        sceneController.openPairActorFilm(filmList.getSelectionModel().getSelectedItem());
+        sceneController.openPairActorFilm(film);
     }
 
     @FXML private void showSpecialFeatures() {
@@ -188,21 +207,23 @@ public class FilmScene {
     }
 
     private void populateLists() {
-        //toDO hämta alla filmer i databasen
+        allFilms.addAll(daoManager.findAll(Film.class));
         filmList.setItems(allFilms);
 
         //språklista
-        //toDO hämta alla språk i databasen
-        List<Language> allLanguages = new ArrayList<>();
-        enterLanguage.setItems(FXCollections.observableList(allLanguages));
-        enterOGLanguage.setItems(FXCollections.observableList(allLanguages));
+        ObservableList<Language> allLanguages = FXCollections.observableArrayList();
+        allLanguages.addAll(daoManager.findAll(Language.class));
+        enterLanguage.getItems().addAll(allLanguages);
+        enterOGLanguage.getItems().addAll(allLanguages);
+
 
         //Ratinglista
         enterRating.getItems().addAll(Rating.values());
 
         //kategoriLista
-        List<String> categories = new ArrayList<>(Arrays.asList("Action", "Animation", "Children", "Classics", "Comedy", "Documentary", "Drama", "Family", "Foreign", "Games", "Horror", "Music", "New", "Sci-Fi", "Sports", "Travel"));
-        enterCategory.setItems(FXCollections.observableList(categories));
+        ObservableList<Category> categories = FXCollections.observableArrayList();
+        categories.addAll(daoManager.findAll(Category.class));
+        enterCategory.setItems(categories);
     }
 
     public void initialize() {
@@ -247,8 +268,9 @@ public class FilmScene {
         if (!enterReleaseYear.getText().isEmpty()) {
             film.setReleaseYear(Short.parseShort(enterReleaseYear.getText()));
         }
+        film.setLanguage(enterLanguage.getValue());
         if (enterOGLanguage.getSelectionModel().getSelectedItem() != null) {
-            //film.setOriginalLanguageId(enterOGLanguage.getSelectionModel().getSelectedItem());
+            film.setOriginalLanguage(enterOGLanguage.getSelectionModel().getSelectedItem());
         }
         film.setRentalDuration(Byte.parseByte(enterRentalDuration.getText()));
         film.setRentalRate(new BigDecimal(enterRentalRate.getText()));
@@ -259,6 +281,9 @@ public class FilmScene {
         if (enterRating.getSelectionModel().getSelectedItem() != null) {
             film.setRating(enterRating.getSelectionModel().getSelectedItem());
         }
+        List<Category> categories = new ArrayList<>();
+        categories.add(enterCategory.getValue());
+        film.setCategoryList(categories);
     }
 
     @FXML private void addFilm() {
@@ -267,7 +292,7 @@ public class FilmScene {
             varningText.setText("");
             allFilms.add(film);
             System.out.println("Film added");
-            // TODO: Lägg till film i databasen
+            daoManager.save(film);
         }
     }
 
@@ -276,7 +301,7 @@ public class FilmScene {
             populateFilmData();
             varningText.setText("");
             System.out.println("film updated");
-            // TODO: Uppdatera film i databasen
+            daoManager.update(film);
         }
     }
 

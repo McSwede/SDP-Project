@@ -22,7 +22,7 @@ public class Inventory {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @OneToMany(mappedBy = "inventory")
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     private List<Rental> rentalList;
 
     @Column(name = "last_update", nullable = false)

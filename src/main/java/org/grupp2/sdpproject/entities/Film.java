@@ -53,8 +53,8 @@ public class Film {
     private BigDecimal replacementCost;
 
     @Convert(converter = EnumConverter.class)
-    @Column(columnDefinition = "ENUM('G','PG','PG-13','R','NC-17')", nullable = false)
-    private Rating rating;
+    @Column(columnDefinition = "ENUM('G','PG','PG-13','R','NC-17')")
+    private Rating rating = Rating.G;
 
     @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
     private String specialFeatures; //Skulle kunna ändra till en enum av special features
@@ -234,5 +234,10 @@ public class Film {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

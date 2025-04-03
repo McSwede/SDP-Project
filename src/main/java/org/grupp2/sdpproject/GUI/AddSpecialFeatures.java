@@ -2,8 +2,6 @@ package org.grupp2.sdpproject.GUI;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -12,10 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.entities.Film;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class AddSpecialFeatures {
     @FXML private AnchorPane root;
@@ -27,29 +22,34 @@ public class AddSpecialFeatures {
 
     private Film film;
     ObservableList<String> specialFeatures = FXCollections.observableList(new ArrayList<>());
-    ObservableList<String> allspecialFeatures = FXCollections.observableList(new ArrayList<>());
+    ObservableList<String> allSpecialFeatures = FXCollections.observableList(new ArrayList<>());
 
-/*    @FXML private void addSpecialFeature() {
+    @FXML private void addSpecialFeature() {
         if (featureSelector.getValue() != null) {
-            specialFeatures.add(featureSelector.getSelectionModel().getSelectedItem());
-            if (film.getSpecialFeatures() == null) {
-                film.setSpecialFeatures(new HashSet<>());
+            String feature = featureSelector.getValue();
+            specialFeatures.add(feature);
+            if (film.getSpecialFeatures() == null || film.getSpecialFeatures().isEmpty()) {
+                film.setSpecialFeatures(feature);
             }
-            film.getSpecialFeatures().add(featureSelector.getSelectionModel().getSelectedItem());
-            allspecialFeatures.remove(featureSelector.getSelectionModel().getSelectedItem());
+            else if (!film.getSpecialFeatures().isEmpty()) {
+                film.setSpecialFeatures(film.getSpecialFeatures() + "," + feature);
+            }
+            allSpecialFeatures.remove(feature);
         }
+        System.out.println(film.getSpecialFeatures());
     }
 
     @FXML private void removeSpecialFeature() {
         if (specialFeatureList.getSelectionModel().getSelectedItem() != null) {
-            allspecialFeatures.add(specialFeatureList.getSelectionModel().getSelectedItem());
-            if (film.getSpecialFeatures() == null) {
-                film.setSpecialFeatures(new HashSet<>());
-            }
-            film.getSpecialFeatures().remove(specialFeatureList.getSelectionModel().getSelectedItem());
-            specialFeatures.remove(specialFeatureList.getSelectionModel().getSelectedItem());
+            String feature = specialFeatureList.getSelectionModel().getSelectedItem();
+            allSpecialFeatures.add(feature);
+            film.setSpecialFeatures(film.getSpecialFeatures().replaceAll(feature + ",", ""));
+            film.setSpecialFeatures(film.getSpecialFeatures().replaceAll("," + feature, ""));
+            film.setSpecialFeatures(film.getSpecialFeatures().replaceAll(feature, ""));
+            specialFeatureList.getItems().remove(feature);
         }
-    }*/
+        System.out.println(film.getSpecialFeatures());
+    }
 
     public void setFilm(Film film) {
         this.film = film;
@@ -58,18 +58,20 @@ public class AddSpecialFeatures {
     }
 
     private void populateLists() {
-        if (film.getSpecialFeatures() != null) {
-            specialFeatures.addAll(film.getSpecialFeatures());
+        if (film.getSpecialFeatures() != null && !film.getSpecialFeatures().isEmpty()) {
+            String[] split = film.getSpecialFeatures().split(",");
+            specialFeatures.addAll(Arrays.asList(split));
         }
         specialFeatureList.setItems(specialFeatures);
 
-        allspecialFeatures.addAll(Arrays.asList("Deleted Scenes", "Behind the Scenes", "Trailers", "Commentaries"));
-        allspecialFeatures.removeAll(specialFeatures);
-        featureSelector.setItems(allspecialFeatures);
+        allSpecialFeatures.addAll(Arrays.asList("Deleted Scenes", "Behind the Scenes", "Trailers", "Commentaries"));
+        allSpecialFeatures.removeAll(specialFeatures);
+        featureSelector.setItems(allSpecialFeatures);
     }
 
     public void setStyleSheet(String styleSheet) {
         root.getStylesheets().clear();
         root.getStylesheets().add(styleSheet);
     }
+
 }
