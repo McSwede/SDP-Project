@@ -22,21 +22,5 @@ public class Main extends Application {
 
         launch();
 
-        DAOManager daoManager = new DAOManager();
-
-        Actor actor = new Actor();
-
-        short etta = 1;
-
-        actor.setActorId(etta);
-        actor.setFirstName("Ola");
-        actor.setLastName("Mouse");
-        actor.setLastUpdated(LocalDateTime.now());
-
-
-        daoManager.save(actor);
-
-        daoManager.delete(actor);
-
     }
 }
