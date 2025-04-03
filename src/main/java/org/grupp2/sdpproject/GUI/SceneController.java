@@ -3,14 +3,15 @@ package org.grupp2.sdpproject.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.Main;
+import org.grupp2.sdpproject.Utils.ConfigManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +64,7 @@ public class SceneController {
                 );
 
                 if (success) {
-                    setScene(mainMenuScene);
+                    switchScene("main menu");
                     shouldShowLogin = false;
                 }
 
@@ -110,11 +111,9 @@ public class SceneController {
         }
     }
 
-    // Method to toggle dark mode
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
+    public boolean isDarkMode() {
+        return darkMode;
     }
-
 
     @SuppressWarnings("unchecked")
     public <T> T getController(String sceneName) {
@@ -123,7 +122,7 @@ public class SceneController {
 
     public void openPairActorFilm(Object object) {
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_actorPopup));
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("film_actorPopup")); // I don't know what this does but it expects a string so I mde the value into a string
             Scene scene = new Scene(xmlScene.load(), 300, 300);
 
             PairFilmActor controller = (PairFilmActor) xmlScene.getController();
@@ -176,16 +175,28 @@ public class SceneController {
         }
     }
 
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+    
     public void toggleDarkMode(MainMenuScene controller, Button button) {
+
         if (darkMode) {
             darkMode = false;
-            button.setText("Dark mode");
+            button.setText("Mörkt läge");
             controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
         }
         else {
             darkMode = true;
-            button.setText("Light mode");
+            button.setText("Ljust läge");
             controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+        }
+
+        configManager.setDarkModeEnabled(darkMode);
+        try {
+            configManager.saveConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
