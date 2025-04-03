@@ -12,7 +12,7 @@ import org.grupp2.sdpproject.Main;
 import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.User;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
-
+import javafx.application.Platform;
 import java.io.IOException;
 
 public class Login2Scene {
@@ -26,12 +26,11 @@ public class Login2Scene {
 
     private final SceneController sceneController = SceneController.getInstance();
 
-    @FXML
+   /* @FXML
     public void handleLogin() throws IOException {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        // Check if user exists
         User user = userDAO.findByEmail(email);
 
         // If user doesn't exist or password is incorrect
@@ -60,6 +59,56 @@ public class Login2Scene {
         delay.setOnFinished(event -> sceneController.switchScene(scene));
         delay.play();
     }
+*/
+
+    @FXML
+    public void handleLogin() throws IOException {
+        String email = emailField.getText();
+        String password = passwordField.getText();
+
+        User user = userDAO.findByEmail(email);
+
+        // If user doesn't exist or password is incorrect
+        if (user == null || !PasswordUtil.checkPassword(password, user.getPassword())) {
+            statusLabel.setText("Invalid email or password.");
+            return;
+        }
+
+        // Login success
+        String welcomeMessage = "Login successful! Welcome, " + user.getFirstName();
+        if (user.getRole() != null && user.getRole() == Role.CUSTOMER) {
+            // Customer-specific behavior
+            navigateToDashboard("customer dashboard", user,welcomeMessage);
+            statusLabel.setText(welcomeMessage);
+        } else if (user.getRole() == Role.STAFF) {
+            // Staff-specific behavior
+            statusLabel.setText(welcomeMessage);
+            navigateToDashboard("main menu",user,welcomeMessage);
+        }
+    }
+
+    // Helper method to navigate after a delay
+    private void navigateToDashboard(String scene, User user, String welcomeMessage) {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> {
+            Platform.runLater(() -> {
+                sceneController.switchScene(scene);
+
+                if (scene.equals("customer dashboard")) {
+                    CustomerDashBoardScene dashboardScene = (CustomerDashBoardScene) sceneController.getController("customer dashboard");
+                    if (dashboardScene != null) {
+                        dashboardScene.setCustomer(user);
+                        dashboardScene.updateWelcomeMessage(welcomeMessage);
+                    } else {
+                        System.err.println("Error: CustomerDashBoardScene controller is null after switching scene.");
+                    }
+                }
+            });
+        });
+        delay.play();
+    }
+
+
 
     // Switch to the registration scene
     public void switchToRegister() {

@@ -3,13 +3,17 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "city")
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "city_id")
-    private int cityId;
+    private short cityId;
 
     @Size(max = 50)
     @Column(name = "city", nullable = false, length = 50)
@@ -19,7 +23,11 @@ public class City {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    // Probably a OneToMany relation to Address
+    @OneToMany(mappedBy = "city")
+    private List<Address> addresses = new ArrayList<>();
+
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
 
     public City() {
     }
@@ -29,7 +37,13 @@ public class City {
         this.country = country;
     }
 
-    public int getCityId() {
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
+    }
+
+    public short getCityId() {
         return cityId;
     }
 
@@ -51,5 +65,21 @@ public class City {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

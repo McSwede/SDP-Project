@@ -1,6 +1,11 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "actor")
@@ -11,11 +16,20 @@ public class Actor {
     @Column(name = "actor_id", nullable = false)
     private short actorId;
 
+    @Size(max = 45)
     @Column(name = "first_name", length = 45, nullable = false)
     private String firstName;
 
+    @Size(max = 45)
     @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
+
+    @ManyToMany(mappedBy = "actorList")
+    private List<Film> filmList;
+
+    @UpdateTimestamp
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
 
     public Actor() {
     }
@@ -23,6 +37,12 @@ public class Actor {
     public Actor(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public short getActorId() {
@@ -47,5 +67,26 @@ public class Actor {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Film> getFilmList() {
+        return filmList;
+    }
+
+    public void setFilmList(List<Film> filmList) {
+        this.filmList = filmList;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

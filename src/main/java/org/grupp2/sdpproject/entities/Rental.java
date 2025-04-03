@@ -2,7 +2,9 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "rental")
@@ -14,37 +16,47 @@ public class Rental {
     private int rentalId;
 
     @Column(name = "rental_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date rentalDate;
 
-    @Column(name = "inventory_id", nullable = false)
-    private int inventoryId;
-
-    @Column(name = "customer_id", nullable = false)
-    private short customerId;
-
     @Column(name = "return_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date returnDate;
 
-    @Column(name = "staff_id", nullable = false)
-    private byte staffId;
+    @ManyToOne()
+    @JoinColumn(name = "inventory_id")
+    private Inventory inventory;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "staff_id", nullable = false)
+    private Staff staff;
+
+    @OneToMany(mappedBy = "rental")
+    private List<Payment> payments;
+
+    @Column(name = "last_update", nullable = false)
+    private LocalDateTime lastUpdated;
 
     public Rental() {
     }
 
-    public Rental(Date rentalDate, int inventoryId, short customerId, Date returnDate, byte staffId) {
+    public Rental(Date rentalDate, Date returnDate, Inventory inventory, Customer customer, Staff staff, List<Payment> payments) {
         this.rentalDate = rentalDate;
-        this.inventoryId = inventoryId;
-        this.customerId = customerId;
         this.returnDate = returnDate;
-        this.staffId = staffId;
+        this.inventory = inventory;
+        this.customer = customer;
+        this.staff = staff;
+        this.payments = payments;
     }
 
-    public int getRentalId() {
-        return rentalId;
-    }
-
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
     }
 
     public Date getRentalDate() {
@@ -55,22 +67,6 @@ public class Rental {
         this.rentalDate = rentalDate;
     }
 
-    public int getInventoryId() {
-        return inventoryId;
-    }
-
-    public void setInventoryId(int inventoryId) {
-        this.inventoryId = inventoryId;
-    }
-
-    public short getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(short customerId) {
-        this.customerId = customerId;
-    }
-
     public Date getReturnDate() {
         return returnDate;
     }
@@ -79,11 +75,54 @@ public class Rental {
         this.returnDate = returnDate;
     }
 
-    public byte getStaffId() {
-        return staffId;
+    public Inventory getInventory() {
+        return inventory;
     }
 
-    public void setStaffId(byte staffId) {
-        this.staffId = staffId;
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public int getRentalId() {
+        return rentalId;
+    }
+
+    public void setRentalId(int rentalId) {
+        this.rentalId = rentalId;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+
+
 }

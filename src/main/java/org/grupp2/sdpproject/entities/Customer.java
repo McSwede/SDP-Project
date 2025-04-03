@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -11,11 +15,11 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
-    private int customerId;
+    private short customerId;
 
-    //@ManyToOne // TODO: Uncomment this once the Store class has been created
-    //@JoinColumn(name = "store_id", nullable = false)
-    //private Store store;
+    @ManyToOne
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
 
     @Size(max = 45)
     @Column(name = "first_name", nullable = false, length = 45)
@@ -37,14 +41,21 @@ public class Customer {
     private boolean active;
 
     @Column(name = "create_date", nullable = false)
-    private LocalDate createDate;
+    private Date createDate;
 
-    // I'm not completely sure here but this needs to relate to Rental and Payment so we should probably do two OneToMany relations to them right?
+    @OneToMany(mappedBy = "customer")
+    private List<Rental> rentals = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer")
+    private List<Payment> payments = new ArrayList<>();
+
+    @Column(name = "last_update")
+    private LocalDateTime lastUpdated;
 
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email, Address address, boolean active, LocalDate createDate) {
+    public Customer(String firstName, String lastName, String email, Address address, boolean active, Date createDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -53,12 +64,26 @@ public class Customer {
         this.createDate = createDate;
     }
 
-    public int getCustomerId() {
+    @PreUpdate
+    @PrePersist
+    public void updateTimestamp(){
+        lastUpdated = LocalDateTime.now();
+    }
+
+    public short getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(short customerId) {
         this.customerId = customerId;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 
     public String getFirstName() {
@@ -101,25 +126,35 @@ public class Customer {
         this.active = active;
     }
 
-    public LocalDate getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", address=" + address +
-                ", active=" + active +
-                ", createDate=" + createDate +
-                '}';
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
-

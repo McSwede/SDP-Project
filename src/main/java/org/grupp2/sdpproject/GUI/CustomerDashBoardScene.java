@@ -28,9 +28,17 @@ public class CustomerDashBoardScene {
         }
     }
 
+    // Method to update the welcome message
+    public void updateWelcomeMessage(String welcomeMessage) {
+        if (welcomeLabel != null) {
+            welcomeLabel.setText(welcomeMessage);
+        }
+    }
+
+
     @FXML
     private void handleViewFilms() {
-        sceneController.switchScene("view films");
+        sceneController.switchScene("films");
     }
 
     @FXML
@@ -55,6 +63,7 @@ public class CustomerDashBoardScene {
 
     @FXML
     private void handleLogout() {
+        this.loggedInCustomer = null;
         sceneController.switchScene("login2");
     }
 }

@@ -3,19 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.MainMenuScene">
+<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.MainMenuScene">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
          <children>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" text="Filmer" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" text="Skådespelare" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" text="Kunder" />
-            <Button mnemonicParsing="false" prefWidth="111.0" text="Adresser" />
-            <Button mnemonicParsing="false" prefWidth="111.0" text="Betalningar" />
-            <Button mnemonicParsing="false" prefWidth="111.0" text="Uthyrningar" />
-            <Button mnemonicParsing="false" prefWidth="111.0" text="Anställda" />
-            <Button mnemonicParsing="false" prefWidth="111.0" text="Butiker" />
-            <Button mnemonicParsing="false" prefWidth="111.0" text="Lager" />
+            <Button fx:id="filmButton" mnemonicParsing="false" onAction="#enterFilmScene" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Filmer" />
+            <Button fx:id="actorButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Skådespelare" />
+            <Button fx:id="customerButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Kunder" />
+            <Button fx:id="addressButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Adresser" />
+            <Button fx:id="paymentButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Betalningar" />
+            <Button fx:id="rentalButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Uthyrningar" />
+            <Button fx:id="employeeButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Anställda" />
+            <Button fx:id="storeButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Butiker" />
+            <Button fx:id="inventoryButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Lager" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
+         <children>
+            <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Dark mode" />
          </children>
       </VBox>
    </children>

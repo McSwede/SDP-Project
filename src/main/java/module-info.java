@@ -12,13 +12,21 @@ module org.grupp2.sdpproject {
     requires eu.hansolo.tilesfx;
     requires jakarta.persistence;
     requires jakarta.validation;
-    requires org.hibernate.validator;
     requires org.hibernate.orm.core;
+    requires org.locationtech.jts;
+    requires org.hibernate.orm.spatial;
+    requires org.hibernate.validator;
+
+    opens org.grupp2.sdpproject.entities to org.hibernate.orm.core;
+
+    exports org.grupp2.sdpproject.Utils to org.hibernate.orm.core;
     requires jbcrypt;
 
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
     exports org.grupp2.sdpproject.GUI;
+    exports org.grupp2.sdpproject.entities;
+    exports org.grupp2.sdpproject.ENUM;
     opens org.grupp2.sdpproject.GUI to javafx.fxml;
-    opens org.grupp2.sdpproject.entities to org.hibernate.orm.core;
+
 }

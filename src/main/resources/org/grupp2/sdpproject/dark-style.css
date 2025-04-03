@@ -2,8 +2,8 @@
     -fx-font-family: "Arial";
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-text-fill: black;
-    -fx-background-color: #F5F5F5; /* Ljus bakgrund */
+    -fx-text-fill: #E0E0E0;
+    -fx-background-color: #1E1E2E; /* Ljus bakgrund */
 }
 .scroll-pane {
     -fx-background: transparent;
@@ -19,26 +19,28 @@
     -fx-padding: 10;
 }
 .bigbutton {
-    -fx-background-color: #0077B6 ;
+    -fx-background-color: #D97706 ;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-padding: 10;
     -fx-min-height: 36;
     -fx-min-width: 111;
+    -fx-text-fill: #E0E0E0;
 }
 .smallbutton {
-    -fx-background-color: #0077B6 ;
+    -fx-background-color: #D97706 ;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-padding: 2;
     -fx-min-width: 111;
     -fx-min-height: 20;
+    -fx-text-fill: #E0E0E0;
 }
 .button:hover {
-    -fx-background-color: #0181c5;
+    -fx-background-color: #ed8308;
 }
 .button:pressed {
-    -fx-background-color: #015d8e;
+    -fx-background-color: #b56305;
 }
 .label {
     -fx-padding: 5;
