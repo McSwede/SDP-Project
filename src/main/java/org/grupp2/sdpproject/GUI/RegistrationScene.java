@@ -3,7 +3,9 @@ package org.grupp2.sdpproject.GUI;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.Address;
 import org.grupp2.sdpproject.entities.Customer;
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 
 public class RegistrationScene {
 
+    @FXML private AnchorPane root;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private ComboBox<Role> roleComboBox;
@@ -27,7 +30,7 @@ public class RegistrationScene {
     @FXML private TextField lastNameField;
 
     private final SceneController sceneController = SceneController.getInstance();
-    private final UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
 
     @FXML
     public void initialize() {
@@ -55,7 +58,7 @@ public class RegistrationScene {
         String hashedPassword = PasswordUtil.hashPassword(password);
         User newUser = new User(firstName, lastName, email, hashedPassword, role);
 
-        userDAO.saveUser(newUser);
+        userDAO.save(newUser);
         System.out.println("New User: " + newUser);
         statusLabel.setText("Registration successful!");
 
@@ -67,5 +70,10 @@ public class RegistrationScene {
 
     public void switchToLogin() {
         sceneController.switchScene("login2");
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }

@@ -4,11 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.Film;
-import org.grupp2.sdpproject.dao.FilmsDAO;
 
 public class FilmsScene {
 
+    @FXML private AnchorPane root;
     @FXML
     private TableView<Film> filmTable;
 
@@ -37,14 +39,19 @@ public class FilmsScene {
     }
 
     private void loadFilms() {
-        FilmsDAO filmsDAO = new FilmsDAO();
+        DAOManager daoManager = new DAOManager();
         filmTable.getItems().clear();
-        filmTable.getItems().setAll(filmsDAO.getAllFilms());
+        filmTable.getItems().setAll(daoManager.findAll(Film.class));
     }
 
     @FXML
     private void handleBack() {
         SceneController sceneController = SceneController.getInstance();
         sceneController.switchScene("customer dashboard");
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }

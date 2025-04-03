@@ -2,10 +2,12 @@ package org.grupp2.sdpproject.GUI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.Utils.SessionManager;
 
 public class HomeScene {
 
+    @FXML private AnchorPane root;
     @FXML
     private Label welcomeLabel;
 
@@ -46,5 +48,10 @@ public class HomeScene {
     public void handleLogout() {
         SessionManager.logout();
         updateUI();
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }

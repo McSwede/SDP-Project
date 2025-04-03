@@ -3,10 +3,12 @@ package org.grupp2.sdpproject.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.entities.User;
 
 public class CustomerDashBoardScene {
 
+    @FXML private AnchorPane root;
     @FXML private Label welcomeLabel;
     @FXML private Button viewFilmsButton;
     @FXML private Button rentalHistoryButton;
@@ -65,5 +67,10 @@ public class CustomerDashBoardScene {
     private void handleLogout() {
         this.loggedInCustomer = null;
         sceneController.switchScene("login2");
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }
