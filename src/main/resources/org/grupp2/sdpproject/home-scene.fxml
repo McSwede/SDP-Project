@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.grupp2.sdpproject.GUI.HomeScene">
+    <VBox alignment="CENTER" spacing="10" layoutX="150" layoutY="100">
+        <Label fx:id="welcomeLabel" text="Welcome!" style="-fx-font-size: 18px;"/>
+        <Button fx:id="loginButton" text="Login" onAction="#handleLogin"/>
+        <Button fx:id="registerButton" text="Register" onAction="#handleRegister"/>
+        <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout" visible="false"/>
+    </VBox>
+</AnchorPane>

@@ -35,7 +35,7 @@ public class LoginScene {
                     DatabaseLoginManager.DatabaseLogin config = new DatabaseLoginManager.DatabaseLogin(username, password, ip, port);
                     DatabaseLoginManager.writeConfigToFile(config);
 
-                    sceneController.switchScene("main menu");
+                    sceneController.switchScene("home");
 
                 } catch (Exception e) {
                     messageLabel.setText("Kunde inte spara inloggningsuppgifter");

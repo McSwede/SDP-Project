@@ -21,6 +21,7 @@ module org.grupp2.sdpproject {
     opens org.grupp2.sdpproject.entities to org.hibernate.orm.core;
 
     exports org.grupp2.sdpproject.Utils to org.hibernate.orm.core;
+    requires jbcrypt;
 
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
@@ -28,4 +29,5 @@ module org.grupp2.sdpproject {
     exports org.grupp2.sdpproject.entities;
     exports org.grupp2.sdpproject.ENUM;
     opens org.grupp2.sdpproject.GUI to javafx.fxml;
+
 }

@@ -85,13 +85,12 @@ public class Staff {
         this.stores = stores;
     }
 
-    public byte getStaffId() {
-        return staffId;
-    }
 
     public void setStaffId(byte staffId) {
         this.staffId = staffId;
     }
+
+    public byte getStaffId() {return staffId;}
 
     public String getFirstName() {
         return firstName;
