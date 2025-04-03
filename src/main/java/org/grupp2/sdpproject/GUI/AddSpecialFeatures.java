@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.entities.Film;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AddSpecialFeatures {
+    @FXML private AnchorPane root;
     @FXML private Label info;
     @FXML private ListView<String> specialFeatureList;
     @FXML private ComboBox<String> featureSelector;
@@ -64,5 +66,10 @@ public class AddSpecialFeatures {
         allspecialFeatures.addAll(Arrays.asList("Deleted Scenes", "Behind the Scenes", "Trailers", "Commentaries"));
         allspecialFeatures.removeAll(specialFeatures);
         featureSelector.setItems(allspecialFeatures);
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }

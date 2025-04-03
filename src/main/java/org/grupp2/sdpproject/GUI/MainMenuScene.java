@@ -10,7 +10,6 @@ import org.grupp2.sdpproject.Main;
 public class MainMenuScene {
 
     @FXML private AnchorPane root;
-    private boolean darkmode = false;
     SceneController sceneController = SceneController.getInstance();
     @FXML private Button colorsheme;
     @FXML private Button filmButton;
@@ -28,17 +27,11 @@ public class MainMenuScene {
     }
 
     @FXML private void toggleTheme() {
-        root.getStylesheets().clear();
+        sceneController.toggleDarkMode(this, colorsheme);
+    }
 
-        if (!darkmode) {
-            root.getStylesheets().add(Main.class.getResource("dark-style.css").toExternalForm());
-            colorsheme.setText("Light mode");
-            darkmode = true;
-        }
-        else {
-            root.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
-            colorsheme.setText("Dark mode");
-            darkmode = false;
-        }
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }

@@ -14,6 +14,7 @@ module org.grupp2.sdpproject {
     requires jakarta.validation;
     requires org.hibernate.validator;
     requires org.hibernate.orm.core;
+    requires jdk.xml.dom;
 
     opens org.grupp2.sdpproject.entities to org.hibernate.orm.core;
 
