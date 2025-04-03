@@ -3,6 +3,7 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Rental {
     private Staff staff;
 
     @OneToMany(mappedBy = "rental")
-    private List<Payment> payments;
+    private List<Payment> payments = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
