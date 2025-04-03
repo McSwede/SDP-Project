@@ -142,7 +142,8 @@ public class Address {
 
     /**
      * Create a Point by using:
-     * geometryFactory.createPoint(new Coordinate(longitude, latitude))
+     * GeometryFactory gf = new GeometryFactory(new PrecisionModel(), 0);
+     * gf.createPoint(new Coordinate(longitude, latitude))
      *
      * @param location
      */
