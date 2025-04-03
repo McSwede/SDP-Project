@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Category {
     private String name;
 
     @ManyToMany(mappedBy = "categoryList")
-    private List<Film> filmList;
+    private List<Film> filmList = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;

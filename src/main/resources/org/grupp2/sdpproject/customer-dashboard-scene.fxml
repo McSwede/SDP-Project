@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.grupp2.sdpproject.GUI.CustomerDashBoardScene"
+      spacing="20" alignment="center">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Welcome Label -->
+    <Label fx:id="welcomeLabel" text="Welcome, Customer" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Buttons for various actions -->
+    <Button fx:id="viewFilmssButton" text="View Available Films" onAction="#handleViewFilms"/>
+    <Button fx:id="rentalHistoryButton" text="Rental History" onAction="#handleRentalHistory"/>
+    <Button fx:id="rentFilmButton" text="Rent a Film" onAction="#handleRentFilm"/>
+    <Button fx:id="returnFilmButton" text="Return a Film" onAction="#handleReturnFilm"/>
+    <Button fx:id="accountDetailsButton" text="Account Details" onAction="#handleAccountDetails"/>
+    <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout"/>
+
+</VBox>

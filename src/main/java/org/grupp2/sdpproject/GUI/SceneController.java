@@ -12,14 +12,30 @@ import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SceneController {
 
     private static SceneController instance;
+
+    private Stage primaryStage;
+    private final Map<String, FXMLLoader> sceneLoaders = new HashMap<>();
+    private final Map<String, Object> controllers = new HashMap<>(); // Cache for controllers
     private boolean darkMode = false;
 
     private SceneController() {
-
+        // Initialize all scene loaders
+        sceneLoaders.put("login", new FXMLLoader(Main.class.getResource("login-scene.fxml")));
+        sceneLoaders.put("main menu", new FXMLLoader(Main.class.getResource("main-menu-scene.fxml")));
+        sceneLoaders.put("home", new FXMLLoader(Main.class.getResource("home-scene.fxml")));
+        sceneLoaders.put("login2", new FXMLLoader(Main.class.getResource("login2-scene.fxml")));
+        sceneLoaders.put("registration", new FXMLLoader(Main.class.getResource("registration-scene.fxml")));
+        sceneLoaders.put("customer dashboard", new FXMLLoader(Main.class.getResource("customer-dashboard-scene.fxml")));
+        sceneLoaders.put("films", new FXMLLoader(Main.class.getResource("films-scene.fxml")));
+        sceneLoaders.put("film", new FXMLLoader(Main.class.getResource("film-scene.fxml")));
+        sceneLoaders.put("pair film_actor", new FXMLLoader(Main.class.getResource("Pair-film_actor.fxml")));
+        sceneLoaders.put("add special features", new FXMLLoader(Main.class.getResource("add-special-features-scene.fxml")));
     }
 
     public static SceneController getInstance() {
@@ -28,17 +44,6 @@ public class SceneController {
         }
         return instance;
     }
-
-    public boolean isDarkMode() {
-        return darkMode;
-    }
-
-    private Stage primaryStage;
-    private final String mainMenuScene = "main-menu-scene.fxml";
-    private final String loginScene = "login-scene.fxml";
-    private final String filmScene = "film-scene.fxml";
-    private final String film_actorPopup = "Pair-film_actor.fxml";
-    private final String film_specialFeaturePopup = "add-special-features.fxml";
 
     private final ConfigManager configManager = new ConfigManager();
 
@@ -68,45 +73,53 @@ public class SceneController {
             }
         }
         if (shouldShowLogin) {
-            setScene(loginScene);
+            switchScene("login");
         }
     }
 
-    public void switchScene(String sceneName) {
-        switch (sceneName) {
-            case "login":
-                setScene(loginScene);
-                break;
-            case "main menu":
-                setScene(mainMenuScene);
-                break;
-            case "film":
-                setScene(filmScene);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + sceneName);
-        }
-    }
 
-    private void setScene(String sceneName) {
+  public void switchScene(String sceneName) {
+        FXMLLoader loader = sceneLoaders.get(sceneName);
+        if (loader == null) {
+            throw new IllegalArgumentException("Unknown scene: " + sceneName);
+        }
+
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(sceneName));
-            Scene scene = new Scene(xmlScene.load(), 600, 424);
-
+            // Load the scene from the cached loader
+            Scene scene = new Scene(loader.load(), 600, 424);
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            Object controller = xmlScene.getController();
-            if (darkMode) {
-                controller.getClass().getMethod("setStyleSheet", String.class).invoke(controller, Main.class.getResource("dark-style.css").toExternalForm());
+            // Cache the controller
+            Object controller = loader.getController();
+            controllers.put(sceneName, controller);
+
+            // Apply dark mode styling if applicable
+            if (controller != null) {
+                try {
+                    String styleSheet = darkMode
+                            ? Main.class.getResource("dark-style.css").toExternalForm()
+                            : Main.class.getResource("style.css").toExternalForm();
+
+                    controller.getClass().getMethod("setStyleSheet", String.class).invoke(controller, styleSheet);
+                } catch (NoSuchMethodException ignored) {
+                    // If the controller does not have setStyleSheet, do nothing
+                }
             }
-            else {
-                controller.getClass().getMethod("setStyleSheet", String.class).invoke(controller, Main.class.getResource("style.css").toExternalForm());
-            }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // Method to toggle dark mode
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public <T> T getController(String sceneName) {
+        return (T) controllers.get(sceneName);
     }
 
     public void openPairActorFilm(Object object) {
@@ -141,9 +154,10 @@ public class SceneController {
 
     public void openAddSpecialFeatures(Film film) {
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_specialFeaturePopup));
-            Scene scene = new Scene(xmlScene.load(), 300, 300);
 
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("add-special-features.fxml"));
+            Scene scene = new Scene(xmlScene.load(), 600, 600);
+          
             AddSpecialFeatures controller = (AddSpecialFeatures) xmlScene.getController();
             controller.setFilm(film);
             if (darkMode) {

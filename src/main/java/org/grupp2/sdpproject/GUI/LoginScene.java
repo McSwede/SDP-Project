@@ -41,7 +41,7 @@ public class LoginScene {
                     configManager.setDatabaseLogin(newLogin);
                     configManager.saveConfig();
 
-                    sceneController.switchScene("main menu");
+                    sceneController.switchScene("home");
 
                 } catch (Exception e) {
                     messageLabel.setText("Kunde inte spara inloggningsuppgifter");

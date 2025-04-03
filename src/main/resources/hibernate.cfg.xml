@@ -31,5 +31,6 @@
         <mapping class="org.grupp2.sdpproject.entities.Rental" />
         <mapping class="org.grupp2.sdpproject.entities.Staff" />
         <mapping class="org.grupp2.sdpproject.entities.Store" />
+        <mapping class="org.grupp2.sdpproject.entities.User" />
     </session-factory>
 </hibernate-configuration>

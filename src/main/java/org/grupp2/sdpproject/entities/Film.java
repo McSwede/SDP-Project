@@ -8,6 +8,7 @@ import org.grupp2.sdpproject.Utils.EnumConverter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -59,13 +60,13 @@ public class Film {
     @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
     private String specialFeatures; //Skulle kunna ändra till en enum av special features
 
-    @ManyToMany(fetch = FetchType.EAGER) //not sure about the cascade type
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //not sure about the cascade type
     @JoinTable(
             name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
-    private List<Actor> actorList;
+    private List<Actor> actorList = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER) //not sure about the cascade type
     @JoinTable(
@@ -73,10 +74,10 @@ public class Film {
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categoryList;
+    private List<Category> categoryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inventory> inventories;
+    @OneToMany(mappedBy = "film", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<Inventory> inventories = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
