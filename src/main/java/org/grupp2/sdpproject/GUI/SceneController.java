@@ -29,6 +29,9 @@ public class SceneController {
         return instance;
     }
 
+    public boolean isDarkMode() {
+        return darkMode;
+    }
 
     private Stage primaryStage;
     private final String mainMenuScene = "main-menu-scene.fxml";
@@ -165,19 +168,19 @@ public class SceneController {
     }
     
     public void toggleDarkMode(MainMenuScene controller, Button button) {
-        darkMode = !darkMode;
 
         if (darkMode) {
-            button.setText("Dark mode");
+            darkMode = false;
+            button.setText("Mörkt läge");
             controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
         }
         else {
-            button.setText("Light mode");
+            darkMode = true;
+            button.setText("Ljust läge");
             controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
         }
 
-        configManager.setDarkModeEnabled(!darkMode);
-
+        configManager.setDarkModeEnabled(darkMode);
         try {
             configManager.saveConfig();
         } catch (IOException e) {

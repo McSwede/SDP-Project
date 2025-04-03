@@ -22,6 +22,17 @@ public class MainMenuScene {
     @FXML private Button storeButton;
     @FXML private Button inventoryButton;
 
+    @FXML
+    public void initialize() {
+        boolean isDarkMode = sceneController.isDarkMode();
+
+        if (isDarkMode) {
+            colorsheme.setText("Ljust läge");
+        } else {
+            colorsheme.setText("Mörkt läge");
+        }
+    }
+
     @FXML private void enterFilmScene() {
         sceneController.switchScene("film");
     }
