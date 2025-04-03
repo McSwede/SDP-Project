@@ -2,6 +2,7 @@ package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class Address {
     @Size(max = 20)
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
+
+    @Column(name = "location", columnDefinition = "GEOMETRY", nullable = false)
+    private Point location;
 
     @OneToMany(mappedBy = "address")
     private List<Customer> customers = new ArrayList<>();
@@ -123,6 +127,27 @@ public class Address {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    /**
+     * Can be used like:
+     * location.getX() = longitude
+     * location.getY() = latitude
+     *
+     * @return location as a Point
+     */
+    public Point getLocation() {
+        return location;
+    }
+
+    /**
+     * Create a Point by using:
+     * geometryFactory.createPoint(new Coordinate(longitude, latitude))
+     *
+     * @param location
+     */
+    public void setLocation(Point location) {
+        this.location = location;
     }
 
     public List<Store> getStores() {
