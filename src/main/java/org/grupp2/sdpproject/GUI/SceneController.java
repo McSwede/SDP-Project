@@ -41,10 +41,7 @@ public class SceneController {
         switchScene("login"); // Default scene
     }
 
-    /**
-     * Switches to a scene and caches its controller.
-     * @param sceneName Key from the sceneLoaders map (e.g., "login").
-     */
+
     public void switchScene(String sceneName) {
         FXMLLoader loader = sceneLoaders.get(sceneName);
         if (loader == null) {
@@ -52,7 +49,7 @@ public class SceneController {
         }
 
         try {
-            Scene scene = new Scene(loader.load());
+            Scene scene = new Scene(loader.load(),600,424);
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -63,11 +60,6 @@ public class SceneController {
         }
     }
 
-    /**
-     * Retrieves the controller for a scene.
-     * @param sceneName Key used in switchScene().
-     * @return The controller, or null if not loaded yet.
-     */
     @SuppressWarnings("unchecked")
     public <T> T getController(String sceneName) {
         return (T) controllers.get(sceneName);
@@ -99,7 +91,7 @@ public class SceneController {
     public void openAddSpecialFeatures(Film film) {
         try {
             FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("add-special-features.fxml"));
-            Scene scene = new Scene(xmlScene.load(), 300, 300);
+            Scene scene = new Scene(xmlScene.load(), 600, 600);
 
             AddSpecialFeatures controller = (AddSpecialFeatures) xmlScene.getController();
             controller.setFilm(film);
