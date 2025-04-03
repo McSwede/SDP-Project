@@ -64,7 +64,7 @@ public class SceneController {
                 );
 
                 if (success) {
-                    setScene(mainMenuScene);
+                    switchScene("main menu");
                     shouldShowLogin = false;
                 }
 
@@ -111,11 +111,9 @@ public class SceneController {
         }
     }
 
-    // Method to toggle dark mode
-    public void setDarkMode(boolean darkMode) {
-        this.darkMode = darkMode;
+    public boolean isDarkMode() {
+        return darkMode;
     }
-
 
     @SuppressWarnings("unchecked")
     public <T> T getController(String sceneName) {
@@ -124,7 +122,7 @@ public class SceneController {
 
     public void openPairActorFilm(Object object) {
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_actorPopup));
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("film_actorPopup")); // I don't know what this does but it expects a string so I mde the value into a string
             Scene scene = new Scene(xmlScene.load(), 300, 300);
 
             PairFilmActor controller = (PairFilmActor) xmlScene.getController();
