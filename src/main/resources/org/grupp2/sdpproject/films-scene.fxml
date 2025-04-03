@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.FilmsScene">
+    <children>
+        <VBox spacing="10.0" alignment="CENTER">
+            <children>
+                <Label text="All Films" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                <TableView fx:id="filmTable">
+                    <columns>
+                        <TableColumn fx:id="titleColumn" text="Title" prefWidth="200.0"/>
+                        <TableColumn fx:id="releaseYearColumn" text="Release Year" prefWidth="100.0"/>
+                        <TableColumn fx:id="rentalRateColumn" text="Rental Rate" prefWidth="100.0"/>
+                        <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="100.0"/>
+                    </columns>
+                </TableView>
+                <Button fx:id="backButton" text="Back" onAction="#handleBack"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -28,6 +28,7 @@ public class SceneController {
     private final FXMLLoader login2Scene = new FXMLLoader(Main.class.getResource("login2-scene.fxml"));
     private final FXMLLoader registrationScene = new FXMLLoader(Main.class.getResource("registration-scene.fxml"));
     private final FXMLLoader customerScene = new FXMLLoader(Main.class.getResource("customer-dashboard-scene.fxml"));
+    private final FXMLLoader filmsScene = new FXMLLoader(Main.class.getResource("films-scene.fxml"));
 
     public void startApplication(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -52,13 +53,16 @@ public class SceneController {
                 setScene(login2Scene);
                 break;
             case "customer dashboard":
-               setScene(customerScene);
-               break;
-
+                setScene(customerScene);
+                break;
+            case "view films":
+                setScene(filmsScene);
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + sceneName);
         }
     }
+
 
     private void setScene(FXMLLoader xmlScene) {
         try {

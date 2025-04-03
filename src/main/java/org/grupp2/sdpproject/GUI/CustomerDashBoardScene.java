@@ -8,10 +8,10 @@ import org.grupp2.sdpproject.entities.User;
 public class CustomerDashBoardScene {
 
     @FXML private Label welcomeLabel;
-    @FXML private Button viewMoviesButton;
+    @FXML private Button viewFilmsButton;
     @FXML private Button rentalHistoryButton;
-    @FXML private Button rentMovieButton;
-    @FXML private Button returnMovieButton;
+    @FXML private Button rentFilmButton;
+    @FXML private Button returnFilmButton;
     @FXML private Button accountDetailsButton;
     @FXML private Button logoutButton;
 
@@ -29,28 +29,28 @@ public class CustomerDashBoardScene {
     }
 
     @FXML
-    private void handleViewMovies() {
-        sceneController.switchScene("viewMovies");
+    private void handleViewFilms() {
+        sceneController.switchScene("view films");
     }
 
     @FXML
     private void handleRentalHistory() {
-        sceneController.switchScene("rentalHistory");
+        sceneController.switchScene("rental history");
     }
 
     @FXML
-    private void handleRentMovie() {
-        sceneController.switchScene("rentMovie");
+    private void handleRentFilm() {
+        sceneController.switchScene("rent film");
     }
 
     @FXML
-    private void handleReturnMovie() {
-        sceneController.switchScene("returnMovie");
+    private void handleReturnFilm() {
+        sceneController.switchScene("return film");
     }
 
     @FXML
     private void handleAccountDetails() {
-        sceneController.switchScene("accountDetails");
+        sceneController.switchScene("account details");
     }
 
     @FXML

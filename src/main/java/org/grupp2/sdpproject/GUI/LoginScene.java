@@ -1,7 +1,10 @@
 package org.grupp2.sdpproject.GUI;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import org.grupp2.sdpproject.Utils.DatabaseLoginManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 
 public class LoginScene {
@@ -12,7 +15,6 @@ public class LoginScene {
     @FXML private TextField ipField;
     @FXML private TextField portField;
     @FXML private Button loginButton;
-
     private final SceneController sceneController = SceneController.getInstance();
 
     @FXML
@@ -24,18 +26,25 @@ public class LoginScene {
 
         if (username.isEmpty() || password.isEmpty() || ip.isEmpty() || port.isEmpty()) {
             messageLabel.setText("Fyll i alla fält");
-            messageLabel.setStyle("-fx-text-fill: red;");
-            return;  // Exit early if fields are empty
         }
+        else {
+            // TODO: När alla entities är mappade ska den kommenterade koden tas med igen
+            boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
+            if (success) {
+                try {
+                    DatabaseLoginManager.DatabaseLogin config = new DatabaseLoginManager.DatabaseLogin(username, password, ip, port);
+                    DatabaseLoginManager.writeConfigToFile(config);
 
-        // ✅ Initialize database connection
-        boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
+                    sceneController.switchScene("home");
 
-        if (success) {
-            sceneController.switchScene("home");
-        } else {
-            messageLabel.setText("Inloggning misslyckades. Kontrollera dina uppgifter.");
-            messageLabel.setStyle("-fx-text-fill: red;");
+                } catch (Exception e) {
+                    messageLabel.setText("Kunde inte spara inloggningsuppgifter");
+                }
+            }
+            else {
+                messageLabel.setText("Inloggning misslyckades. Kontrollera dina uppgifter");
+            }
         }
     }
+
 }
