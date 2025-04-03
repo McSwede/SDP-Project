@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.grupp2.sdpproject.Utils.DatabaseLoginManager;
+import org.grupp2.sdpproject.Utils.ConfigManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 
 public class LoginScene {
@@ -28,12 +28,18 @@ public class LoginScene {
             messageLabel.setText("Fyll i alla fält");
         }
         else {
-            // TODO: När alla entities är mappade ska den kommenterade koden tas med igen
             boolean success = HibernateUtil.initializeDatabase(username, password, ip, port);
             if (success) {
                 try {
-                    DatabaseLoginManager.DatabaseLogin config = new DatabaseLoginManager.DatabaseLogin(username, password, ip, port);
-                    DatabaseLoginManager.writeConfigToFile(config);
+                    ConfigManager configManager = sceneController.getConfigManager();
+
+                    if (configManager.configFileExists()) {
+                        configManager.loadConfig();
+                    }
+
+                    ConfigManager.DatabaseLogin newLogin = new ConfigManager.DatabaseLogin(username, password, ip, port);
+                    configManager.setDatabaseLogin(newLogin);
+                    configManager.saveConfig();
 
                     sceneController.switchScene("main menu");
 

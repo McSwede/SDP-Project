@@ -147,6 +147,6 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij
 
-# Database login configuration file
-db_login.properties
+# Application configuration file
+app.properties
 

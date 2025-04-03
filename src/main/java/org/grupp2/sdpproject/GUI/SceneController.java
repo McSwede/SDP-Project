@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.Main;
-import org.grupp2.sdpproject.Utils.DatabaseLoginManager;
+import org.grupp2.sdpproject.Utils.ConfigManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
@@ -31,18 +31,21 @@ public class SceneController {
     private final String loginScene = "login-scene.fxml";
     private final String filmScene = "film-scene.fxml";
 
+    private final ConfigManager configManager = new ConfigManager();
+
     public void startApplication(Stage primaryStage) {
         this.primaryStage = primaryStage;
         boolean shouldShowLogin = true;
-        if (DatabaseLoginManager.configFileExists()) {
+        if (configManager.configFileExists()) {
             try {
-                DatabaseLoginManager.DatabaseLogin config = DatabaseLoginManager.readConfigFromFile();
+                configManager.loadConfig();
+                ConfigManager.DatabaseLogin dbConfig = configManager.getDatabaseLogin();
 
                 boolean success = HibernateUtil.initializeDatabase(
-                        config.username(),
-                        config.password(),
-                        config.ip(),
-                        config.port()
+                        dbConfig.username(),
+                        dbConfig.password(),
+                        dbConfig.ip(),
+                        dbConfig.port()
                 );
 
                 if (success) {
@@ -126,5 +129,9 @@ public class SceneController {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 }
