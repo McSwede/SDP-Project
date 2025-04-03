@@ -1,7 +1,9 @@
 package org.grupp2.sdpproject.Utils;
 
+import org.grupp2.sdpproject.dao.ActorDAO;
 import org.grupp2.sdpproject.dao.FilmDAO;
 import org.grupp2.sdpproject.dao.GenericDAO;
+import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
 import org.hibernate.SessionFactory;
 
@@ -20,6 +22,7 @@ public class DAOManager {
 
         // Register non-generic entities here
         daoMap.put(Film.class, new FilmDAO(sessionFactory));
+        daoMap.put(Actor.class, new ActorDAO(sessionFactory));
         //...
     }
 

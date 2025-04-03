@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,8 +25,8 @@ public class Actor {
     @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
 
-    @ManyToMany(mappedBy = "actorList")
-    private List<Film> filmList;
+    @ManyToMany(mappedBy = "actorList", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Film> filmList = new ArrayList<>();
 
     @UpdateTimestamp
     @Column(name = "last_update", nullable = false)

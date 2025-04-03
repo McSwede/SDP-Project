@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,13 +49,13 @@ public class Staff {
     private String password;
 
     @OneToMany(mappedBy = "staff")
-    private List<Rental> rentals;
+    private List<Rental> rentals = new ArrayList<>();
 
     @OneToMany(mappedBy = "staff")
-    private List<Payment> payments;
+    private List<Payment> payments = new ArrayList<>();
 
     @OneToMany(mappedBy = "staff")
-    private List<Store> stores;
+    private List<Store> stores = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;

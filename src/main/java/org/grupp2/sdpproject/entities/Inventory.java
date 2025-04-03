@@ -3,6 +3,7 @@ package org.grupp2.sdpproject.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Inventory {
     private Store store;
 
     @OneToMany(mappedBy = "inventory")
-    private List<Rental> rentalList;
+    private List<Rental> rentalList = new ArrayList<>();;
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
