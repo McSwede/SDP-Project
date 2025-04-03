@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Size;
 import org.grupp2.sdpproject.ENUM.Rating;
+import org.grupp2.sdpproject.Utils.EnumConverter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -51,8 +52,8 @@ public class Film {
     @Column(name = "replacement_cost", precision = 5, scale = 2, nullable = false)
     private BigDecimal replacementCost;
 
-    @Enumerated(EnumType.STRING)
-    @Column
+    @Convert(converter = EnumConverter.class)
+    @Column(columnDefinition = "ENUM('G','PG','PG-13','R','NC-17')", nullable = false)
     private Rating rating;
 
     @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
