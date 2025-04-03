@@ -15,6 +15,7 @@ public class DAOManager {
     private final Map<Class<?>, GenericDAO<?>> daoMap = new HashMap<>();
 
     public DAOManager() {
+        // Automatically get sessionFactory
         this.sessionFactory = HibernateUtil.getSessionFactory();
 
         // Register non-generic entities here
@@ -22,7 +23,13 @@ public class DAOManager {
         //...
     }
 
-    // Universal method to get a DAO class for the given entity class
+    /**
+     * Retrieves a DAO for the specified entity class. If the class is not
+     * already mapped to a DAO, a new GenericDAO is created and stored.
+     *
+     * @param entityClass The class of the entity
+     * @return A DAO instance for the given entity class
+     */
     @SuppressWarnings("unchecked")
     private <T> GenericDAO<T> getDao(Class<T> entityClass) {
         // If we don't have a specific DAO generate a generic one
@@ -32,22 +39,50 @@ public class DAOManager {
         );
     }
 
+    /**
+     * Saves an entity to the database using the appropriate DAO.
+     *
+     * @param entity The entity instance to be saved
+     */
     public <T> void save(T entity) {
         getDao(entity.getClass()).save(entity);
     }
 
+    /**
+     * Finds an entity by its ID using the appropriate DAO.
+     *
+     * @param entityClass The class of the entity to find
+     * @param id          The primary key of the entity
+     * @return The found entity or null if no matching entity exists
+     */
     public <T> T findById(Class<T> entityClass, Object id) {
         return getDao(entityClass).findById(id);
     }
 
+    /**
+     * Retrieves all entities of the specified class using the appropriate DAO.
+     *
+     * @param entityClass The class of the entities to retrieve
+     * @return A list of all entities of the specified class
+     */
     public <T> List<T> findAll(Class<T> entityClass) {
         return getDao(entityClass).findAll();
     }
 
+    /**
+     * Updates an existing entity in the database using the appropriate DAO.
+     *
+     * @param entity The entity to be updated
+     */
     public <T> void update(T entity) {
         getDao(entity.getClass()).update(entity);
     }
 
+    /**
+     * Deletes an existing entity in the database using the appropriate DAO.
+     *
+     * @param entity The entity to be deleted
+     */
     public <T> void delete(T entity) {
         getDao(entity.getClass()).delete(entity);
     }
