@@ -3,7 +3,7 @@
     -fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-text-fill: black;
-    -fx-background-color: #F5F5F5; /* Ljus bakgrund */
+    -fx-background-color: #DDEAF6; /* Ljus bakgrund */
 }
 .scroll-pane {
     -fx-background: transparent;
@@ -19,7 +19,7 @@
     -fx-padding: 10;
 }
 .bigbutton {
-    -fx-background-color: #0077B6 ;
+    -fx-background-color: #2a98ca;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-padding: 10;
@@ -27,7 +27,7 @@
     -fx-min-width: 111;
 }
 .smallbutton {
-    -fx-background-color: #0077B6 ;
+    -fx-background-color: #2a98ca;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
     -fx-padding: 2;
@@ -35,10 +35,10 @@
     -fx-min-height: 20;
 }
 .button:hover {
-    -fx-background-color: #0181c5;
+    -fx-background-color: #31ade6;
 }
 .button:pressed {
-    -fx-background-color: #015d8e;
+    -fx-background-color: #2379a1;
 }
 .label {
     -fx-padding: 5;
