@@ -58,4 +58,21 @@ public class ConfigManager {
         props.setProperty("db.ip",       dbLogin.ip());
         props.setProperty("db.port",     dbLogin.port());
     }
+
+    public boolean isDarkModeEnabled() {
+        return Boolean.parseBoolean(props.getProperty("gui.darkmode", "false"));
+    }
+
+    public void setDarkModeEnabled(boolean enabled) {
+        props.setProperty("gui.darkmode", String.valueOf(enabled));
+    }
+
+    // General getter and setter if we want to add many more things to the config
+    public String getProperty(String key, String defaultValue) {
+        return props.getProperty(key, defaultValue);
+    }
+
+    public void setProperty(String key, String value) {
+        props.setProperty(key, value);
+    }
 }

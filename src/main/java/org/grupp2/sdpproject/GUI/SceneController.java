@@ -3,7 +3,6 @@ package org.grupp2.sdpproject.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.Main;
@@ -11,6 +10,8 @@ import org.grupp2.sdpproject.Utils.ConfigManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
+
+import java.io.IOException;
 
 public class SceneController {
 
@@ -44,6 +45,7 @@ public class SceneController {
         if (configManager.configFileExists()) {
             try {
                 configManager.loadConfig();
+                this.darkMode = configManager.isDarkModeEnabled();
                 ConfigManager.DatabaseLogin dbConfig = configManager.getDatabaseLogin();
 
                 boolean success = HibernateUtil.initializeDatabase(
@@ -163,15 +165,23 @@ public class SceneController {
     }
     
     public void toggleDarkMode(MainMenuScene controller, Button button) {
+        darkMode = !darkMode;
+
         if (darkMode) {
-            darkMode = false;
             button.setText("Dark mode");
             controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
         }
         else {
-            darkMode = true;
             button.setText("Light mode");
             controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+        }
+
+        configManager.setDarkModeEnabled(!darkMode);
+
+        try {
+            configManager.saveConfig();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
