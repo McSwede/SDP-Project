@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.GUI;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.Main;
@@ -13,6 +15,7 @@ import org.grupp2.sdpproject.entities.Film;
 public class SceneController {
 
     private static SceneController instance;
+    private boolean darkMode = false;
 
     private SceneController() {
 
@@ -30,6 +33,8 @@ public class SceneController {
     private final String mainMenuScene = "main-menu-scene.fxml";
     private final String loginScene = "login-scene.fxml";
     private final String filmScene = "film-scene.fxml";
+    private final String film_actorPopup = "Pair-film_actor.fxml";
+    private final String film_specialFeaturePopup = "add-special-features.fxml";
 
     private final ConfigManager configManager = new ConfigManager();
 
@@ -82,8 +87,17 @@ public class SceneController {
         try {
             FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(sceneName));
             Scene scene = new Scene(xmlScene.load(), 600, 424);
+
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            Object controller = xmlScene.getController();
+            if (darkMode) {
+                controller.getClass().getMethod("setStyleSheet", String.class).invoke(controller, Main.class.getResource("dark-style.css").toExternalForm());
+            }
+            else {
+                controller.getClass().getMethod("setStyleSheet", String.class).invoke(controller, Main.class.getResource("style.css").toExternalForm());
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -92,10 +106,17 @@ public class SceneController {
 
     public void openPairActorFilm(Object object) {
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("Pair-film_actor.fxml"));
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_actorPopup));
             Scene scene = new Scene(xmlScene.load(), 300, 300);
 
             PairFilmActor controller = (PairFilmActor) xmlScene.getController();
+            if (darkMode) {
+                controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+            }
+            else {
+                controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+            }
+
             if (object instanceof Film) {
                 controller.setFilm((Film) object);
             }
@@ -115,11 +136,17 @@ public class SceneController {
 
     public void openAddSpecialFeatures(Film film) {
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("add-special-features.fxml"));
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_specialFeaturePopup));
             Scene scene = new Scene(xmlScene.load(), 300, 300);
 
             AddSpecialFeatures controller = (AddSpecialFeatures) xmlScene.getController();
             controller.setFilm(film);
+            if (darkMode) {
+                controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+            }
+            else {
+                controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+            }
 
             Stage popupStage = new Stage();
             popupStage.setScene(scene);
@@ -133,5 +160,18 @@ public class SceneController {
 
     public ConfigManager getConfigManager() {
         return configManager;
+    }
+    
+    public void toggleDarkMode(MainMenuScene controller, Button button) {
+        if (darkMode) {
+            darkMode = false;
+            button.setText("Dark mode");
+            controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+        }
+        else {
+            darkMode = true;
+            button.setText("Light mode");
+            controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+        }
     }
 }
