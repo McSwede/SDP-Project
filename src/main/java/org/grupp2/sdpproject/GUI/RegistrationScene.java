@@ -4,6 +4,7 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.dao.UserDAO;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 
 public class RegistrationScene {
 
-    @FXML private AnchorPane root;
+    @FXML private VBox root;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private ComboBox<Role> roleComboBox;

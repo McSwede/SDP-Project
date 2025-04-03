@@ -64,7 +64,7 @@ public class SceneController {
                 );
 
                 if (success) {
-                    switchScene("main menu");
+                    switchScene("login2");
                     shouldShowLogin = false;
                 }
 

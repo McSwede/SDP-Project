@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml"
+<AnchorPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.grupp2.sdpproject.GUI.Login2Scene">
     <VBox alignment="CENTER" spacing="10" layoutX="150" layoutY="100">
         <Label text="Login" style="-fx-font-size: 18px;"/>
