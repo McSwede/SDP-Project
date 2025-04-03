@@ -2,6 +2,8 @@ package org.grupp2.sdpproject.GUI;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.Main;
@@ -14,9 +16,11 @@ import java.util.Map;
 public class SceneController {
 
     private static SceneController instance;
+
     private Stage primaryStage;
     private final Map<String, FXMLLoader> sceneLoaders = new HashMap<>();
     private final Map<String, Object> controllers = new HashMap<>(); // Cache for controllers
+    private boolean darkMode = false;
 
     private SceneController() {
         // Initialize all scene loaders
@@ -38,27 +42,48 @@ public class SceneController {
 
     public void startApplication(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        switchScene("login"); // Default scene
+        switchScene("login"); 
     }
 
 
-    public void switchScene(String sceneName) {
+  public void switchScene(String sceneName) {
         FXMLLoader loader = sceneLoaders.get(sceneName);
         if (loader == null) {
             throw new IllegalArgumentException("Unknown scene: " + sceneName);
         }
 
         try {
-            Scene scene = new Scene(loader.load(),600,424);
+            // Load the scene from the cached loader
+            Scene scene = new Scene(loader.load(), 600, 424);
             primaryStage.setScene(scene);
             primaryStage.show();
 
             // Cache the controller
-            controllers.put(sceneName, loader.getController());
+            Object controller = loader.getController();
+            controllers.put(sceneName, controller);
+
+            // Apply dark mode styling if applicable
+            if (controller != null) {
+                try {
+                    String styleSheet = darkMode
+                            ? Main.class.getResource("dark-style.css").toExternalForm()
+                            : Main.class.getResource("style.css").toExternalForm();
+
+                    controller.getClass().getMethod("setStyleSheet", String.class).invoke(controller, styleSheet);
+                } catch (NoSuchMethodException ignored) {
+                    // If the controller does not have setStyleSheet, do nothing
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    // Method to toggle dark mode
+    public void setDarkMode(boolean darkMode) {
+        this.darkMode = darkMode;
+    }
+
 
     @SuppressWarnings("unchecked")
     public <T> T getController(String sceneName) {
@@ -67,10 +92,17 @@ public class SceneController {
 
     public void openPairActorFilm(Object object) {
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("Pair-film_actor.fxml"));
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_actorPopup));
             Scene scene = new Scene(xmlScene.load(), 300, 300);
 
             PairFilmActor controller = (PairFilmActor) xmlScene.getController();
+            if (darkMode) {
+                controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+            }
+            else {
+                controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+            }
+
             if (object instanceof Film) {
                 controller.setFilm((Film) object);
             }
@@ -90,11 +122,20 @@ public class SceneController {
 
     public void openAddSpecialFeatures(Film film) {
         try {
+
             FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("add-special-features.fxml"));
             Scene scene = new Scene(xmlScene.load(), 600, 600);
-
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_specialFeaturePopup));
+            Scene scene = new Scene(xmlScene.load(), 300, 300);
+          
             AddSpecialFeatures controller = (AddSpecialFeatures) xmlScene.getController();
             controller.setFilm(film);
+            if (darkMode) {
+                controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+            }
+            else {
+                controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+            }
 
             Stage popupStage = new Stage();
             popupStage.setScene(scene);
@@ -103,6 +144,19 @@ public class SceneController {
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void toggleDarkMode(MainMenuScene controller, Button button) {
+        if (darkMode) {
+            darkMode = false;
+            button.setText("Dark mode");
+            controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+        }
+        else {
+            darkMode = true;
+            button.setText("Light mode");
+            controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
         }
     }
 }

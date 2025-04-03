@@ -16,6 +16,7 @@ module org.grupp2.sdpproject {
     requires org.locationtech.jts;
     requires org.hibernate.orm.spatial;
     requires org.hibernate.validator;
+    requires jdk.xml.dom;
 
     opens org.grupp2.sdpproject.entities to org.hibernate.orm.core;
 

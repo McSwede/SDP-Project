@@ -7,8 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
+import org.w3c.dom.css.CSSStyleSheet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 public class PairFilmActor {
 
 
+    @FXML private AnchorPane root;
     @FXML private Label info;
     @FXML ListView<Object> ObjectList;
     @FXML private Button addObject;
@@ -92,6 +95,11 @@ public class PairFilmActor {
         this.film = null;
         info.setText("Filmer");
         getFilms();
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 
 }

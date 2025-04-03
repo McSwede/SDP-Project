@@ -45,6 +45,7 @@
 .label {
     -fx-padding: 5;
     -fx-wrap-text: true;
+    -fx-text-fill: #E0E0E0;
 }
 .message-label {
     -fx-text-fill: red;
@@ -54,4 +55,5 @@
     -fx-padding: 2;
     -fx-wrap-text: false;
     -fx-pref-height: 26;
+    -fx-text-fill: #E0E0E0;
 }
