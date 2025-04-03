@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.Main;
+import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
 
@@ -31,6 +32,9 @@ public class SceneController {
         sceneLoaders.put("registration", new FXMLLoader(Main.class.getResource("registration-scene.fxml")));
         sceneLoaders.put("customer dashboard", new FXMLLoader(Main.class.getResource("customer-dashboard-scene.fxml")));
         sceneLoaders.put("films", new FXMLLoader(Main.class.getResource("films-scene.fxml")));
+        sceneLoaders.put("film", new FXMLLoader(Main.class.getResource("film-scene.fxml")));
+        sceneLoaders.put("pair film_actor", new FXMLLoader(Main.class.getResource("Pair-film_actor.fxml")));
+        sceneLoaders.put("add special features", new FXMLLoader(Main.class.getResource("add-special-features-scene.fxml")));
     }
 
     public static SceneController getInstance() {
@@ -40,9 +44,36 @@ public class SceneController {
         return instance;
     }
 
+    private final ConfigManager configManager = new ConfigManager();
+
     public void startApplication(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        switchScene("login"); 
+        boolean shouldShowLogin = true;
+        if (configManager.configFileExists()) {
+            try {
+                configManager.loadConfig();
+                this.darkMode = configManager.isDarkModeEnabled();
+                ConfigManager.DatabaseLogin dbConfig = configManager.getDatabaseLogin();
+
+                boolean success = HibernateUtil.initializeDatabase(
+                        dbConfig.username(),
+                        dbConfig.password(),
+                        dbConfig.ip(),
+                        dbConfig.port()
+                );
+
+                if (success) {
+                    setScene(mainMenuScene);
+                    shouldShowLogin = false;
+                }
+
+            } catch (Exception e) {
+                System.err.println("Kunde inte läsa från fil eller ansluta till databas: " + e.getMessage());
+            }
+        }
+        if (shouldShowLogin) {
+            switchScene("login");
+        }
     }
 
 
@@ -125,8 +156,6 @@ public class SceneController {
 
             FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("add-special-features.fxml"));
             Scene scene = new Scene(xmlScene.load(), 600, 600);
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource(film_specialFeaturePopup));
-            Scene scene = new Scene(xmlScene.load(), 300, 300);
           
             AddSpecialFeatures controller = (AddSpecialFeatures) xmlScene.getController();
             controller.setFilm(film);

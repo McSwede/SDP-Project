@@ -5,10 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Main;
+import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.User;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
@@ -17,12 +19,13 @@ import java.io.IOException;
 
 public class Login2Scene {
 
+    @FXML private AnchorPane root;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Label statusLabel;
 
-    private final UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
 
     private final SceneController sceneController = SceneController.getInstance();
 
@@ -113,5 +116,10 @@ public class Login2Scene {
     // Switch to the registration scene
     public void switchToRegister() {
         sceneController.switchScene("register");
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }
