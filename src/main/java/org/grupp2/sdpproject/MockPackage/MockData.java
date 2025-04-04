@@ -36,9 +36,6 @@ public class MockData {
 
         Actor actor = daoManager.findById(Actor.class, 2);
 
-        daoManager.update(actor);
-        daoManager.delete(actor);
-
         //daoManager.update(film);
         //daoManager.delete(film);
 
@@ -56,6 +53,9 @@ public class MockData {
         //these once kinda work
 
         //System.out.println("inventory film: " + inventory.getFilm());
+
+        //daoManager.update(actor);
+        //daoManager.delete(actor);
 
         //daoManager.update(inventory);
         //daoManager.delete(inventory);

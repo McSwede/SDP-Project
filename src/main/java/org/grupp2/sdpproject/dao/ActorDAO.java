@@ -30,6 +30,7 @@ public class ActorDAO extends GenericDAO<Actor> {
                     session.merge(film); // Update the film
                 }
 
+
                 // 2. Delete from junction table
                 session.createNativeQuery("DELETE FROM film_actor WHERE actor_id = :actorId")
                         .setParameter("actorId", actor.getActorId())
