@@ -11,10 +11,7 @@ import org.grupp2.sdpproject.ENUM.Rating;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.TextformatUtil;
-import org.grupp2.sdpproject.entities.Actor;
-import org.grupp2.sdpproject.entities.Category;
-import org.grupp2.sdpproject.entities.Film;
-import org.grupp2.sdpproject.entities.Language;
+import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -193,7 +190,8 @@ public class FilmScene {
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
-            daoManager.delete(film);
+            FilmText filmText = daoManager.findById(FilmText.class, film.getFilmId());
+            daoManager.delete(filmText);
             film = null;
         }
     }
