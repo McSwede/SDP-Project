@@ -82,4 +82,9 @@ public class City {
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    @Override
+    public String toString() {
+        return city;
+    }
 }
