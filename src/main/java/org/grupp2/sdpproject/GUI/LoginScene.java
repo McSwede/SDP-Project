@@ -43,13 +43,13 @@ public class LoginScene {
         String welcomeMessage = "Login successful! Welcome, " + user.getFirstName();
         if (user.getRole() != null && user.getRole()== Role.CUSTOMER) {
             // Customer-specific behavior
-            navigateToDashboard("customer dashboard");
+            navigateToDashboard("customer-dashboard");
             statusLabel.setText(welcomeMessage);
 
         } else if (user.getRole() == Role.STAFF) {
             // Staff-specific behavior
             statusLabel.setText(welcomeMessage);
-            navigateToDashboard("main menu");
+            navigateToDashboard("crud");
         }
     }
 
@@ -78,12 +78,12 @@ public class LoginScene {
         String welcomeMessage = "Login successful! Welcome, " + user.getFirstName();
         if (user.getRole() != null && user.getRole() == Role.CUSTOMER) {
             // Customer-specific behavior
-            navigateToDashboard("customer dashboard", user,welcomeMessage);
+            navigateToDashboard("customer-dashboard", user,welcomeMessage);
             statusLabel.setText(welcomeMessage);
         } else if (user.getRole() == Role.STAFF) {
             // Staff-specific behavior
             statusLabel.setText(welcomeMessage);
-            navigateToDashboard("main menu",user,welcomeMessage);
+            navigateToDashboard("crud",user,welcomeMessage);
         }
     }
 
@@ -94,8 +94,8 @@ public class LoginScene {
             Platform.runLater(() -> {
                 sceneController.switchScene(scene);
 
-                if (scene.equals("customer dashboard")) {
-                    CustomerDashBoardScene dashboardScene = (CustomerDashBoardScene) sceneController.getController("customer dashboard");
+                if (scene.equals("customer-dashboard")) {
+                    CustomerDashBoardScene dashboardScene = (CustomerDashBoardScene) sceneController.getController("customer-dashboard");
                     if (dashboardScene != null) {
                         dashboardScene.setCustomer(user);
                         dashboardScene.updateWelcomeMessage(welcomeMessage);
