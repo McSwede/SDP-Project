@@ -43,13 +43,13 @@ public class Address {
     @Column(name = "location", columnDefinition = "GEOMETRY", nullable = false)
     private Point location;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Customer> customers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Staff> staff = new ArrayList<>();
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<Store> stores = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)

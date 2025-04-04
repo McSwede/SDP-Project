@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.GUI.SceneController;
+import org.grupp2.sdpproject.MockPackage.MockData;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.Actor;
 
@@ -21,6 +22,12 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         launch();
+
+
+        MockData mockData = new MockData();
+
+        mockData.run();
+
 
     }
 }
