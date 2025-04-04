@@ -8,6 +8,7 @@ import javafx.util.Duration;
 import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
+import org.grupp2.sdpproject.Utils.SessionManager;
 import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.User;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
@@ -75,6 +76,7 @@ public class LoginScene {
         }
 
         // Login success
+        SessionManager.login(email);
         String welcomeMessage = "Login successful! Welcome, " + user.getFirstName();
         if (user.getRole() != null && user.getRole() == Role.CUSTOMER) {
             // Customer-specific behavior

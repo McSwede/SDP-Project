@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.ViewCurrentInventory">
+    <children>
+        <Label styleClass="header" text="Store Inventory">
+        </Label>
+
+        <HBox layoutX="14.0" layoutY="400.0" spacing="10.0">
+            <TextField fx:id="searchField" promptText="Search movies..." HBox.hgrow="ALWAYS" />
+            <Button onAction="#handleSearch" text="Search" />
+            <Button onAction="#handleClearSearch" text="Clear" />
+        </HBox>
+
+        <TableView fx:id="inventoryTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="titleColumn" prefWidth="200.0" text="Title" />
+                <TableColumn fx:id="countColumn" prefWidth="100.0" text="Copies" />
+                <TableColumn fx:id="ratingColumn" prefWidth="100.0" text="Rating" />
+                <TableColumn fx:id="releaseYearColumn" prefWidth="80.0" text="Year" />
+                <TableColumn fx:id="rentalRateColumn" prefWidth="100.0" text="Rental Rate" />
+            </columns>
+        </TableView>
+    </children>
+
+</AnchorPane>
