@@ -195,7 +195,7 @@ public class FilmScene {
     }
 
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main menu");
+        sceneController.switchScene("main-menu");
     }
 
     @FXML private void showActors() {

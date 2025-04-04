@@ -115,7 +115,7 @@ public class Login2Scene {
 
     // Switch to the registration scene
     public void switchToRegister() {
-        sceneController.switchScene("register");
+        sceneController.switchScene("registration");
     }
 
     public void setStyleSheet(String styleSheet) {

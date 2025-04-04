@@ -47,22 +47,22 @@ public class CustomerDashBoardScene {
 
     @FXML
     private void handleRentalHistory() {
-        sceneController.switchScene("rental history");
+        sceneController.switchScene("rental-history");
     }
 
     @FXML
     private void handleRentFilm() {
-        sceneController.switchScene("rent film");
+        sceneController.switchScene("rent-film");
     }
 
     @FXML
     private void handleReturnFilm() {
-        sceneController.switchScene("return film");
+        sceneController.switchScene("return-film");
     }
 
     @FXML
     private void handleAccountDetails() {
-        sceneController.switchScene("account details");
+        sceneController.switchScene("account-details");
     }
 
     @FXML
