@@ -6,34 +6,34 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "store")
-public class Store {
+    @Entity
+    @Table(name = "store")
+    public class Store {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id")
-    private byte storeId;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "store_id")
+        private byte storeId;
 
-    @ManyToOne
-    @JoinColumn(name = "manager_staff_id", nullable = false, unique = true)
-    private Staff staff;
+        @ManyToOne
+        @JoinColumn(name = "manager_staff_id", nullable = false, unique = true)
+        private Staff staff;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id", nullable = false)
-    private Address address;
+        @ManyToOne
+        @JoinColumn(name = "address_id", nullable = false)
+        private Address address;
 
-    @OneToMany(mappedBy = "store")
-    private List<Inventory> inventories = new ArrayList<>();
+        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+        private List<Inventory> inventories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "store")
-    private List<Customer> customers = new ArrayList<>();
+        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+        private List<Customer> customers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "store")
-    private List<Staff> staffList = new ArrayList<>();
+        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+        private List<Staff> staffList = new ArrayList<>();
 
-    @Column(name = "last_update", nullable = false)
-    private LocalDateTime lastUpdated;
+        @Column(name = "last_update", nullable = false)
+        private LocalDateTime lastUpdated;
 
     public Store() {
     }

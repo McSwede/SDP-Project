@@ -17,7 +17,7 @@ public class Customer {
     @Column(name = "customer_id")
     private short customerId;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
@@ -33,7 +33,7 @@ public class Customer {
     @Column(name = "email", length = 50)
     private String email;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
@@ -43,10 +43,10 @@ public class Customer {
     @Column(name = "create_date", nullable = false)
     private Date createDate;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Rental> rentals = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<>();
 
     @Column(name = "last_update")

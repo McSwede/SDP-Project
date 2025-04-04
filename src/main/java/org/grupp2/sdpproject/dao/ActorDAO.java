@@ -6,52 +6,43 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+
 public class ActorDAO extends GenericDAO<Actor> {
 
-    private final SessionFactory sessionFactory;
-
     public ActorDAO(SessionFactory sessionFactory) {
-
         super(Actor.class, sessionFactory);
-        this.sessionFactory = sessionFactory;
     }
 
     @Override
     public void delete(Object entity) {
         Transaction tx = null;
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
 
-            Actor actor = (Actor) entity;
+            // Get managed instance in current session
+            Actor actor = session.get(Actor.class, ((Actor)entity).getActorId());
 
-            // Manually delete the actor's links in the linking table (film_actor) using native SQL
-            String sqlDelete = "DELETE FROM film_actor WHERE actor_id = :actorId";
-            session.createNativeQuery(sqlDelete)
-                    .setParameter("actorId", actor.getActorId())
-                    .executeUpdate();  // Execute the delete query to remove links in the linking table
+            if (actor != null) {
+                // 1. Clear all film associations
+                for (Film film : new ArrayList<>(actor.getFilmList())) {
+                    film.getActorList().remove(actor);
+                    session.merge(film); // Update the film
+                }
 
-            // Remove the actor from each film's actor list (this will update the films' actor lists)
-            for (Film film : actor.getFilmList()) {
-                film.getActorList().remove(actor);  // Remove the actor from the film's actor list
-                session.merge(film);  // Update the film entity to reflect the removal
+                // 2. Delete from junction table
+                session.createNativeQuery("DELETE FROM film_actor WHERE actor_id = :actorId")
+                        .setParameter("actorId", actor.getActorId())
+                        .executeUpdate();
+
+                // 3. Now safe to delete the actor
+                session.remove(actor);
             }
 
-            // Now, delete the actor from the actor table
-            session.remove(actor);
-
-            tx.commit();  // Commit the transaction to persist the changes
+            tx.commit();
         } catch (Exception e) {
-            if (tx != null && tx.isActive()) {
-                tx.rollback();  // Rollback the transaction if something goes wrong
-            }
-            throw e;  // Rethrow the exception to handle it further up
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();  // Always close the session to avoid leaks
-            }
+            if (tx != null) tx.rollback();
+            throw e;
         }
     }
-
 }
