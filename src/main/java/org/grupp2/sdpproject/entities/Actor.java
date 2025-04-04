@@ -25,7 +25,7 @@ public class Actor {
     @Column(name = "last_name", length = 45, nullable = false)
     private String lastName;
 
-    @ManyToMany(mappedBy = "actorList", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "actorList")
     private List<Film> filmList = new ArrayList<>();
 
     @UpdateTimestamp

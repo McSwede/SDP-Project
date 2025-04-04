@@ -8,7 +8,7 @@
       <VBox alignment="TOP_CENTER" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
          <children>
             <Button fx:id="filmButton" mnemonicParsing="false" onAction="#enterFilmScene" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Filmer" />
-            <Button fx:id="actorButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Skådespelare" />
+            <Button fx:id="actorButton" mnemonicParsing="false" onAction="#enterActorScene" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Skådespelare" />
             <Button fx:id="customerButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Kunder" />
             <Button fx:id="addressButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Adresser" />
             <Button fx:id="paymentButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Betalningar" />
