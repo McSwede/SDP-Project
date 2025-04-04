@@ -38,7 +38,7 @@ public class Customer {
     private Address address;
 
     @Column(name = "active", nullable = false)
-    private boolean active;
+    private boolean active = true;
 
     @Column(name = "create_date", nullable = false)
     private Date createDate;
