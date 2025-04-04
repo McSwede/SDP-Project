@@ -12,6 +12,7 @@ import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 
@@ -159,6 +160,7 @@ public class ActorCrudScene {
     private void populateData() {
         selectedActor.setFirstName(enterFirstName.getText());
         selectedActor.setLastName(enterLastName.getText());
+        selectedActor.setLastUpdated(LocalDateTime.now());
     }
 
     
