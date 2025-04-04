@@ -9,11 +9,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 public class StaffCrudScene {
 
@@ -35,6 +42,7 @@ public class StaffCrudScene {
     @FXML private Label usernameInfo;
     @FXML private Label passwordInfo;
     @FXML private ImageView staffPicture;
+    @FXML private Button uploadImageButton;
     @FXML private TextField enterFirstName;
     @FXML private TextField enterLastName;
     @FXML private ComboBox<Address> enterAddress;
@@ -48,6 +56,10 @@ public class StaffCrudScene {
     private ObservableList<Staff> allStaff = FXCollections.observableArrayList();
     private Staff staff;
     private final DAOManager daoManager = new DAOManager();
+    private Image defaultImage;
+    private static final int MAX_IMAGE_SIZE = 65535; // 65535 bytes is the max size for a BLOB
+    private static final int INITIAL_TARGET_WIDTH = 200;
+    private static final int INITIAL_TARGET_HEIGHT = 200;
 
     @FXML
     private void enhanceText(MouseEvent event) {
@@ -76,14 +88,14 @@ public class StaffCrudScene {
             Image image = new Image(new ByteArrayInputStream(staff.getPicture()));
             staffPicture.setImage(image);
         } else {
-            staffPicture.setImage(null);
+            staffPicture.setImage(defaultImage);
         }
 
         emailInfo.setText(staff.getEmail() != null ? staff.getEmail() : "");
         storeInfo.setText(staff.getStore().toString());
         activeInfo.setText(staff.isActive() ? "Active" : "Inactive");
         usernameInfo.setText(staff.getUsername());
-        passwordInfo.setText("********"); // Don't show actual password
+        passwordInfo.setText("********"); // Don't show the actual password
     }
 
     @FXML
@@ -92,6 +104,7 @@ public class StaffCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        uploadImageButton.setVisible(true);
         staff = new Staff();
         enterFirstName.setText("");
         enterLastName.setText("");
@@ -101,7 +114,7 @@ public class StaffCrudScene {
         enterActive.setSelected(true);
         enterUsername.setText("");
         enterPassword.setText("");
-        staffPicture.setImage(null);
+        staffPicture.setImage(defaultImage);
         lastUpdate.setText("");
     }
 
@@ -112,6 +125,7 @@ public class StaffCrudScene {
             textFieldVBOX.setVisible(true);
             confirmUpdateButton.setVisible(true);
             confirmNewButton.setVisible(false);
+            uploadImageButton.setVisible(true);
 
             staff = staffList.getSelectionModel().getSelectedItem();
             enterFirstName.setText(staff.getFirstName());
@@ -127,7 +141,7 @@ public class StaffCrudScene {
                 Image image = new Image(new ByteArrayInputStream(staff.getPicture()));
                 staffPicture.setImage(image);
             } else {
-                staffPicture.setImage(null);
+                staffPicture.setImage(defaultImage);
             }
 
             lastUpdate.setText(staff.getLastUpdated().toString());
@@ -165,12 +179,22 @@ public class StaffCrudScene {
     }
 
     public void initialize() {
+        try {
+            InputStream is = getClass().getResourceAsStream("/default_picture.png");
+            if (is != null) {
+                defaultImage = new Image(is);
+            }
+        } catch (Exception e) {
+            System.err.println("Could not load default image: " + e.getMessage());
+        }
+
         populateLists();
 
         // Set up image view properties
-        staffPicture.setFitHeight(100);
-        staffPicture.setFitWidth(100);
+        staffPicture.setFitHeight(150);
+        staffPicture.setFitWidth(150);
         staffPicture.setPreserveRatio(true);
+        uploadImageButton.setVisible(false);
     }
 
     private boolean validateInput() {
@@ -210,8 +234,6 @@ public class StaffCrudScene {
         staff.setActive(enterActive.isSelected());
         staff.setUsername(enterUsername.getText());
         staff.setPassword(enterPassword.getText());
-
-        // We have no way to set picture currently
     }
 
     @FXML
@@ -234,6 +256,108 @@ public class StaffCrudScene {
             warningText.setText("");
             daoManager.update(staff);
         }
+    }
+
+    @FXML
+    private void handleUploadImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Staff Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(root.getScene().getWindow());
+        if (selectedFile != null) {
+            try {
+                // Check file size and notify the user
+                long fileSize = Files.size(selectedFile.toPath());
+                if (fileSize > MAX_IMAGE_SIZE) {
+                    warningText.setText("Image too large! Will attempt to compress...");
+                }
+
+                // Attempt to compress image
+                byte[] imageData = compressImageToSizeLimit(selectedFile);
+                if (imageData == null) {
+                    warningText.setText("Could not compress image under 65KB");
+                    return;
+                }
+
+                // Set picture to the actual staff object
+                if (staff != null) {
+                    staff.setPicture(imageData);
+                }
+
+                // Update the image view
+                staffPicture.setImage(new Image(new ByteArrayInputStream(imageData)));
+                warningText.setText("Image uploaded (" + imageData.length + " bytes)");
+            } catch (Exception e) {
+                warningText.setText("Failed to process image: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private byte[] compressImageToSizeLimit(File imageFile) {
+        try {
+            BufferedImage originalImage = ImageIO.read(imageFile);
+            BufferedImage resizedImage = originalImage;
+
+            // First try simple resize
+            int targetWidth = INITIAL_TARGET_WIDTH;
+            int targetHeight = INITIAL_TARGET_HEIGHT;
+            float quality = 0.8f; // Start with decent quality
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] imageData;
+
+            // Try different quality levels until it fits or give up
+            while (quality > 0.1f) {
+                // Resize if needed
+                if (originalImage.getWidth() > targetWidth || originalImage.getHeight() > targetHeight) {
+                    resizedImage = resizeImage(originalImage, targetWidth, targetHeight);
+                }
+
+                // Try writing with current quality
+                outputStream.reset();
+                ImageIO.write(resizedImage, "jpg", outputStream);
+                imageData = outputStream.toByteArray();
+
+                if (imageData.length <= MAX_IMAGE_SIZE) {
+                    return imageData;
+                }
+
+                // Reduce quality for next attempt
+                quality -= 0.1f;
+                targetWidth = (int)(targetWidth * 0.9);
+                targetHeight = (int)(targetHeight * 0.9);
+            }
+
+            // If we still haven't met the size, try PNG (might be smaller for some images apparently)
+            outputStream.reset();
+            ImageIO.write(resizedImage, "png", outputStream);
+            imageData = outputStream.toByteArray();
+
+            return imageData.length <= MAX_IMAGE_SIZE ? imageData : null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+        int originalWidth = originalImage.getWidth();
+        int originalHeight = originalImage.getHeight();
+        double ratio = Math.min((double) targetWidth / originalWidth,
+                (double) targetHeight / originalHeight);
+        int newWidth = (int) (originalWidth * ratio);
+        int newHeight = (int) (originalHeight * ratio);
+
+        BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+        java.awt.Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, newWidth, newHeight, null);
+        g.dispose();
+        return resizedImage;
     }
 
     public void setStyleSheet(String styleSheet) {

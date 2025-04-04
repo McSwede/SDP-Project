@@ -5,44 +5,42 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.StaffCrudScene">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="700.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.StaffCrudScene">
     <children>
-        <VBox prefHeight="424.0" prefWidth="300.0">
+        <VBox prefHeight="500.0" prefWidth="250.0" spacing="10.0">
             <children>
-                <ListView fx:id="staffList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="200.0" />
-                <HBox prefHeight="31.0" prefWidth="300.0">
+                <ListView fx:id="staffList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="240.0" />
+                <HBox prefHeight="31.0" prefWidth="250.0">
                     <children>
-                        <Label fx:id="lastUpdate" prefHeight="36.0" prefWidth="280.0" />
+                        <Label fx:id="lastUpdate" prefHeight="36.0" prefWidth="230.0" />
                     </children>
                 </HBox>
-                <HBox prefHeight="149.0" prefWidth="300.0">
+                <HBox prefHeight="149.0" prefWidth="250.0" spacing="10.0">
                     <children>
-                        <VBox prefWidth="150.0" spacing="10.0">
+                        <VBox prefWidth="120.0" spacing="10.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Add New" />
                                 <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Update" />
                                 <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Remove" />
                             </children>
-                            <HBox.margin>
-                                <Insets top="10.0" />
-                            </HBox.margin></VBox>
-                        <VBox prefWidth="150.0" spacing="10.0">
+                        </VBox>
+                        <VBox prefWidth="120.0" spacing="10.0">
                             <children>
                                 <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addStaff" styleClass="bigbutton" text="Add" visible="false" />
                                 <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateStaff" styleClass="bigbutton" text="Update" visible="false" />
                                 <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Main Menu" />
                             </children>
-                            <padding>
-                                <Insets left="30.0" top="10.0" />
-                            </padding></VBox>
-                    </children></HBox>
-                <Label fx:id="warningText" prefWidth="300.0" />
+                        </VBox>
+                    </children>
+                </HBox>
+                <Label fx:id="warningText" prefWidth="250.0" />
             </children>
             <padding>
                 <Insets left="10.0" right="10.0" top="10.0" />
             </padding>
         </VBox>
-        <VBox alignment="TOP_RIGHT" layoutX="300.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+
+        <VBox alignment="TOP_RIGHT" layoutX="260.0" prefHeight="500.0" prefWidth="150.0" spacing="5.0">
             <children>
                 <Label prefHeight="26.0" styleClass="smalllabel" text="First Name:" />
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Last Name:" />
@@ -52,40 +50,43 @@
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Active:" />
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Username:" />
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Password:" />
-                <ImageView fx:id="staffPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
             </children>
             <padding>
-                <Insets top="5.0" />
+                <Insets top="5.0" right="5.0" />
             </padding>
         </VBox>
-        <VBox fx:id="labelVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+
+        <VBox fx:id="labelVBOX" layoutX="410.0" prefHeight="500.0" prefWidth="280.0" spacing="5.0">
             <children>
-                <Label fx:id="firstNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="lastNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="addressInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="emailInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="storeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="activeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="usernameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="passwordInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="firstNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="lastNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="addressInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="emailInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="storeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="activeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="usernameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="passwordInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <ImageView fx:id="staffPicture" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
             </children>
             <padding>
-                <Insets right="5.0" top="5.0" />
+                <Insets top="5.0" right="5.0" />
             </padding>
         </VBox>
-        <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
+
+        <VBox fx:id="textFieldVBOX" layoutX="410.0" prefHeight="500.0" prefWidth="280.0" spacing="5.0" visible="false">
             <children>
-                <TextField fx:id="enterFirstName" />
-                <TextField fx:id="enterLastName" />
-                <ComboBox fx:id="enterAddress" prefWidth="150.0" />
-                <TextField fx:id="enterEmail" />
-                <ComboBox fx:id="enterStore" prefWidth="150.0" />
-                <CheckBox fx:id="enterActive" mnemonicParsing="false" text="Active" selected="true" />
-                <TextField fx:id="enterUsername" />
-                <TextField fx:id="enterPassword" />
+                <TextField fx:id="enterFirstName" prefWidth="270.0" />
+                <TextField fx:id="enterLastName" prefWidth="270.0" />
+                <ComboBox fx:id="enterAddress" prefWidth="270.0" />
+                <TextField fx:id="enterEmail" prefWidth="270.0" />
+                <ComboBox fx:id="enterStore" prefWidth="270.0" />
+                <CheckBox fx:id="enterActive" mnemonicParsing="false" selected="true" text="Active" />
+                <TextField fx:id="enterUsername" prefWidth="270.0" />
+                <TextField fx:id="enterPassword" prefWidth="270.0" />
+                <Button fx:id="uploadImageButton" mnemonicParsing="false" onAction="#handleUploadImage" text="Upload Image" />
             </children>
             <padding>
-                <Insets right="5.0" top="5.0" />
+                <Insets top="5.0" right="5.0" />
             </padding>
         </VBox>
     </children>
