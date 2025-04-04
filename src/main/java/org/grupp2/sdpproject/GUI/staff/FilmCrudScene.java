@@ -1,4 +1,4 @@
-package org.grupp2.sdpproject.GUI;
+package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,19 +8,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.ENUM.Rating;
+import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.TextformatUtil;
-import org.grupp2.sdpproject.entities.Actor;
-import org.grupp2.sdpproject.entities.Category;
-import org.grupp2.sdpproject.entities.Film;
-import org.grupp2.sdpproject.entities.Language;
+import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FilmScene {
+public class FilmCrudScene {
 
     SceneController sceneController = SceneController.getInstance();
 
@@ -187,15 +185,19 @@ public class FilmScene {
     }
 
     @FXML private void removeSelected() {
-        allFilms.remove(filmList.getSelectionModel().getSelectedItem());
-        textFieldVBOX.setVisible(false);
-        labelVBOX.setVisible(false);
-        lastUpdate.setText("");
-        daoManager.delete(film);
+        if (film != null) {
+            allFilms.remove(filmList.getSelectionModel().getSelectedItem());
+            textFieldVBOX.setVisible(false);
+            labelVBOX.setVisible(false);
+            lastUpdate.setText("");
+            FilmText filmText = daoManager.findById(FilmText.class, film.getFilmId());
+            daoManager.delete(filmText);
+            film = null;
+        }
     }
 
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main-menu");
+        sceneController.switchScene("crud");
     }
 
     @FXML private void showActors() {
@@ -293,6 +295,9 @@ public class FilmScene {
             allFilms.add(film);
             System.out.println("Film added");
             daoManager.save(film);
+            film = null;
+            filmList.getSelectionModel().clearSelection();
+            confirmNewButton.setVisible(false);
         }
     }
 

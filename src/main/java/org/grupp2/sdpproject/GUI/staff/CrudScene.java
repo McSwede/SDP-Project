@@ -1,13 +1,12 @@
-package org.grupp2.sdpproject.GUI;
+package org.grupp2.sdpproject.GUI.staff;
 
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import org.grupp2.sdpproject.Main;
+import org.grupp2.sdpproject.GUI.SceneController;
 
-public class MainMenuScene {
+public class CrudScene {
 
     @FXML private AnchorPane root;
     SceneController sceneController = SceneController.getInstance();
@@ -34,7 +33,11 @@ public class MainMenuScene {
     }
 
     @FXML private void enterFilmScene() {
-        sceneController.switchScene("film");
+        sceneController.switchScene("film-crud");
+    }
+
+    @FXML private void enterActorScene() {
+        sceneController.switchScene("actor-crud");
     }
 
     @FXML private void toggleTheme() {

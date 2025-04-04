@@ -38,7 +38,7 @@ public class HomeScene {
     }
 
     public void handleLogin() {
-        sceneController.switchScene("login2");
+        sceneController.switchScene("login");
     }
 
     public void handleRegister() {
