@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="700.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.StaffCrudScene">
+    <children>
+        <VBox prefHeight="500.0" prefWidth="250.0" spacing="10.0">
+            <children>
+                <ListView fx:id="staffList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="240.0" />
+                <HBox prefHeight="31.0" prefWidth="250.0">
+                    <children>
+                        <Label fx:id="lastUpdate" prefHeight="36.0" prefWidth="230.0" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="149.0" prefWidth="250.0" spacing="10.0">
+                    <children>
+                        <VBox prefWidth="120.0" spacing="10.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Lägg till ny" />
+                                <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Uppdatera" />
+                                <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Ta bort" />
+                            </children>
+                        </VBox>
+                        <VBox prefWidth="120.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addStaff" styleClass="bigbutton" text="Lägg till" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateStaff" styleClass="bigbutton" text="Uppdatera" visible="false" />
+                                <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Label fx:id="warningText" prefWidth="250.0" />
+            </children>
+            <padding>
+                <Insets left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+
+        <VBox alignment="TOP_RIGHT" layoutX="260.0" prefHeight="500.0" prefWidth="150.0" spacing="5.0">
+            <children>
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Förnamn:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Efternamn:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Adress:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Mejl:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Butik:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Aktiv:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Användarnamn:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Lösenord:" />
+            </children>
+            <padding>
+                <Insets top="5.0" right="5.0" />
+            </padding>
+        </VBox>
+
+        <VBox fx:id="labelVBOX" layoutX="410.0" prefHeight="500.0" prefWidth="280.0" spacing="5.0">
+            <children>
+                <Label fx:id="firstNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="lastNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="addressInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="emailInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="storeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="activeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="usernameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="passwordInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <ImageView fx:id="staffPicture" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+            <padding>
+                <Insets top="5.0" right="5.0" />
+            </padding>
+        </VBox>
+
+        <VBox fx:id="textFieldVBOX" layoutX="410.0" prefHeight="500.0" prefWidth="280.0" spacing="5.0" visible="false">
+            <children>
+                <TextField fx:id="enterFirstName" prefWidth="270.0" />
+                <TextField fx:id="enterLastName" prefWidth="270.0" />
+                <ComboBox fx:id="enterAddress" prefWidth="270.0" />
+                <TextField fx:id="enterEmail" prefWidth="270.0" />
+                <ComboBox fx:id="enterStore" prefWidth="270.0" />
+                <CheckBox fx:id="enterActive" mnemonicParsing="false" selected="true" text="Aktiv" />
+                <TextField fx:id="enterUsername" prefWidth="270.0" />
+                <TextField fx:id="enterPassword" prefWidth="270.0" />
+                <Button fx:id="uploadImageButton" mnemonicParsing="false" onAction="#handleUploadImage" text="Lägg till bild" />
+            </children>
+            <padding>
+                <Insets top="5.0" right="5.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

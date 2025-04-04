@@ -38,7 +38,7 @@ public class Staff {
     private Store store;
 
     @Column(nullable = false)
-    private boolean active; //ska vara true by default så kanske måste göra något här
+    private boolean active = true;
 
     @Size(max = 16)
     @Column(nullable = false, length = 16)
@@ -183,5 +183,10 @@ public class Staff {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

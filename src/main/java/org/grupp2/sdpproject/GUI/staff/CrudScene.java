@@ -39,6 +39,12 @@ public class CrudScene {
     @FXML private void enterActorScene() {
         sceneController.switchScene("actor-crud");
     }
+    @FXML private void enterAddressScene() {
+        sceneController.switchScene("address-crud");
+    }
+    @FXML private void enterStaffScene() {
+        sceneController.switchScene("staff-crud");
+    }
 
     @FXML private void toggleTheme() {
         sceneController.toggleDarkMode(this, colorsheme);

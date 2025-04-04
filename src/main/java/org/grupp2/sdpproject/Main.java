@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.MockPackage.MockData;
 import org.grupp2.sdpproject.Utils.DAOManager;
-import org.grupp2.sdpproject.entities.Actor;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
