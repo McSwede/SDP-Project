@@ -32,15 +32,15 @@ public class MockData {
 
         Staff staff = daoManager.findById(Staff.class, 1);
 
-        Film film = daoManager.findById(Film.class, 1);
+        Film film = daoManager.findById(Film.class, 58);
 
         Actor actor = daoManager.findById(Actor.class, 2);
 
-        daoManager.update(actor);
-        daoManager.delete(actor);
+        //daoManager.update(actor);
+        //daoManager.delete(actor);
 
-        //daoManager.update(film);
-        //daoManager.delete(film);
+        daoManager.update(film);
+        daoManager.delete(film);
 
         //address.setAddress("");
 
