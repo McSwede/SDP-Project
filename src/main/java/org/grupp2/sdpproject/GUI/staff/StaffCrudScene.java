@@ -93,7 +93,7 @@ public class StaffCrudScene {
 
         emailInfo.setText(staff.getEmail() != null ? staff.getEmail() : "");
         storeInfo.setText(staff.getStore().toString());
-        activeInfo.setText(staff.isActive() ? "Active" : "Inactive");
+        activeInfo.setText(staff.isActive() ? "Aktiv" : "Inaktiv");
         usernameInfo.setText(staff.getUsername());
         passwordInfo.setText("********"); // Don't show the actual password
     }
@@ -199,27 +199,43 @@ public class StaffCrudScene {
 
     private boolean validateInput() {
         if (enterFirstName.getText().isEmpty()) {
-            warningText.setText("Fill in first name!");
+            warningText.setText("Ange förnamn!");
+            return false;
+        }
+        if (enterFirstName.getText().length() > 45) {
+            warningText.setText("Förnamn får max vara 45 tecken!");
             return false;
         }
         if (enterLastName.getText().isEmpty()) {
-            warningText.setText("Fill in last name!");
+            warningText.setText("Ange efternamn!");
+            return false;
+        }
+        if (enterLastName.getText().length() > 45) {
+            warningText.setText("Efternamn får max vara 45 tecken!");
             return false;
         }
         if (enterAddress.getSelectionModel().getSelectedItem() == null) {
-            warningText.setText("Select an address!");
+            warningText.setText("Välj en adress!");
             return false;
         }
         if (enterStore.getSelectionModel().getSelectedItem() == null) {
-            warningText.setText("Select a store!");
+            warningText.setText("Välj en butik!");
             return false;
         }
         if (enterUsername.getText().isEmpty()) {
-            warningText.setText("Fill in username!");
+            warningText.setText("Ange användarnamn!");
+            return false;
+        }
+        if (enterUsername.getText().length() > 16) {
+            warningText.setText("Användarnamn får max vara 16 tecken!");
             return false;
         }
         if (enterPassword.getText().isEmpty()) {
-            warningText.setText("Fill in password!");
+            warningText.setText("Ange lösenord!");
+            return false;
+        }
+        if (enterPassword.getText().length() > 40) {
+            warningText.setText("Lösenord får max vara 40 tecken!");
             return false;
         }
         return true;
@@ -261,7 +277,7 @@ public class StaffCrudScene {
     @FXML
     private void handleUploadImage() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Staff Picture");
+        fileChooser.setTitle("Välj en profilbild");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
@@ -272,13 +288,13 @@ public class StaffCrudScene {
                 // Check file size and notify the user
                 long fileSize = Files.size(selectedFile.toPath());
                 if (fileSize > MAX_IMAGE_SIZE) {
-                    warningText.setText("Image too large! Will attempt to compress...");
+                    warningText.setText("Fil för stor! Försöker komprimera...");
                 }
 
                 // Attempt to compress image
                 byte[] imageData = compressImageToSizeLimit(selectedFile);
                 if (imageData == null) {
-                    warningText.setText("Could not compress image under 65KB");
+                    warningText.setText("Kunde inte komprimera bild under 65KB");
                     return;
                 }
 
@@ -289,9 +305,9 @@ public class StaffCrudScene {
 
                 // Update the image view
                 staffPicture.setImage(new Image(new ByteArrayInputStream(imageData)));
-                warningText.setText("Image uploaded (" + imageData.length + " bytes)");
+                warningText.setText("Bild uppladdad (" + imageData.length + " bytes)");
             } catch (Exception e) {
-                warningText.setText("Failed to process image: " + e.getMessage());
+                warningText.setText("Kunde inte processa bild: " + e.getMessage());
                 e.printStackTrace();
             }
         }

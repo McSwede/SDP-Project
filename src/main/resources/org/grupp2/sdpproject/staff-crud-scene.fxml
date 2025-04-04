@@ -19,16 +19,16 @@
                     <children>
                         <VBox prefWidth="120.0" spacing="10.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Add New" />
-                                <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Update" />
-                                <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Remove" />
+                                <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Lägg till ny" />
+                                <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Uppdatera" />
+                                <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Ta bort" />
                             </children>
                         </VBox>
                         <VBox prefWidth="120.0" spacing="10.0">
                             <children>
-                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addStaff" styleClass="bigbutton" text="Add" visible="false" />
-                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateStaff" styleClass="bigbutton" text="Update" visible="false" />
-                                <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Main Menu" />
+                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addStaff" styleClass="bigbutton" text="Lägg till" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateStaff" styleClass="bigbutton" text="Uppdatera" visible="false" />
+                                <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
                             </children>
                         </VBox>
                     </children>
@@ -42,14 +42,14 @@
 
         <VBox alignment="TOP_RIGHT" layoutX="260.0" prefHeight="500.0" prefWidth="150.0" spacing="5.0">
             <children>
-                <Label prefHeight="26.0" styleClass="smalllabel" text="First Name:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Last Name:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Address:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Email:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Store:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Active:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Username:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Password:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Förnamn:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Efternamn:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Adress:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Mejl:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Butik:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Aktiv:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Användarnamn:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Lösenord:" />
             </children>
             <padding>
                 <Insets top="5.0" right="5.0" />
@@ -80,10 +80,10 @@
                 <ComboBox fx:id="enterAddress" prefWidth="270.0" />
                 <TextField fx:id="enterEmail" prefWidth="270.0" />
                 <ComboBox fx:id="enterStore" prefWidth="270.0" />
-                <CheckBox fx:id="enterActive" mnemonicParsing="false" selected="true" text="Active" />
+                <CheckBox fx:id="enterActive" mnemonicParsing="false" selected="true" text="Aktiv" />
                 <TextField fx:id="enterUsername" prefWidth="270.0" />
                 <TextField fx:id="enterPassword" prefWidth="270.0" />
-                <Button fx:id="uploadImageButton" mnemonicParsing="false" onAction="#handleUploadImage" text="Upload Image" />
+                <Button fx:id="uploadImageButton" mnemonicParsing="false" onAction="#handleUploadImage" text="Lägg till bild" />
             </children>
             <padding>
                 <Insets top="5.0" right="5.0" />
