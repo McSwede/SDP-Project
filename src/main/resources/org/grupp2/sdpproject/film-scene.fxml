@@ -81,20 +81,20 @@
             <Insets right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
+      <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
          <children>
             <TextField fx:id="enterTitle" />
             <TextField fx:id="enterDescription" />
             <TextField fx:id="enterReleaseYear" />
             <ComboBox fx:id="enterLanguage" prefWidth="150.0" />
             <ComboBox fx:id="enterOGLanguage" prefWidth="150.0" />
-            <TextField fx:id="enterRentalDuration" />
+            <TextField fx:id="enterRentalDuration" promptText="Dygn" />
             <TextField fx:id="enterRentalRate" />
-            <TextField fx:id="enterLength" />
+            <TextField fx:id="enterLength" promptText="Minuter" />
             <TextField fx:id="enterReplacementCost" />
             <ComboBox fx:id="enterRating" prefWidth="150.0" />
-            <Button mnemonicParsing="false" onAction="#showSpecialFeatures" prefHeight="26.0" prefWidth="145.0" text="Visa/lägg till" />
-            <Button layoutX="10.0" layoutY="325.0" mnemonicParsing="false" onAction="#showActors" prefHeight="26.0" prefWidth="145.0" text="Visa/lägg till" />
+            <Button mnemonicParsing="false" onAction="#showSpecialFeatures" prefHeight="26.0" prefWidth="145.0" text="Visa/Ändra" />
+            <Button layoutX="10.0" layoutY="325.0" mnemonicParsing="false" onAction="#showActors" prefHeight="26.0" prefWidth="145.0" text="Visa/Ändra" />
             <ComboBox fx:id="enterCategory" prefWidth="150.0" />
          </children>
          <padding>

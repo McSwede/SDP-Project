@@ -70,4 +70,9 @@ public class Category {
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
