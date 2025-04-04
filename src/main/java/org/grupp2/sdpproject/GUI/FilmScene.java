@@ -187,11 +187,14 @@ public class FilmScene {
     }
 
     @FXML private void removeSelected() {
-        allFilms.remove(filmList.getSelectionModel().getSelectedItem());
-        textFieldVBOX.setVisible(false);
-        labelVBOX.setVisible(false);
-        lastUpdate.setText("");
-        daoManager.delete(film);
+        if (film != null) {
+            allFilms.remove(filmList.getSelectionModel().getSelectedItem());
+            textFieldVBOX.setVisible(false);
+            labelVBOX.setVisible(false);
+            lastUpdate.setText("");
+            daoManager.delete(film);
+            film = null;
+        }
     }
 
     @FXML private void enterMainMenu() {
@@ -293,6 +296,9 @@ public class FilmScene {
             allFilms.add(film);
             System.out.println("Film added");
             daoManager.save(film);
+            film = null;
+            filmList.getSelectionModel().clearSelection();
+            confirmNewButton.setVisible(false);
         }
     }
 

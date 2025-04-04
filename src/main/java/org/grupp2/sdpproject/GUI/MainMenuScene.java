@@ -37,6 +37,10 @@ public class MainMenuScene {
         sceneController.switchScene("film");
     }
 
+    @FXML private void enterActorScene() {
+        sceneController.switchScene("actor-crud");
+    }
+
     @FXML private void toggleTheme() {
         sceneController.toggleDarkMode(this, colorsheme);
     }
