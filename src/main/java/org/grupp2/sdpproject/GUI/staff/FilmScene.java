@@ -1,4 +1,4 @@
-package org.grupp2.sdpproject.GUI;
+package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.ENUM.Rating;
+import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.TextformatUtil;
 import org.grupp2.sdpproject.entities.Actor;
@@ -195,7 +196,7 @@ public class FilmScene {
     }
 
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main-menu");
+        sceneController.switchScene("crud");
     }
 
     @FXML private void showActors() {

@@ -5,6 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.grupp2.sdpproject.GUI.staff.AddSpecialFeatures;
+import org.grupp2.sdpproject.GUI.staff.CrudScene;
+import org.grupp2.sdpproject.GUI.staff.PairFilmActor;
 import org.grupp2.sdpproject.Main;
 import org.grupp2.sdpproject.Utils.ConfigManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
@@ -162,7 +165,7 @@ public class SceneController {
         return configManager;
     }
     
-    public void toggleDarkMode(MainMenuScene controller, Button button) {
+    public void toggleDarkMode(CrudScene controller, Button button) {
 
         if (darkMode) {
             darkMode = false;

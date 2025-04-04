@@ -3,19 +3,13 @@ package org.grupp2.sdpproject.GUI;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.dao.UserDAO;
-import org.grupp2.sdpproject.entities.Address;
-import org.grupp2.sdpproject.entities.Customer;
-import org.grupp2.sdpproject.entities.Staff;
 import org.grupp2.sdpproject.entities.User;
 import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
-
-import java.time.LocalDate;
 
 public class RegistrationScene {
 

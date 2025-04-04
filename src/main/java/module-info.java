@@ -29,5 +29,9 @@ module org.grupp2.sdpproject {
     exports org.grupp2.sdpproject.entities;
     exports org.grupp2.sdpproject.ENUM;
     opens org.grupp2.sdpproject.GUI to javafx.fxml;
+    exports org.grupp2.sdpproject.GUI.staff;
+    opens org.grupp2.sdpproject.GUI.staff to javafx.fxml;
+    exports org.grupp2.sdpproject.GUI.customer;
+    opens org.grupp2.sdpproject.GUI.customer to javafx.fxml;
 
 }

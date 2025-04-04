@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.ENUM.Role;
+import org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.User;
