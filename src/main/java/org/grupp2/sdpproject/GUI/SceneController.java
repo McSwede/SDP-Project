@@ -60,7 +60,7 @@ public class SceneController {
             }
         }
         if (shouldShowLogin) {
-            switchScene("login");
+            switchScene("database-login");
         }
     }
 

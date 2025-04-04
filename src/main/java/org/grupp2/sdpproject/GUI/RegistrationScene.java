@@ -70,7 +70,7 @@ public class RegistrationScene {
 
 
     public void switchToLogin() {
-        sceneController.switchScene("login2");
+        sceneController.switchScene("login");
     }
 
     public void setStyleSheet(String styleSheet) {

@@ -68,7 +68,7 @@ public class CustomerDashBoardScene {
     @FXML
     private void handleLogout() {
         this.loggedInCustomer = null;
-        sceneController.switchScene("login2");
+        sceneController.switchScene("login");
     }
 
     public void setStyleSheet(String styleSheet) {
