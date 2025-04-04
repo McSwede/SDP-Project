@@ -20,23 +20,10 @@ public class SceneController {
     private static SceneController instance;
 
     private Stage primaryStage;
-    private final Map<String, FXMLLoader> sceneLoaders = new HashMap<>();
     private final Map<String, Object> controllers = new HashMap<>(); // Cache for controllers
     private boolean darkMode = false;
 
-    private SceneController() {
-        // Initialize all scene loaders
-        sceneLoaders.put("login", new FXMLLoader(Main.class.getResource("login-scene.fxml")));
-        sceneLoaders.put("main menu", new FXMLLoader(Main.class.getResource("main-menu-scene.fxml")));
-        sceneLoaders.put("home", new FXMLLoader(Main.class.getResource("home-scene.fxml")));
-        sceneLoaders.put("login2", new FXMLLoader(Main.class.getResource("login2-scene.fxml")));
-        sceneLoaders.put("registration", new FXMLLoader(Main.class.getResource("registration-scene.fxml")));
-        sceneLoaders.put("customer dashboard", new FXMLLoader(Main.class.getResource("customer-dashboard-scene.fxml")));
-        sceneLoaders.put("films", new FXMLLoader(Main.class.getResource("films-scene.fxml")));
-        sceneLoaders.put("film", new FXMLLoader(Main.class.getResource("film-scene.fxml")));
-        sceneLoaders.put("pair film_actor", new FXMLLoader(Main.class.getResource("Pair-film_actor.fxml")));
-        sceneLoaders.put("add special features", new FXMLLoader(Main.class.getResource("add-special-features-scene.fxml")));
-    }
+    private SceneController() {}
 
     public static SceneController getInstance() {
         if (instance == null) {
@@ -64,7 +51,7 @@ public class SceneController {
                 );
 
                 if (success) {
-                    switchScene("login2");
+                    switchScene("main-menu");
                     shouldShowLogin = false;
                 }
 
@@ -79,13 +66,9 @@ public class SceneController {
 
 
   public void switchScene(String sceneName) {
-        FXMLLoader loader = sceneLoaders.get(sceneName);
-        if (loader == null) {
-            throw new IllegalArgumentException("Unknown scene: " + sceneName);
-        }
+      FXMLLoader loader = new FXMLLoader(Main.class.getResource(sceneName + "-scene.fxml"));
 
         try {
-            // Load the scene from the cached loader
             Scene scene = new Scene(loader.load(), 600, 424);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -122,10 +105,10 @@ public class SceneController {
 
     public void openPairActorFilm(Object object) {
         try {
-            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("film_actorPopup")); // I don't know what this does but it expects a string so I mde the value into a string
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("Pair-film_actor.fxml"));
             Scene scene = new Scene(xmlScene.load(), 300, 300);
 
-            PairFilmActor controller = (PairFilmActor) xmlScene.getController();
+            PairFilmActor controller = xmlScene.getController();
             if (darkMode) {
                 controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
             }

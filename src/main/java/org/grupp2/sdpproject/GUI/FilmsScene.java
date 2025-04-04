@@ -47,7 +47,7 @@ public class FilmsScene {
     @FXML
     private void handleBack() {
         SceneController sceneController = SceneController.getInstance();
-        sceneController.switchScene("customer dashboard");
+        sceneController.switchScene("customer-dashboard");
     }
 
     public void setStyleSheet(String styleSheet) {
