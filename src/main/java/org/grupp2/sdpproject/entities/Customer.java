@@ -18,7 +18,7 @@ public class Customer {
     private short customerId;
 
     @ManyToOne()
-    @JoinColumn(name = "store_id", nullable = false)
+    @JoinColumn(name = "store_id", nullable=false)
     private Store store;
 
     @Size(max = 45)
@@ -156,5 +156,22 @@ public class Customer {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", store=" + store +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                ", active=" + active +
+                ", createDate=" + createDate +
+                ", rentals=" + rentals +
+                ", payments=" + payments +
+                ", lastUpdated=" + lastUpdated +
+                '}';
     }
 }
