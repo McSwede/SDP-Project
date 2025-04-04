@@ -185,6 +185,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return  address;
+        return address;
     }
 }
