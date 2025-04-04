@@ -18,16 +18,16 @@
                     <children>
                         <VBox prefWidth="120.0" spacing="10.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Add New" />
-                                <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Update" />
-                                <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Remove" />
+                                <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Lägg till ny" />
+                                <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Uppdatera" />
+                                <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Ta bort" />
                             </children>
                         </VBox>
                         <VBox prefWidth="120.0" spacing="10.0">
                             <children>
-                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addAddress" styleClass="bigbutton" text="Add" visible="false" />
-                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateAddress" styleClass="bigbutton" text="Update" visible="false" />
-                                <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Main Menu" />
+                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addAddress" styleClass="bigbutton" text="Lägg till" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateAddress" styleClass="bigbutton" text="Uppdatera" visible="false" />
+                                <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
                             </children>
                         </VBox>
                     </children>
@@ -41,13 +41,13 @@
 
         <VBox alignment="TOP_RIGHT" layoutX="260.0" prefHeight="500.0" prefWidth="150.0" spacing="5.0">
             <children>
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Address:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Address 2:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="District:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="City:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Postal Code:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Phone:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Location:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Adress:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Adress 2:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Postort:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Stad:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Postnummer:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="telefonnummer:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Plats:" />
             </children>
             <padding>
                 <Insets top="5.0" right="5.0" />
@@ -79,8 +79,8 @@
                 <TextField fx:id="enterPhone" prefWidth="270.0" />
                 <HBox spacing="5.0">
                     <children>
-                        <TextField fx:id="enterLatitude" prefWidth="130.0" promptText="Latitude" />
-                        <TextField fx:id="enterLongitude" prefWidth="130.0" promptText="Longitude" />
+                        <TextField fx:id="enterLatitude" prefWidth="130.0" promptText="Latitud" />
+                        <TextField fx:id="enterLongitude" prefWidth="130.0" promptText="Longitud" />
                     </children>
                 </HBox>
             </children>
