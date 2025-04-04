@@ -48,14 +48,11 @@ public class Staff {
     @Column(nullable = false, length = 40) // binary?
     private String password;
 
-    @OneToMany(mappedBy = "staff")
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     private List<Rental> rentals = new ArrayList<>();
 
-    @OneToMany(mappedBy = "staff")
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "staff")
-    private List<Store> stores = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
@@ -71,7 +68,7 @@ public class Staff {
 
     public Staff(String firstName, String lastName, Address address, byte[] picture,
                  String email, Store store, boolean active, String username, String password, List<Rental> rentals,
-                 List<Payment> payments, List<Store> stores) {
+                 List<Payment> payments) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -83,7 +80,6 @@ public class Staff {
         this.password = password;
         this.rentals = rentals;
         this.payments = payments;
-        this.stores = stores;
     }
 
 
@@ -179,14 +175,6 @@ public class Staff {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
-    }
-
-    public List<Store> getStores() {
-        return stores;
-    }
-
-    public void setStores(List<Store> stores) {
-        this.stores = stores;
     }
 
     public LocalDateTime getLastUpdated() {

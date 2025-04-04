@@ -190,8 +190,7 @@ public class FilmCrudScene {
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
-            FilmText filmText = daoManager.findById(FilmText.class, film.getFilmId());
-            daoManager.delete(filmText);
+            daoManager.delete(film);
             film = null;
         }
     }

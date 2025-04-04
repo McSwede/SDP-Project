@@ -28,12 +28,22 @@ public class User {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    // For Customer reference (customer_id is SMALLINT)
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @JoinColumn(
+            name = "customer_id",
+            referencedColumnName = "customer_id",
+            columnDefinition = "SMALLINT"  // Matches Customer's short type
+    )
     private Customer customer;
 
+    // For Staff reference (staff_id is TINYINT)
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "staff_id", referencedColumnName = "staff_id")
+    @JoinColumn(
+            name = "staff_id",
+            referencedColumnName = "staff_id",
+            columnDefinition = "TINYINT"  // Matches Staff's byte type
+    )
     private Staff staff;
 
     // Default constructor

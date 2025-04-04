@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.GUI.SceneController;
+import org.grupp2.sdpproject.MockPackage.MockData;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.entities.Actor;
@@ -27,6 +28,12 @@ public class Main extends Application {
 //        DAOManager daoManager = new DAOManager();
 //        Address address = daoManager.findById(Address.class, 1);
 //        daoManager.delete(address);
+
+
+        MockData mockData = new MockData();
+
+        mockData.run();
+
 
     }
 }
