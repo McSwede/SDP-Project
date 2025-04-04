@@ -196,4 +196,9 @@ public class Staff {
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }

@@ -13,7 +13,7 @@
             <Button fx:id="addressButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Adresser" />
             <Button fx:id="paymentButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Betalningar" />
             <Button fx:id="rentalButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Uthyrningar" />
-            <Button fx:id="employeeButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Anställda" />
+            <Button fx:id="employeeButton" mnemonicParsing="false" onAction="#enterStaffScene" prefWidth="111.0" styleClass="bigbutton" text="Anställda" />
             <Button fx:id="storeButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Butiker" />
             <Button fx:id="inventoryButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Lager" />
          </children>
