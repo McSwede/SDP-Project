@@ -33,7 +33,7 @@ public class CrudScene {
     }
 
     @FXML private void enterFilmScene() {
-        sceneController.switchScene("film");
+        sceneController.switchScene("film-crud");
     }
 
     @FXML private void enterActorScene() {
