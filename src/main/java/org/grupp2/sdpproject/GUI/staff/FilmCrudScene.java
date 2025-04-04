@@ -14,6 +14,7 @@ import org.grupp2.sdpproject.Utils.TextformatUtil;
 import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -285,6 +286,7 @@ public class FilmCrudScene {
         List<Category> categories = new ArrayList<>();
         categories.add(enterCategory.getValue());
         film.setCategoryList(categories);
+        film.setLastUpdated(LocalDateTime.now());
     }
 
     @FXML private void addFilm() {
