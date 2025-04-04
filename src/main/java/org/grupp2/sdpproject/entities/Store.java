@@ -108,4 +108,9 @@ import java.util.List;
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(storeId);
+    }
 }

@@ -182,4 +182,9 @@ public class Address {
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    @Override
+    public String toString() {
+        return  address;
+    }
 }
