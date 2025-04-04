@@ -1,4 +1,4 @@
-package org.grupp2.sdpproject.GUI;
+package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

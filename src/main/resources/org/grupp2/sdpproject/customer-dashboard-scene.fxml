@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.grupp2.sdpproject.GUI.CustomerDashBoardScene" fx:id="root"
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene" fx:id="root"
       spacing="20" alignment="center" >
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>

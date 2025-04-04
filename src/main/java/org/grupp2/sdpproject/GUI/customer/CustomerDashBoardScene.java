@@ -1,10 +1,10 @@
-package org.grupp2.sdpproject.GUI;
+package org.grupp2.sdpproject.GUI.customer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.entities.User;
 
 public class CustomerDashBoardScene {
@@ -68,7 +68,7 @@ public class CustomerDashBoardScene {
     @FXML
     private void handleLogout() {
         this.loggedInCustomer = null;
-        sceneController.switchScene("login2");
+        sceneController.switchScene("login");
     }
 
     public void setStyleSheet(String styleSheet) {

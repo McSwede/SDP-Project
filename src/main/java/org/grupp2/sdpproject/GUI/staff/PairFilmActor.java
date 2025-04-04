@@ -1,4 +1,4 @@
-package org.grupp2.sdpproject.GUI;
+package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,10 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.Actor;
 import org.grupp2.sdpproject.entities.Film;
-import org.w3c.dom.css.CSSStyleSheet;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PairFilmActor {
 
