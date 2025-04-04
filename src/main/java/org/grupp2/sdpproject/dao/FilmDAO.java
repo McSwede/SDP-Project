@@ -7,11 +7,9 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 public class FilmDAO extends GenericDAO<Film> {
-    private final SessionFactory sessionFactory;
 
     public FilmDAO(SessionFactory sessionFactory) {
         super(Film.class, sessionFactory);
-        this.sessionFactory = sessionFactory;
     }
 
     // Example of overridden method
