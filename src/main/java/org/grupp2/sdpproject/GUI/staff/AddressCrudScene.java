@@ -160,19 +160,39 @@ public class AddressCrudScene {
 
     private boolean validateInput() {
         if (enterAddress.getText().isEmpty()) {
-            warningText.setText("Fill in address!");
+            warningText.setText("Ange adress!");
+            return false;
+        }
+        if (enterAddress.getText().length() > 50) {
+            warningText.setText("Adress får max vara 50 tecken!");
+            return false;
+        }
+        if (enterAddress2.getText().length() > 50) {
+            warningText.setText("Adress 2 får max vara 50 tecken!");
             return false;
         }
         if (enterDistrict.getText().isEmpty()) {
-            warningText.setText("Fill in district!");
+            warningText.setText("Ange postort!");
+            return false;
+        }
+        if (enterDistrict.getText().length() > 20) {
+            warningText.setText("Postort får max vara 20 tecken!");
             return false;
         }
         if (enterCity.getSelectionModel().getSelectedItem() == null) {
-            warningText.setText("Select a city!");
+            warningText.setText("Ange stad!");
+            return false;
+        }
+        if (enterPostalCode.getText().length() > 10) {
+            warningText.setText("Postnummer får max vara 10 tecken!");
             return false;
         }
         if (enterPhone.getText().isEmpty()) {
-            warningText.setText("Fill in phone number!");
+            warningText.setText("Ange telefonnummer!");
+            return false;
+        }
+        if (enterPhone.getText().length() > 20) {
+            warningText.setText("Telefonnummer får max vara 20 tecken!");
             return false;
         }
         return true;
@@ -195,7 +215,7 @@ public class AddressCrudScene {
                 address.setLocation(point);
             }
         } catch (NumberFormatException e) {
-            warningText.setText("Invalid latitude/longitude format!");
+            warningText.setText("Fel format på longitud/latitud!");
         }
     }
 
