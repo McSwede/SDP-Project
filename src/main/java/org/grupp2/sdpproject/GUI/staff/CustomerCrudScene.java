@@ -205,7 +205,7 @@ public class CustomerCrudScene {
     }
 
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main-menu");
+        sceneController.switchScene("crud");
     }
 
     @FXML private void enhanceText(MouseEvent event) {

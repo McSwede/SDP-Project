@@ -17,7 +17,7 @@
         <Button onAction="#handleClearSearch" prefWidth="82.0" styleClass="smallbutton" style="-fx-pref-width: 80; -fx-pref-height: 35;" text="Rensa" />
     </HBox>
 
-    <TableView fx:id="inventoryTable" layoutX="20" layoutY="110" prefHeight="250" prefWidth="560">
+    <TableView fx:id="inventoryTable" layoutX="20" layoutY="110" prefHeight="250" prefWidth="560" styleClass="table-view">
         <columns>
             <TableColumn fx:id="countColumn" style="-fx-alignment: CENTER;" text="Antal" />
             <TableColumn fx:id="titleColumn" prefWidth="300.0" text="Titel" />

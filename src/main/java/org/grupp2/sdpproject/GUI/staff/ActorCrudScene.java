@@ -165,7 +165,7 @@ public class ActorCrudScene {
 
     
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main-menu");
+        sceneController.switchScene("crud");
     }
 
 
