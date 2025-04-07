@@ -86,9 +86,6 @@ public class RentalCrudScene {
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
         rental = new Rental();
-        //enterName.setText("");
-/*        enterDate.setText("");
-        enterReturnDate.setText("");*/
         lastUpdate.setText("");
     }
 
