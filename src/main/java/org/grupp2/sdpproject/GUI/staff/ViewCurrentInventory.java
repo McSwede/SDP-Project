@@ -26,14 +26,13 @@ public class ViewCurrentInventory {
     @FXML private TableColumn<FilmInventoryItem, String> titleColumn;
     @FXML private TableColumn<FilmInventoryItem, Integer> countColumn;
     @FXML private TableColumn<FilmInventoryItem, String> ratingColumn;
-    @FXML private TableColumn<FilmInventoryItem, Integer> releaseYearColumn;
     @FXML private TableColumn<FilmInventoryItem, Double> rentalRateColumn;
     @FXML private TextField searchField;
 
-    private ObservableList<FilmInventoryItem> inventoryData = FXCollections.observableArrayList();
-    private FilteredList<FilmInventoryItem> filteredData = new FilteredList<>(inventoryData, p -> true);
+    private final ObservableList<FilmInventoryItem> inventoryData = FXCollections.observableArrayList();
+    private final FilteredList<FilmInventoryItem> filteredData = new FilteredList<>(inventoryData, p -> true);
 
-    private UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
+    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
     private Store currentStore;
 
     SceneController sceneController = SceneController.getInstance();
@@ -41,40 +40,39 @@ public class ViewCurrentInventory {
     @FXML
     public void initialize() {
         // Set up the table columns
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         countColumn.setCellValueFactory(new PropertyValueFactory<>("count"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        releaseYearColumn.setCellValueFactory(new PropertyValueFactory<>("releaseYear"));
         rentalRateColumn.setCellValueFactory(new PropertyValueFactory<>("rentalRate"));
 
         // Get the current user's store
         loadCurrentUserStore();
 
-        // Load inventory data
+        // Then load inventory data
         loadInventoryData();
 
-        // Set up search filtering
+        // Lastly set up the search filter
         setupSearchFilter();
     }
 
     private void loadCurrentUserStore() {
         String username = SessionManager.getLoggedInUser();
         if (username == null) {
-            showAlert("Error", "No user logged in");
+            showAlert("No user logged in");
             sceneController.switchScene("crud");
             return;
         }
 
         User currentUser = userDAO.findByEmail(username);
         if (currentUser == null || currentUser.getStaff() == null) {
-            showAlert("Error", "Current user is not staff");
+            showAlert("Current user is not staff");
             sceneController.switchScene("crud");
             return;
         }
 
         currentStore = currentUser.getStaff().getStore();
         if (currentStore == null) {
-            showAlert("Error", "Current user is not assigned to a store");
+            showAlert("Current user is not assigned to a store");
             sceneController.switchScene("crud");
         }
     }
@@ -82,7 +80,6 @@ public class ViewCurrentInventory {
     private void loadInventoryData() {
         if (currentStore == null) return;
 
-        // Get all inventory items for the current store
         List<Inventory> inventoryItems = currentStore.getInventories();
 
         // Group by film and count
@@ -92,7 +89,7 @@ public class ViewCurrentInventory {
             filmCountMap.put(film, filmCountMap.getOrDefault(film, 0) + 1);
         }
 
-        // Convert to our display objects
+        // Convert to FilmInventoryItem
         inventoryData.clear();
         for (Map.Entry<Film, Integer> entry : filmCountMap.entrySet()) {
             Film film = entry.getKey();
@@ -100,40 +97,27 @@ public class ViewCurrentInventory {
                     film.getTitle(),
                     entry.getValue(),
                     film.getRating().name(),
-                    film.getReleaseYear(),
                     film.getRentalRate()
             ));
         }
     }
 
     private void setupSearchFilter() {
-        // Add listener to search field
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(film -> {
                 // If filter text is empty, show all films
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-
-                // Compare film title with filter text (case insensitive)
+                // Otherwise filter
                 String lowerCaseFilter = newValue.toLowerCase();
                 return film.getTitle().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
-        // Wrap the FilteredList in a SortedList
         SortedList<FilmInventoryItem> sortedData = new SortedList<>(filteredData);
-
-        // Bind the SortedList comparator to the TableView comparator
         sortedData.comparatorProperty().bind(inventoryTable.comparatorProperty());
-
-        // Add sorted (and filtered) data to the table
         inventoryTable.setItems(sortedData);
-    }
-
-    @FXML
-    private void handleSearch() {
-        // Filtering is handled by the listener, so this can be empty
     }
 
     @FXML
@@ -141,9 +125,9 @@ public class ViewCurrentInventory {
         searchField.clear();
     }
 
-    private void showAlert(String title, String message) {
+    private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
+        alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
@@ -154,23 +138,23 @@ public class ViewCurrentInventory {
         private final String title;
         private final int count;
         private final String rating;
-        private final int releaseYear;
         private final BigDecimal rentalRate;
 
-        public FilmInventoryItem(String title, int count, String rating, int releaseYear, BigDecimal rentalRate) {
+        public FilmInventoryItem(String title, int count, String rating, BigDecimal rentalRate) {
             this.title = title;
             this.count = count;
             this.rating = rating;
-            this.releaseYear = releaseYear;
             this.rentalRate = rentalRate;
         }
 
-        // Getters
         public String getTitle() { return title; }
         public int getCount() { return count; }
         public String getRating() { return rating; }
-        public int getReleaseYear() { return releaseYear; }
         public BigDecimal getRentalRate() { return rentalRate; }
+    }
+
+    @FXML private void enterMainMenu() {
+        sceneController.switchScene("crud");
     }
 
     public void setStyleSheet(String styleSheet) {
