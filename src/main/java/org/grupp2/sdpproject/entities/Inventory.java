@@ -83,4 +83,9 @@ public class Inventory {
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+    @Override
+    public String toString() {
+        return film + " (" + inventoryId + ")";
+    }
 }
