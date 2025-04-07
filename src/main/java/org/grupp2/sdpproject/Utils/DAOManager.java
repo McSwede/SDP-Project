@@ -4,8 +4,7 @@ import org.grupp2.sdpproject.dao.ActorDAO;
 import org.grupp2.sdpproject.dao.FilmDAO;
 import org.grupp2.sdpproject.dao.GenericDAO;
 import org.grupp2.sdpproject.dao.UserDAO;
-import org.grupp2.sdpproject.entities.Actor;
-import org.grupp2.sdpproject.entities.Film;
+import org.grupp2.sdpproject.entities.*;
 import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
@@ -13,11 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 public class DAOManager {
-
+    private static DAOManager instance;
     private final SessionFactory sessionFactory;
     private final Map<Class<?>, GenericDAO<?>> daoMap = new HashMap<>();
+    private final CacheManager cacheManager;
 
-    public DAOManager() {
+    private DAOManager() {
         // Automatically get sessionFactory
         this.sessionFactory = HibernateUtil.getSessionFactory();
 
@@ -26,6 +26,32 @@ public class DAOManager {
         daoMap.put(Actor.class, new ActorDAO(sessionFactory));
         daoMap.put(UserDAO.class, new UserDAO(sessionFactory));
         //...
+
+        // Start caching immediately
+        this.cacheManager = new CacheManager(this);
+        initializeCaches();
+    }
+
+    // Cache these entities immediately on startup
+    private void initializeCaches() {
+        cacheManager.initializeCachesFor(
+                Film.class,
+                Actor.class,
+                Customer.class,
+                Address.class,
+                Payment.class,
+                Rental.class,
+                Staff.class,
+                Store.class,
+                Inventory.class
+        );
+    }
+
+    public static synchronized DAOManager getInstance() {
+        if (instance == null) {
+            instance = new DAOManager();
+        }
+        return instance;
     }
 
     /**
@@ -36,7 +62,7 @@ public class DAOManager {
      * @return A DAO instance for the given entity class
      */
     @SuppressWarnings("unchecked")
-    private <T> GenericDAO<T> getDao(Class<T> entityClass) {
+    <T> GenericDAO<T> getDao(Class<T> entityClass) {
         // If we don't have a specific DAO generate a generic one
         return (GenericDAO<T>) daoMap.computeIfAbsent(
                 entityClass,
@@ -51,6 +77,7 @@ public class DAOManager {
      */
     public <T> void save(T entity) {
         getDao(entity.getClass()).save(entity);
+        cacheManager.invalidateCache(entity.getClass());
     }
 
     /**
@@ -71,7 +98,7 @@ public class DAOManager {
      * @return A list of all entities of the specified class
      */
     public <T> List<T> findAll(Class<T> entityClass) {
-        return getDao(entityClass).findAll();
+        return cacheManager.getCachedData(entityClass);
     }
 
     /**
@@ -81,6 +108,7 @@ public class DAOManager {
      */
     public <T> void update(T entity) {
         getDao(entity.getClass()).update(entity);
+        cacheManager.invalidateCache(entity.getClass());
     }
 
     /**
@@ -90,5 +118,13 @@ public class DAOManager {
      */
     public <T> void delete(T entity) {
         getDao(entity.getClass()).delete(entity);
+        cacheManager.invalidateCache(entity.getClass());
+    }
+
+    public static void shutdown() {
+        if (instance != null) {
+            instance.cacheManager.shutdown();
+            instance = null;
+        }
     }
 }

@@ -33,7 +33,6 @@ public class StoreCrudScene {
 
     private final ObservableList<Store> allStores = FXCollections.observableArrayList();
     private Store store;
-    private final DAOManager daoManager = new DAOManager();
 
     @FXML
     private void enhanceText(MouseEvent event) {
@@ -97,7 +96,7 @@ public class StoreCrudScene {
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
-            daoManager.delete(store);
+            DAOManager.getInstance().delete(store);
             store = null;
         }
     }
@@ -108,17 +107,17 @@ public class StoreCrudScene {
     }
 
     private void populateLists() {
-        allStores.addAll(daoManager.findAll(Store.class));
+        allStores.addAll(DAOManager.getInstance().findAll(Store.class));
         storeList.setItems(allStores);
 
         // Manager list (staff)
         ObservableList<Staff> allStaff = FXCollections.observableArrayList();
-        allStaff.addAll(daoManager.findAll(Staff.class));
+        allStaff.addAll(DAOManager.getInstance().findAll(Staff.class));
         enterManager.setItems(allStaff);
 
         // Address list
         ObservableList<Address> allAddresses = FXCollections.observableArrayList();
-        allAddresses.addAll(daoManager.findAll(Address.class));
+        allAddresses.addAll(DAOManager.getInstance().findAll(Address.class));
         enterAddress.setItems(allAddresses);
     }
 
@@ -149,7 +148,7 @@ public class StoreCrudScene {
             populateStoreData();
             varningText.setText("");
             allStores.add(store);
-            daoManager.save(store);
+            DAOManager.getInstance().save(store);
             store = null;
             storeList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -161,7 +160,7 @@ public class StoreCrudScene {
         if (validateInput()) {
             populateStoreData();
             varningText.setText("");
-            daoManager.update(store);
+            DAOManager.getInstance().update(store);
         }
     }
 

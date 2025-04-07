@@ -46,7 +46,6 @@ public class PaymentCrudScene {
 
     private final ObservableList<Payment> allPayments = FXCollections.observableArrayList();
     private Payment payment;
-    private final DAOManager daoManager = new DAOManager();
 
     @FXML
     private void enhanceText(MouseEvent event) {
@@ -126,7 +125,7 @@ public class PaymentCrudScene {
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
-            daoManager.delete(payment);
+            DAOManager.getInstance().delete(payment);
             payment = null;
         }
     }
@@ -137,22 +136,22 @@ public class PaymentCrudScene {
     }
 
     private void populateLists() {
-        allPayments.addAll(daoManager.findAll(Payment.class));
+        allPayments.addAll(DAOManager.getInstance().findAll(Payment.class));
         paymentList.setItems(allPayments);
 
         // Customer list
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-        allCustomers.addAll(daoManager.findAll(Customer.class));
+        allCustomers.addAll(DAOManager.getInstance().findAll(Customer.class));
         enterCustomer.setItems(allCustomers);
 
         // Staff list
         ObservableList<Staff> allStaff = FXCollections.observableArrayList();
-        allStaff.addAll(daoManager.findAll(Staff.class));
+        allStaff.addAll(DAOManager.getInstance().findAll(Staff.class));
         enterStaff.setItems(allStaff);
 
         // Rental list
         ObservableList<Rental> allRentals = FXCollections.observableArrayList();
-        allRentals.addAll(daoManager.findAll(Rental.class));
+        allRentals.addAll(DAOManager.getInstance().findAll(Rental.class));
         enterRental.setItems(allRentals);
     }
 
@@ -213,7 +212,7 @@ public class PaymentCrudScene {
             populatePaymentData();
             warningText.setText("");
             allPayments.add(payment);
-            daoManager.save(payment);
+            DAOManager.getInstance().save(payment);
             payment = null;
             paymentList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -225,7 +224,7 @@ public class PaymentCrudScene {
         if (validateInput()) {
             populatePaymentData();
             warningText.setText("");
-            daoManager.update(payment);
+            DAOManager.getInstance().update(payment);
         }
     }
 
