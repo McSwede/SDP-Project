@@ -30,13 +30,22 @@ public class GenericDAO<T> {
 
     public void save(Object entity) {
         Transaction tx = null;
-        try (Session session = sessionFactory.openSession()) {
+        Session session = sessionFactory.openSession();
+        try {
             tx = session.beginTransaction();
             session.save(entity);
             tx.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
+            if (tx != null && tx.getStatus().canRollback()) {
+                try {
+                    tx.rollback();
+                } catch (Exception rollbackEx) {
+                    System.err.println("Rollback failed: " + rollbackEx.getMessage());
+                }
+            }
             throw e;
+        } finally {
+            if (session.isOpen()) session.close();
         }
     }
 

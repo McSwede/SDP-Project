@@ -126,6 +126,7 @@ public class Rental {
 
     @Override
     public String toString() {
-        return String.valueOf(rentalId);
+
+        return "Rental: " + "rentalId=" + rentalId + " " + customer.getFirstName();
     }
 }
