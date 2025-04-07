@@ -18,6 +18,11 @@
             <Button fx:id="inventoryButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Lager" />
          </children>
       </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="150.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
+         <children>
+            <Button fx:id="viewCurrentInventoryButton" mnemonicParsing="false" onAction="#enterViewCurrentInventoryScene" styleClass="bigbutton" text="Se lagerstatus" />
+         </children>
+      </VBox>
       <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
          <children>
             <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Dark mode" />

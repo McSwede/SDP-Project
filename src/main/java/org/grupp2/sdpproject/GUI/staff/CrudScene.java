@@ -20,6 +20,7 @@ public class CrudScene {
     @FXML private Button employeeButton;
     @FXML private Button storeButton;
     @FXML private Button inventoryButton;
+    @FXML public Button viewCurrentInventoryButton;
 
     @FXML
     public void initialize() {
@@ -47,6 +48,9 @@ public class CrudScene {
     }
     @FXML private void enterStaffScene() {
         sceneController.switchScene("staff-crud");
+    }
+    @FXML private void enterViewCurrentInventoryScene() {
+        sceneController.switchScene("view-current-inventory");
     }
 
     @FXML private void toggleTheme() {
