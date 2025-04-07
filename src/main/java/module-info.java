@@ -22,7 +22,8 @@ module org.grupp2.sdpproject {
 
     exports org.grupp2.sdpproject.Utils to org.hibernate.orm.core;
     requires jbcrypt;
-    requires java.desktop;
+    requires javafx.media;
+    requires javafx.swing;
 
     opens org.grupp2.sdpproject to javafx.fxml;
     exports org.grupp2.sdpproject;
