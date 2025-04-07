@@ -124,6 +124,8 @@ public class Rental {
         this.lastUpdated = lastUpdated;
     }
 
-
-
+    @Override
+    public String toString() {
+        return String.valueOf(rentalId);
+    }
 }
