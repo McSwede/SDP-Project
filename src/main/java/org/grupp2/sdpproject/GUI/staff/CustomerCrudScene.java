@@ -14,9 +14,11 @@ import org.grupp2.sdpproject.entities.Address;
 import org.grupp2.sdpproject.entities.Customer;
 import org.grupp2.sdpproject.entities.Store;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -38,8 +40,6 @@ public class CustomerCrudScene {
     @FXML private Label storeInfo;
     @FXML private Label activeInfo;
     @FXML private Label createDateInfo;
-    @FXML private Label rentalInfo;
-    @FXML private Label paymentInfo;
     @FXML private TextField enterFirstName;
     @FXML private TextField enterLastName;
     @FXML private TextField enterEmail;
@@ -73,7 +73,9 @@ public class CustomerCrudScene {
         else {
             activeInfo.setText("Nej");
         }
-        createDateInfo.setText(selectedCustomer.getCreateDate().toString());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = formatter.format(selectedCustomer.getCreateDate());
+        createDateInfo.setText(formattedDate);
     }
 
     @FXML private void addNew() {
@@ -196,7 +198,8 @@ public class CustomerCrudScene {
         selectedCustomer.setStore(enterStore.getValue());
         selectedCustomer.setActive(enterActive.isSelected());
         if (enterCreateDate.getValue() == null) {
-            selectedCustomer.setCreateDate(new Date());
+            LocalDateTime dateTime = LocalDateTime.now();
+            selectedCustomer.setCreateDate(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
         }
         selectedCustomer.setLastUpdated(LocalDateTime.now());
     }
@@ -214,14 +217,6 @@ public class CustomerCrudScene {
         alert.showAndWait();
     }
 
-    @FXML private void showRentalHistory(MouseEvent mouseEvent) {
-        //toDO lägg till popup
-    }
-
-    @FXML private void showPaymentHistory(MouseEvent mouseEvent) {
-        //toDO lägg till popup
-    }
-
     private void populateLists() {
         allCustomers.addAll(daoManager.findAll(Customer.class));
         customerView.setItems(allCustomers);
@@ -235,15 +230,17 @@ public class CustomerCrudScene {
         enterStore.setItems(stores);
     }
 
-    public void Initialize() {
+    public void initialize() {
         populateLists();
+
         enterCreateDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                Date date = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                LocalDateTime dateTime = newValue.atStartOfDay();
+                Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+
                 if (selectedCustomer != null) {
                     selectedCustomer.setCreateDate(date);
-                }
-                else {
+                } else {
                     enterCreateDate.setValue(null);
                 }
             }
