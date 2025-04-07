@@ -60,7 +60,7 @@ public class Film {
     @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
     private String specialFeatures; //Skulle kunna ändra till en enum av special features
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //not sure about the cascade type
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}) //not sure about the cascade type
     @JoinTable(
             name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.FilmScene">
+<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.FilmCrudScene">
    <children>
       <VBox prefHeight="424.0" prefWidth="300.0">
          <children>
@@ -81,7 +81,7 @@
             <Insets right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+      <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
          <children>
             <TextField fx:id="enterTitle" />
             <TextField fx:id="enterDescription" />

@@ -38,7 +38,7 @@ public class Staff {
     private Store store;
 
     @Column(nullable = false)
-    private boolean active; //ska vara true by default så kanske måste göra något här
+    private boolean active = true;
 
     @Size(max = 16)
     @Column(nullable = false, length = 16)
@@ -48,14 +48,11 @@ public class Staff {
     @Column(nullable = false, length = 40) // binary?
     private String password;
 
-    @OneToMany(mappedBy = "staff")
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     private List<Rental> rentals = new ArrayList<>();
 
-    @OneToMany(mappedBy = "staff")
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "staff")
-    private List<Store> stores = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdated;
@@ -71,7 +68,7 @@ public class Staff {
 
     public Staff(String firstName, String lastName, Address address, byte[] picture,
                  String email, Store store, boolean active, String username, String password, List<Rental> rentals,
-                 List<Payment> payments, List<Store> stores) {
+                 List<Payment> payments) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -83,7 +80,6 @@ public class Staff {
         this.password = password;
         this.rentals = rentals;
         this.payments = payments;
-        this.stores = stores;
     }
 
 
@@ -181,19 +177,16 @@ public class Staff {
         this.payments = payments;
     }
 
-    public List<Store> getStores() {
-        return stores;
-    }
-
-    public void setStores(List<Store> stores) {
-        this.stores = stores;
-    }
-
     public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

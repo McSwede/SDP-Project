@@ -11,17 +11,15 @@ import org.grupp2.sdpproject.ENUM.Rating;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.TextformatUtil;
-import org.grupp2.sdpproject.entities.Actor;
-import org.grupp2.sdpproject.entities.Category;
-import org.grupp2.sdpproject.entities.Film;
-import org.grupp2.sdpproject.entities.Language;
+import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FilmScene {
+public class FilmCrudScene {
 
     SceneController sceneController = SceneController.getInstance();
 
@@ -188,11 +186,14 @@ public class FilmScene {
     }
 
     @FXML private void removeSelected() {
-        allFilms.remove(filmList.getSelectionModel().getSelectedItem());
-        textFieldVBOX.setVisible(false);
-        labelVBOX.setVisible(false);
-        lastUpdate.setText("");
-        daoManager.delete(film);
+        if (film != null) {
+            allFilms.remove(filmList.getSelectionModel().getSelectedItem());
+            textFieldVBOX.setVisible(false);
+            labelVBOX.setVisible(false);
+            lastUpdate.setText("");
+            daoManager.delete(film);
+            film = null;
+        }
     }
 
     @FXML private void enterMainMenu() {
@@ -285,6 +286,7 @@ public class FilmScene {
         List<Category> categories = new ArrayList<>();
         categories.add(enterCategory.getValue());
         film.setCategoryList(categories);
+        film.setLastUpdated(LocalDateTime.now());
     }
 
     @FXML private void addFilm() {
@@ -294,6 +296,9 @@ public class FilmScene {
             allFilms.add(film);
             System.out.println("Film added");
             daoManager.save(film);
+            film = null;
+            filmList.getSelectionModel().clearSelection();
+            confirmNewButton.setVisible(false);
         }
     }
 

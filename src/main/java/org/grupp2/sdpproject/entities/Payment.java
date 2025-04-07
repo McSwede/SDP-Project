@@ -16,7 +16,7 @@ public class Payment {
     @Column(name = "payment_id")
     private short paymentId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 

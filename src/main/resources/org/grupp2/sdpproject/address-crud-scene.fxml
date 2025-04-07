@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.AddressCrudScene">
+    <children>
+        <VBox prefHeight="424.0" prefWidth="300.0">
+            <children>
+                <ListView fx:id="addressList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="200.0" />
+                <HBox prefHeight="31.0" prefWidth="300.0">
+                    <children>
+                        <Label fx:id="lastUpdate" prefHeight="36.0" prefWidth="280.0" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="149.0" prefWidth="300.0">
+                    <children>
+                        <VBox prefWidth="150.0" spacing="10.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Lägg till ny" />
+                                <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Uppdatera" />
+                                <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Ta bort" />
+                            </children>
+                            <HBox.margin>
+                                <Insets top="10.0" />
+                            </HBox.margin></VBox>
+                        <VBox prefWidth="150.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addAddress" styleClass="bigbutton" text="Lägg till" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateAddress" styleClass="bigbutton" text="Uppdatera" visible="false" />
+                                <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
+                            </children>
+                            <padding>
+                                <Insets left="30.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Label fx:id="warningText" prefWidth="300.0" />
+            </children>
+            <padding>
+                <Insets left="30.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+
+        <VBox alignment="TOP_RIGHT" layoutX="300.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+            <children>
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Adress:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Adress 2:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Postort:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Stad:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Postnummer:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Telefonnummer:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Plats:" />
+            </children>
+            <padding>
+                <Insets top="5.0" />
+            </padding>
+        </VBox>
+
+        <VBox fx:id="labelVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+            <children>
+                <Label fx:id="addressInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="address2Info" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="districtInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="cityInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="postalCodeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="phoneInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="locationInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+            </children>
+            <padding>
+                <Insets top="5.0" right="5.0" />
+            </padding>
+        </VBox>
+
+        <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="525.0" prefWidth="150.0" spacing="5.0" visible="false">
+            <children>
+                <TextField fx:id="enterAddress" />
+                <TextField fx:id="enterAddress2" />
+                <TextField fx:id="enterDistrict" />
+                <ComboBox fx:id="enterCity" prefWidth="150.0" />
+                <TextField fx:id="enterPostalCode" />
+                <TextField fx:id="enterPhone" />
+                <HBox spacing="5.0">
+                    <children>
+                        <TextField fx:id="enterLatitude" prefWidth="70.0" promptText="Latitud" />
+                        <TextField fx:id="enterLongitude" prefWidth="70.0" promptText="Longitud" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets top="5.0" right="5.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -34,7 +34,20 @@ public class CrudScene {
     }
 
     @FXML private void enterFilmScene() {
-        sceneController.switchScene("film");
+        sceneController.switchScene("film-crud");
+    }
+
+    @FXML private void enterActorScene() {
+        sceneController.switchScene("actor-crud");
+    }
+    @FXML private void enterAddressScene() {
+        sceneController.switchScene("address-crud");
+    }
+    @FXML private void enterCustomerScene() {
+        sceneController.switchScene("customer-crud");
+    }
+    @FXML private void enterStaffScene() {
+        sceneController.switchScene("staff-crud");
     }
     @FXML private void enterViewCurrentInventoryScene() {
         sceneController.switchScene("view-current-inventory");

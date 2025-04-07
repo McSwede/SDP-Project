@@ -23,7 +23,7 @@ public class SceneController {
     private static SceneController instance;
 
     private Stage primaryStage;
-    private final Map<String, Object> controllers = new HashMap<>(); // Cache for controllers
+    private final Map<String, Object> controllers = new HashMap<>();
     private boolean darkMode = false;
 
     private SceneController() {}

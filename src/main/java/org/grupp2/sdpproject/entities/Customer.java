@@ -17,8 +17,8 @@ public class Customer {
     @Column(name = "customer_id")
     private short customerId;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id", nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "store_id", nullable=false)
     private Store store;
 
     @Size(max = 45)
@@ -33,20 +33,20 @@ public class Customer {
     @Column(name = "email", length = 50)
     private String email;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @Column(name = "active", nullable = false)
-    private boolean active;
+    private boolean active = true;
 
     @Column(name = "create_date", nullable = false)
     private Date createDate;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Rental> rentals = new ArrayList<>();
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<>();
 
     @Column(name = "last_update")
@@ -156,5 +156,22 @@ public class Customer {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", store=" + store +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", address=" + address +
+                ", active=" + active +
+                ", createDate=" + createDate +
+                ", rentals=" + rentals +
+                ", payments=" + payments +
+                ", lastUpdated=" + lastUpdated +
+                '}';
     }
 }

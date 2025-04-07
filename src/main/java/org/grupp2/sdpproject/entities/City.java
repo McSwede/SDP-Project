@@ -23,7 +23,7 @@ public class City {
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<Address> addresses = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)
@@ -81,5 +81,10 @@ public class City {
 
     public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return city;
     }
 }

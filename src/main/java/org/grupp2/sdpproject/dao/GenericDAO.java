@@ -8,8 +8,8 @@ import java.util.List;
 
 public class GenericDAO<T> {
 
-    private final Class<T> entityClass;
-    private final SessionFactory sessionFactory;
+    protected final Class<T> entityClass;
+    protected final SessionFactory sessionFactory;
 
     public GenericDAO(Class<T> entityClass, SessionFactory sessionFactory) {
         this.entityClass = entityClass;
@@ -44,7 +44,7 @@ public class GenericDAO<T> {
         Transaction tx = null;
         try (Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
-            session.update(entity);
+            session.merge(entity);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) tx.rollback();

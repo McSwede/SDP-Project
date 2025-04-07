@@ -1,6 +1,7 @@
 package org.grupp2.sdpproject.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.engine.internal.Cascade;
 
 import java.time.LocalDateTime;
 
@@ -16,10 +17,10 @@ public class FilmText {
     @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JoinColumn(name = "film_id")
     private Film film;
