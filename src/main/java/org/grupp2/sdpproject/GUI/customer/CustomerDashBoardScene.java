@@ -27,8 +27,8 @@ public class CustomerDashBoardScene {
         this.loggedInCustomer = user;
         // Update the welcome label with the customer's first name
         if (welcomeLabel != null && loggedInCustomer != null) {
-            welcomeLabel.setText("Welcome, " + loggedInCustomer.getFirstName());
-            System.out.println("loggedinuser" + loggedInCustomer.getFirstName());
+            welcomeLabel.setText("Welcome, " + loggedInCustomer.getCustomer().getFirstName());
+            System.out.println("loggedinuser" + loggedInCustomer.getCustomer().getFirstName());
         }
     }
 
