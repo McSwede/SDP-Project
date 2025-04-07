@@ -198,6 +198,8 @@ public class RentalCrudScene {
             rental = null;
             rentalListView.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -207,6 +209,12 @@ public class RentalCrudScene {
             populateRentalData();
             warningText.setText("");
             daoManager.update(rental);
+
+            rentalListView.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            rental = null;
         }
     }
 

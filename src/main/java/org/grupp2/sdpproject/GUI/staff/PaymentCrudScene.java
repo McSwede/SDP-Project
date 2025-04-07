@@ -216,6 +216,8 @@ public class PaymentCrudScene {
             payment = null;
             paymentList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -225,6 +227,12 @@ public class PaymentCrudScene {
             populatePaymentData();
             warningText.setText("");
             DAOManager.getInstance().update(payment);
+
+            paymentList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            payment = null;
         }
     }
 

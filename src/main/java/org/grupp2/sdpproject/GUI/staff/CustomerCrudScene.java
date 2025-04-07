@@ -137,6 +137,7 @@ public class CustomerCrudScene {
             varningText.setText("");
             allCustomers.add(selectedCustomer);
             DAOManager.getInstance().save(selectedCustomer);
+
             selectedCustomer = null;
             customerView.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -150,6 +151,7 @@ public class CustomerCrudScene {
             populateData();
             varningText.setText("");
             DAOManager.getInstance().update(selectedCustomer);
+
             selectedCustomer = null;
             customerView.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);

@@ -298,6 +298,8 @@ public class FilmCrudScene {
             film = null;
             filmList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -307,6 +309,12 @@ public class FilmCrudScene {
             varningText.setText("");
             System.out.println("film updated");
             DAOManager.getInstance().update(film);
+
+            filmList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            film = null;
         }
     }
 

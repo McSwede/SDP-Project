@@ -261,6 +261,8 @@ public class StaffCrudScene {
             staff = null;
             staffList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -270,6 +272,12 @@ public class StaffCrudScene {
             populateStaffData();
             warningText.setText("");
             DAOManager.getInstance().update(staff);
+
+            staffList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            staff = null;
         }
     }
 

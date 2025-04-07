@@ -114,6 +114,7 @@ public class ActorCrudScene {
             varningText.setText("");
             allActors.add(selectedActor);
             DAOManager.getInstance().save(selectedActor);
+
             selectedActor = null;
             actorList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -128,6 +129,7 @@ public class ActorCrudScene {
             populateData();
             varningText.setText("");
             DAOManager.getInstance().update(selectedActor);
+
             selectedActor = null;
             actorList.getSelectionModel().clearSelection();
             confirmUpdateButton.setVisible(false);

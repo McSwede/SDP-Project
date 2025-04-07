@@ -228,6 +228,8 @@ public class AddressCrudScene {
             address = null;
             addressList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -237,6 +239,12 @@ public class AddressCrudScene {
             populateAddressData();
             warningText.setText("");
             DAOManager.getInstance().update(address);
+
+            addressList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            address = null;
         }
     }
 

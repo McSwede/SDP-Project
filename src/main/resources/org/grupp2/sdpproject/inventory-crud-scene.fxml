@@ -4,11 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.ActorCrudScene">
+<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.InventoryCrudScene">
     <children>
         <VBox prefHeight="424.0" prefWidth="300.0">
             <children>
-                <ListView fx:id="actorList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="200.0" />
+                <ListView fx:id="inventoryList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="200.0" />
                 <HBox prefHeight="31.0" prefWidth="300.0">
                     <children>
                         <Label fx:id="lastUpdate" prefHeight="36.0" prefWidth="280.0" />
@@ -27,8 +27,8 @@
                             </HBox.margin></VBox>
                         <VBox prefWidth="150.0" spacing="10.0">
                             <children>
-                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addActor" styleClass="bigbutton" text="Lägg till" visible="false" />
-                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateActor" styleClass="bigbutton" text="Spara" visible="false" />
+                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addInventory" styleClass="bigbutton" text="Lägg till" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateInventory" styleClass="bigbutton" text="Spara" visible="false" />
                                 <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
                             </children>
                             <padding>
@@ -43,9 +43,9 @@
         </VBox>
         <VBox alignment="TOP_RIGHT" layoutX="300.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
             <children>
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Förnamn:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Efternamn" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Filmer" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Lager ID:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Film:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Butik:" />
             </children>
             <padding>
                 <Insets top="5.0" />
@@ -53,9 +53,9 @@
         </VBox>
         <VBox fx:id="labelVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
             <children>
-                <Label fx:id="firstNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="lastNameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="filmsInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="inventoryIdInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="filmInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="storeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
             </children>
             <padding>
                 <Insets right="5.0" top="5.0" />
@@ -63,9 +63,9 @@
         </VBox>
         <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
             <children>
-                <TextField fx:id="enterFirstName" />
-                <TextField fx:id="enterLastName" />
-                <Button layoutX="10.0" layoutY="325.0" mnemonicParsing="false" onAction="#showFilms" prefHeight="26.0" prefWidth="145.0" text="Visa/Ändra" />
+                <Label fx:id="inventoryIdLabel" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <ComboBox fx:id="enterFilm" prefWidth="150.0" />
+                <ComboBox fx:id="enterStore" prefWidth="150.0" />
             </children>
             <padding>
                 <Insets right="5.0" top="5.0" />
