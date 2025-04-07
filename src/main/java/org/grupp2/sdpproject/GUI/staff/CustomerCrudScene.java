@@ -2,7 +2,6 @@ package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -14,11 +13,11 @@ import org.grupp2.sdpproject.entities.Address;
 import org.grupp2.sdpproject.entities.Customer;
 import org.grupp2.sdpproject.entities.Store;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 
 public class CustomerCrudScene {
 
@@ -38,8 +37,6 @@ public class CustomerCrudScene {
     @FXML private Label storeInfo;
     @FXML private Label activeInfo;
     @FXML private Label createDateInfo;
-    @FXML private Label rentalInfo;
-    @FXML private Label paymentInfo;
     @FXML private TextField enterFirstName;
     @FXML private TextField enterLastName;
     @FXML private TextField enterEmail;
@@ -49,7 +46,6 @@ public class CustomerCrudScene {
     @FXML private DatePicker enterCreateDate;
 
     private final SceneController sceneController = SceneController.getInstance();
-    private final DAOManager daoManager = new DAOManager();
     private ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private Customer selectedCustomer;
 
@@ -73,7 +69,9 @@ public class CustomerCrudScene {
         else {
             activeInfo.setText("Nej");
         }
-        createDateInfo.setText(selectedCustomer.getCreateDate().toString());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = formatter.format(selectedCustomer.getCreateDate());
+        createDateInfo.setText(formattedDate);
     }
 
     @FXML private void addNew() {
@@ -125,7 +123,7 @@ public class CustomerCrudScene {
 
             lastUpdate.setText("");
             allCustomers.remove(selectedCustomer);
-            daoManager.delete(selectedCustomer);
+            DAOManager.getInstance().delete(selectedCustomer);
             selectedCustomer = null;
         }
         else {
@@ -138,7 +136,7 @@ public class CustomerCrudScene {
             populateData();
             varningText.setText("");
             allCustomers.add(selectedCustomer);
-            daoManager.save(selectedCustomer);
+            DAOManager.getInstance().save(selectedCustomer);
             selectedCustomer = null;
             customerView.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -151,7 +149,7 @@ public class CustomerCrudScene {
         if (validateFields()) {
             populateData();
             varningText.setText("");
-            daoManager.update(selectedCustomer);
+            DAOManager.getInstance().update(selectedCustomer);
             selectedCustomer = null;
             customerView.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -196,13 +194,14 @@ public class CustomerCrudScene {
         selectedCustomer.setStore(enterStore.getValue());
         selectedCustomer.setActive(enterActive.isSelected());
         if (enterCreateDate.getValue() == null) {
-            selectedCustomer.setCreateDate(new Date());
+            LocalDateTime dateTime = LocalDateTime.now();
+            selectedCustomer.setCreateDate(Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant()));
         }
         selectedCustomer.setLastUpdated(LocalDateTime.now());
     }
 
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main-menu");
+        sceneController.switchScene("crud");
     }
 
     @FXML private void enhanceText(MouseEvent event) {
@@ -214,36 +213,30 @@ public class CustomerCrudScene {
         alert.showAndWait();
     }
 
-    @FXML private void showRentalHistory(MouseEvent mouseEvent) {
-        //toDO lägg till popup
-    }
-
-    @FXML private void showPaymentHistory(MouseEvent mouseEvent) {
-        //toDO lägg till popup
-    }
-
     private void populateLists() {
-        allCustomers.addAll(daoManager.findAll(Customer.class));
+        allCustomers.addAll(DAOManager.getInstance().findAll(Customer.class));
         customerView.setItems(allCustomers);
 
         ObservableList<Address> adresses = FXCollections.observableArrayList();
-        adresses.addAll(daoManager.findAll(Address.class));
+        adresses.addAll(DAOManager.getInstance().findAll(Address.class));
         enterAddress.setItems(adresses);
 
         ObservableList<Store> stores = FXCollections.observableArrayList();
-        stores.addAll(daoManager.findAll(Store.class));
+        stores.addAll(DAOManager.getInstance().findAll(Store.class));
         enterStore.setItems(stores);
     }
 
-    public void Initialize() {
+    public void initialize() {
         populateLists();
+
         enterCreateDate.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                Date date = Date.from(newValue.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                LocalDateTime dateTime = newValue.atStartOfDay();
+                Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+
                 if (selectedCustomer != null) {
                     selectedCustomer.setCreateDate(date);
-                }
-                else {
+                } else {
                     enterCreateDate.setValue(null);
                 }
             }
