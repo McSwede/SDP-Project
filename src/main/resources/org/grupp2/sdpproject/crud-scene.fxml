@@ -11,11 +11,16 @@
             <Button fx:id="actorButton" mnemonicParsing="false" onAction="#enterActorScene" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Skådespelare" />
             <Button fx:id="customerButton" mnemonicParsing="false" onAction="#enterCustomerScene" prefHeight="36.0" prefWidth="111.0" styleClass="bigbutton" text="Kunder" />
             <Button fx:id="addressButton" mnemonicParsing="false" onAction="#enterAddressScene" prefWidth="111.0" styleClass="bigbutton" text="Adresser" />
-            <Button fx:id="paymentButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Betalningar" />
+            <Button fx:id="paymentButton" mnemonicParsing="false" onAction="#enterPaymentScene" prefWidth="111.0" styleClass="bigbutton" text="Betalningar" />
             <Button fx:id="rentalButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Uthyrningar" />
             <Button fx:id="employeeButton" mnemonicParsing="false" onAction="#enterStaffScene" prefWidth="111.0" styleClass="bigbutton" text="Anställda" />
             <Button fx:id="storeButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Butiker" />
             <Button fx:id="inventoryButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Lager" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="150.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
+         <children>
+            <Button fx:id="viewCurrentInventoryButton" mnemonicParsing="false" onAction="#enterViewCurrentInventoryScene" styleClass="bigbutton" text="Se lagerstatus" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">

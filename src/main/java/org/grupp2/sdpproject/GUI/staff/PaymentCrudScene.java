@@ -1,0 +1,236 @@
+package org.grupp2.sdpproject.GUI.staff;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import org.grupp2.sdpproject.GUI.SceneController;
+import org.grupp2.sdpproject.Utils.DAOManager;
+import org.grupp2.sdpproject.Utils.TextformatUtil;
+import org.grupp2.sdpproject.entities.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
+
+public class PaymentCrudScene {
+
+    SceneController sceneController = SceneController.getInstance();
+
+    @FXML private AnchorPane root;
+    @FXML private Label lastUpdate;
+    @FXML private Button confirmNewButton;
+    @FXML private Button confirmUpdateButton;
+    @FXML private Label warningText;
+    @FXML private VBox labelVBOX;
+    @FXML private VBox textFieldVBOX;
+    @FXML private Label paymentIdInfo;
+    @FXML private Label customerInfo;
+    @FXML private Label staffInfo;
+    @FXML private Label rentalInfo;
+    @FXML private Label amountInfo;
+    @FXML private Label paymentDateInfo;
+    @FXML private Label paymentIdLabel;
+    @FXML private ComboBox<Customer> enterCustomer;
+    @FXML private ComboBox<Staff> enterStaff;
+    @FXML private ComboBox<Rental> enterRental;
+    @FXML private TextField enterAmount;
+    @FXML private DatePicker enterPaymentDatePicker;
+    @FXML private TextField enterPaymentTime;
+    @FXML private ListView<Payment> paymentList;
+
+    private final ObservableList<Payment> allPayments = FXCollections.observableArrayList();
+    private Payment payment;
+    private final DAOManager daoManager = new DAOManager();
+
+    @FXML
+    private void enhanceText(MouseEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Label clickedLabel = (Label) event.getSource();
+        alert.setHeaderText(null);
+        alert.setTitle(null);
+        alert.setContentText(clickedLabel.getText());
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void showSelectedAttributes() {
+        confirmNewButton.setVisible(false);
+        confirmUpdateButton.setVisible(false);
+        textFieldVBOX.setVisible(false);
+        labelVBOX.setVisible(true);
+
+        payment = paymentList.getSelectionModel().getSelectedItem();
+        if (payment != null) {
+            paymentIdInfo.setText(String.valueOf(payment.getPaymentId()));
+            customerInfo.setText(payment.getCustomer().toString());
+            staffInfo.setText(payment.getStaff().toString());
+            if (payment.getRental() != null) {
+                rentalInfo.setText(String.valueOf(payment.getRental().getRentalId()));
+            } else {
+                rentalInfo.setText("");
+            }
+            amountInfo.setText(String.valueOf(payment.getAmount()));
+            paymentDateInfo.setText(payment.getPaymentDate().toString());
+            lastUpdate.setText(payment.getLastUpdated().toString());
+        }
+    }
+
+    @FXML
+    private void addNew() {
+        labelVBOX.setVisible(false);
+        textFieldVBOX.setVisible(true);
+        confirmNewButton.setVisible(true);
+        confirmUpdateButton.setVisible(false);
+        payment = new Payment();
+        paymentIdLabel.setText("(Auto-generated)");
+        enterCustomer.setValue(null);
+        enterStaff.setValue(null);
+        enterRental.setValue(null);
+        enterAmount.setText("");
+        enterPaymentDatePicker.setValue(null);
+        enterPaymentTime.setText("");
+        lastUpdate.setText("");
+    }
+
+    @FXML
+    private void updateSelected() {
+        if (paymentList.getSelectionModel().getSelectedItem() != null) {
+            labelVBOX.setVisible(false);
+            textFieldVBOX.setVisible(true);
+            confirmUpdateButton.setVisible(true);
+            confirmNewButton.setVisible(false);
+
+            payment = paymentList.getSelectionModel().getSelectedItem();
+            paymentIdLabel.setText(String.valueOf(payment.getPaymentId()));
+            enterCustomer.setValue(payment.getCustomer());
+            enterStaff.setValue(payment.getStaff());
+            enterRental.setValue(payment.getRental());
+            enterAmount.setText(String.valueOf(payment.getAmount()));
+            LocalDateTime dateTime = ((java.sql.Timestamp) payment.getPaymentDate()).toLocalDateTime();
+            enterPaymentDatePicker.setValue(dateTime.toLocalDate());
+            enterPaymentTime.setText(dateTime.toLocalTime().toString());
+            lastUpdate.setText(payment.getLastUpdated().toString());
+        }
+    }
+
+    @FXML
+    private void removeSelected() {
+        if (payment != null) {
+            allPayments.remove(paymentList.getSelectionModel().getSelectedItem());
+            textFieldVBOX.setVisible(false);
+            labelVBOX.setVisible(false);
+            lastUpdate.setText("");
+            daoManager.delete(payment);
+            payment = null;
+        }
+    }
+
+    @FXML
+    private void enterMainMenu() {
+        sceneController.switchScene("crud");
+    }
+
+    private void populateLists() {
+        allPayments.addAll(daoManager.findAll(Payment.class));
+        paymentList.setItems(allPayments);
+
+        // Customer list
+        ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+        allCustomers.addAll(daoManager.findAll(Customer.class));
+        enterCustomer.setItems(allCustomers);
+
+        // Staff list
+        ObservableList<Staff> allStaff = FXCollections.observableArrayList();
+        allStaff.addAll(daoManager.findAll(Staff.class));
+        enterStaff.setItems(allStaff);
+
+        // Rental list
+        ObservableList<Rental> allRentals = FXCollections.observableArrayList();
+        allRentals.addAll(daoManager.findAll(Rental.class));
+        enterRental.setItems(allRentals);
+    }
+
+    public void initialize() {
+        populateLists();
+
+        TextformatUtil textFormatter = new TextformatUtil();
+        enterAmount.setTextFormatter(textFormatter.bigDecimalFormatter(5, 2));
+    }
+
+    private boolean validateInput() {
+        if (enterCustomer.getSelectionModel().getSelectedItem() == null) {
+            warningText.setText("Välj en kund!");
+            return false;
+        }
+        if (enterStaff.getSelectionModel().getSelectedItem() == null) {
+            warningText.setText("Välj en anställd!");
+            return false;
+        }
+        if (enterAmount.getText().isEmpty()) {
+            warningText.setText("Fyll i belopp!");
+            return false;
+        }
+        if (enterPaymentDatePicker.getValue() == null) {
+            warningText.setText("Välj ett datum!");
+            return false;
+        }
+        if (!isValidTime(enterPaymentTime.getText())) {
+            warningText.setText("Ogiltigt tidsformat! Använd hh:mm:ss");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidTime(String timeStr) {
+        try {
+            java.time.LocalTime.parse(timeStr);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void populatePaymentData() {
+        payment.setCustomer(enterCustomer.getValue());
+        payment.setStaff(enterStaff.getValue());
+        payment.setRental(enterRental.getValue());
+        payment.setAmount(new BigDecimal(enterAmount.getText()));
+        LocalDate date = enterPaymentDatePicker.getValue();
+        LocalTime time = LocalTime.parse(enterPaymentTime.getText());
+        LocalDateTime dateTime = LocalDateTime.of(date, time);
+        payment.setPaymentDate(java.sql.Timestamp.valueOf(dateTime));
+    }
+
+    @FXML
+    private void addPayment() {
+        if (validateInput()) {
+            populatePaymentData();
+            warningText.setText("");
+            allPayments.add(payment);
+            daoManager.save(payment);
+            payment = null;
+            paymentList.getSelectionModel().clearSelection();
+            confirmNewButton.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void updatePayment() {
+        if (validateInput()) {
+            populatePaymentData();
+            warningText.setText("");
+            daoManager.update(payment);
+        }
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
+    }
+}
