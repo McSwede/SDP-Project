@@ -86,6 +86,6 @@ public class Inventory {
 
     @Override
     public String toString() {
-        return "Inventory Film:" + film;
+        return film + " (" + inventoryId + ")";
     }
 }
