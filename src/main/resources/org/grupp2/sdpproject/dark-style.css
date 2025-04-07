@@ -5,6 +5,9 @@
     -fx-text-fill: #E0E0E0;
     -fx-background-color: #1E1E2E; /* Ljus bakgrund */
 }
+.check-box {
+    -fx-text-fill: #E0E0E0;
+}
 .scroll-pane {
     -fx-background: transparent;
     -fx-background-color: transparent;

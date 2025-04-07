@@ -86,7 +86,7 @@ public class RegistrationScene {
         String lastName = lastNameField.getText();
         boolean active = activeCheckBox.isSelected();
         Store selectedStore = storeComboBox.getValue();
-        String username = usernameField.getText();
+        String username = emailField.getText();
 
         if (email.isEmpty() || password.isEmpty() || role == null || firstName.isEmpty() || lastName.isEmpty()) {
             statusLabel.setText("All fields are required.");
