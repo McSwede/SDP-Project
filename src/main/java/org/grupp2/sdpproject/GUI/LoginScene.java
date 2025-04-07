@@ -41,7 +41,7 @@ public class LoginScene {
         }
 
         // Login success
-        String welcomeMessage = "Login successful! Welcome, " + user.getCustomer().getFirstName();
+        String welcomeMessage = "Login successful, welcome!";
         if (user.getRole() != null && user.getRole() == Role.CUSTOMER) {
             // Customer-specific behavior
             navigateToDashboard("customer-dashboard", user,welcomeMessage);
