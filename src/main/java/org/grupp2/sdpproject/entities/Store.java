@@ -23,7 +23,7 @@ import java.util.List;
         @JoinColumn(name = "address_id", nullable = false)
         private Address address;
 
-        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
         private List<Inventory> inventories = new ArrayList<>();
 
         @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
