@@ -86,10 +86,13 @@ public class Inventory {
 
     @Override
     public String toString() {
+
         return "Inventory{" +
 
                 ", film=" + film +
 
                 '}';
+        return film + " (" + inventoryId + ")";
+
     }
 }

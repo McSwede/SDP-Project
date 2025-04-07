@@ -28,7 +28,7 @@
                         <VBox prefWidth="150.0" spacing="10.0">
                             <children>
                                 <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addCustomer" styleClass="bigbutton" text="Lägg till" visible="false" />
-                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateCustomer" styleClass="bigbutton" text="Uppdatera" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateCustomer" styleClass="bigbutton" text="Spara" visible="false" />
                                 <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
                             </children>
                             <padding>
@@ -50,8 +50,6 @@
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Butik:" />
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Aktiv:" />
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Skapelsedatum:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Historik:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Betalningar:" />
             </children>
             <padding>
                 <Insets top="5.0" />
@@ -66,14 +64,12 @@
                 <Label fx:id="storeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
                 <Label fx:id="activeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
                 <Label fx:id="createDateInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="rentalInfo" onMouseClicked="#showRentalHistory" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="paymentInfo" onMouseClicked="#showPaymentHistory" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
             </children>
             <padding>
                 <Insets right="5.0" top="5.0" />
             </padding>
         </VBox>
-        <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+        <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
             <children>
                 <TextField fx:id="enterFirstName" />
                 <TextField fx:id="enterLastName" />
@@ -82,8 +78,6 @@
                 <ComboBox fx:id="enterStore" prefWidth="150.0" />
             <CheckBox fx:id="enterActive" mnemonicParsing="false" prefHeight="26.0" />
             <DatePicker fx:id="enterCreateDate" />
-            <Button mnemonicParsing="false" onMouseClicked="#showRentalHistory" prefWidth="145.0" text="Visa/Ändra" />
-            <Button mnemonicParsing="false" onMouseClicked="#showPaymentHistory" prefWidth="145.0" text="Visa/Ändra" />
             </children>
             <padding>
                 <Insets right="5.0" top="5.0" />

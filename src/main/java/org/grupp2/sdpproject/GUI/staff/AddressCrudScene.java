@@ -45,7 +45,6 @@ public class AddressCrudScene {
 
     private ObservableList<Address> allAddresses = FXCollections.observableArrayList();
     private Address address;
-    private final DAOManager daoManager = new DAOManager();
 
     @FXML
     private void enhanceText(MouseEvent event) {
@@ -135,7 +134,7 @@ public class AddressCrudScene {
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
-            daoManager.delete(address);
+            DAOManager.getInstance().delete(address);
             address = null;
         }
     }
@@ -146,11 +145,11 @@ public class AddressCrudScene {
     }
 
     private void populateLists() {
-        allAddresses.addAll(daoManager.findAll(Address.class));
+        allAddresses.addAll(DAOManager.getInstance().findAll(Address.class));
         addressList.setItems(allAddresses);
 
         ObservableList<City> allCities = FXCollections.observableArrayList();
-        allCities.addAll(daoManager.findAll(City.class));
+        allCities.addAll(DAOManager.getInstance().findAll(City.class));
         enterCity.getItems().addAll(allCities);
     }
 
@@ -225,10 +224,12 @@ public class AddressCrudScene {
             populateAddressData();
             warningText.setText("");
             allAddresses.add(address);
-            daoManager.save(address);
+            DAOManager.getInstance().save(address);
             address = null;
             addressList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -237,7 +238,13 @@ public class AddressCrudScene {
         if (validateInput()) {
             populateAddressData();
             warningText.setText("");
-            daoManager.update(address);
+            DAOManager.getInstance().update(address);
+
+            addressList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            address = null;
         }
     }
 

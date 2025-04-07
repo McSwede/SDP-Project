@@ -32,7 +32,6 @@ public class ActorCrudScene {
     @FXML private AnchorPane root;
 
     private final SceneController sceneController = SceneController.getInstance();
-    private final DAOManager daoManager = new DAOManager();
     private ObservableList<Actor> allActors = FXCollections.observableArrayList();
     private Actor selectedActor;
 
@@ -100,7 +99,7 @@ public class ActorCrudScene {
 
             lastUpdate.setText("");
             allActors.remove(selectedActor);
-            daoManager.delete(selectedActor);
+            DAOManager.getInstance().delete(selectedActor);
             selectedActor = null;
         }
         else {
@@ -114,7 +113,8 @@ public class ActorCrudScene {
             populateData();
             varningText.setText("");
             allActors.add(selectedActor);
-            daoManager.save(selectedActor);
+            DAOManager.getInstance().save(selectedActor);
+
             selectedActor = null;
             actorList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -128,7 +128,8 @@ public class ActorCrudScene {
         if (validateFields()) {
             populateData();
             varningText.setText("");
-            daoManager.update(selectedActor);
+            DAOManager.getInstance().update(selectedActor);
+
             selectedActor = null;
             actorList.getSelectionModel().clearSelection();
             confirmUpdateButton.setVisible(false);
@@ -165,7 +166,7 @@ public class ActorCrudScene {
 
     
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main-menu");
+        sceneController.switchScene("crud");
     }
 
 
@@ -184,7 +185,7 @@ public class ActorCrudScene {
     }
 
     private void populateActorList() {
-        allActors.addAll(daoManager.findAll(Actor.class));
+        allActors.addAll(DAOManager.getInstance().findAll(Actor.class));
         actorList.setItems(allActors);
     }
 

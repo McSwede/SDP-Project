@@ -58,7 +58,6 @@ public class FilmCrudScene {
 
     private ObservableList<Film> allFilms = FXCollections.observableArrayList();
     private Film film;
-    private final DAOManager daoManager = new DAOManager();
 
 
 
@@ -191,7 +190,7 @@ public class FilmCrudScene {
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
-            daoManager.delete(film);
+            DAOManager.getInstance().delete(film);
             film = null;
         }
     }
@@ -209,12 +208,12 @@ public class FilmCrudScene {
     }
 
     private void populateLists() {
-        allFilms.addAll(daoManager.findAll(Film.class));
+        allFilms.addAll(DAOManager.getInstance().findAll(Film.class));
         filmList.setItems(allFilms);
 
         //språklista
         ObservableList<Language> allLanguages = FXCollections.observableArrayList();
-        allLanguages.addAll(daoManager.findAll(Language.class));
+        allLanguages.addAll(DAOManager.getInstance().findAll(Language.class));
         enterLanguage.getItems().addAll(allLanguages);
         enterOGLanguage.getItems().addAll(allLanguages);
 
@@ -224,7 +223,7 @@ public class FilmCrudScene {
 
         //kategoriLista
         ObservableList<Category> categories = FXCollections.observableArrayList();
-        categories.addAll(daoManager.findAll(Category.class));
+        categories.addAll(DAOManager.getInstance().findAll(Category.class));
         enterCategory.setItems(categories);
     }
 
@@ -295,10 +294,12 @@ public class FilmCrudScene {
             varningText.setText("");
             allFilms.add(film);
             System.out.println("Film added");
-            daoManager.save(film);
+            DAOManager.getInstance().save(film);
             film = null;
             filmList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -307,7 +308,13 @@ public class FilmCrudScene {
             populateFilmData();
             varningText.setText("");
             System.out.println("film updated");
-            daoManager.update(film);
+            DAOManager.getInstance().update(film);
+
+            filmList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            film = null;
         }
     }
 

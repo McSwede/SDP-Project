@@ -55,7 +55,6 @@ public class StaffCrudScene {
 
     private ObservableList<Staff> allStaff = FXCollections.observableArrayList();
     private Staff staff;
-    private final DAOManager daoManager = new DAOManager();
     private Image defaultImage;
     private static final int MAX_IMAGE_SIZE = 65535; // 65535 bytes is the max size for a BLOB
     private static final int INITIAL_TARGET_WIDTH = 200;
@@ -155,7 +154,7 @@ public class StaffCrudScene {
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
-            daoManager.delete(staff);
+            DAOManager.getInstance().delete(staff);
             staff = null;
         }
     }
@@ -166,15 +165,15 @@ public class StaffCrudScene {
     }
 
     private void populateLists() {
-        allStaff.addAll(daoManager.findAll(Staff.class));
+        allStaff.addAll(DAOManager.getInstance().findAll(Staff.class));
         staffList.setItems(allStaff);
 
         ObservableList<Address> allAddresses = FXCollections.observableArrayList();
-        allAddresses.addAll(daoManager.findAll(Address.class));
+        allAddresses.addAll(DAOManager.getInstance().findAll(Address.class));
         enterAddress.getItems().addAll(allAddresses);
 
         ObservableList<Store> allStores = FXCollections.observableArrayList();
-        allStores.addAll(daoManager.findAll(Store.class));
+        allStores.addAll(DAOManager.getInstance().findAll(Store.class));
         enterStore.getItems().addAll(allStores);
     }
 
@@ -258,10 +257,12 @@ public class StaffCrudScene {
             populateStaffData();
             warningText.setText("");
             allStaff.add(staff);
-            daoManager.save(staff);
+            DAOManager.getInstance().save(staff);
             staff = null;
             staffList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -270,7 +271,13 @@ public class StaffCrudScene {
         if (validateInput()) {
             populateStaffData();
             warningText.setText("");
-            daoManager.update(staff);
+            DAOManager.getInstance().update(staff);
+
+            staffList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            staff = null;
         }
     }
 

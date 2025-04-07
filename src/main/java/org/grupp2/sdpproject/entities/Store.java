@@ -26,7 +26,7 @@ import java.util.List;
         @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
         private List<Inventory> inventories = new ArrayList<>();
 
-        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
         private List<Customer> customers = new ArrayList<>();
 
         @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

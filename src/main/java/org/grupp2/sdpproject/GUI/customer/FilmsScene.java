@@ -97,6 +97,8 @@ public class FilmsScene {
             System.err.println("Error: FilmDetailScene controller is null");
 
         }
+        filmTable.getItems().clear();
+        filmTable.getItems().setAll(DAOManager.getInstance().findAll(Film.class));
     }
 
     @FXML

@@ -2,16 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
 
-<AnchorPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.grupp2.sdpproject.GUI.LoginScene">
-    <VBox alignment="CENTER" spacing="10" layoutX="150" layoutY="100">
-        <Label text="Login" style="-fx-font-size: 18px;"/>
-        <TextField fx:id="emailField" promptText="Email"/>
-        <PasswordField fx:id="passwordField" promptText="Password"/>
-        <Button text="Login" onAction="#handleLogin"/>
-        <Hyperlink text="Register" onAction="#switchToRegister"/>
-        <Label fx:id="statusLabel" textFill="red"/>
+<AnchorPane fx:id="root" prefHeight="422.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.LoginScene">
+    <VBox alignment="CENTER" layoutX="225.0" layoutY="100" prefWidth="150.0" spacing="10">
+        <Label style="-fx-font-size: 18px;" text="Login" />
+        <TextField fx:id="emailField" promptText="Email" />
+        <PasswordField fx:id="passwordField" promptText="Password" />
+        <Button onAction="#handleLogin" text="Login" />
+        <Hyperlink onAction="#switchToRegister" text="Register" />
+        <Label fx:id="statusLabel" textFill="red" />
     </VBox>
 </AnchorPane>

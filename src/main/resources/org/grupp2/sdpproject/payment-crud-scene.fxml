@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.staff.PaymentCrudScene">
+    <children>
+        <VBox prefHeight="424.0" prefWidth="300.0">
+            <children>
+                <ListView fx:id="paymentList" onMouseClicked="#showSelectedAttributes" prefHeight="200.0" prefWidth="200.0" />
+                <HBox prefHeight="31.0" prefWidth="300.0">
+                    <children>
+                        <Label fx:id="lastUpdate" prefHeight="36.0" prefWidth="280.0" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="149.0" prefWidth="300.0">
+                    <children>
+                        <VBox prefWidth="150.0" spacing="10.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#addNew" styleClass="bigbutton" text="Lägg till ny" />
+                                <Button mnemonicParsing="false" onAction="#updateSelected" styleClass="bigbutton" text="Uppdatera" />
+                                <Button maxHeight="15.0" mnemonicParsing="false" onAction="#removeSelected" styleClass="bigbutton" text="Ta bort" />
+                            </children>
+                            <HBox.margin>
+                                <Insets top="10.0" />
+                            </HBox.margin></VBox>
+                        <VBox prefWidth="150.0" spacing="10.0">
+                            <children>
+                                <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addPayment" styleClass="bigbutton" text="Lägg till" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updatePayment" styleClass="bigbutton" text="Spara" visible="false" />
+                                <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
+                            </children>
+                            <padding>
+                                <Insets left="30.0" top="10.0" />
+                            </padding></VBox>
+                    </children></HBox>
+                <Label fx:id="warningText" prefWidth="300.0" />
+            </children>
+            <padding>
+                <Insets left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+        <VBox alignment="TOP_RIGHT" layoutX="300.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+            <children>
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Betalnings ID:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Kund:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Personal:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Uthyrning:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Belopp:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Betalningsdatum:" />
+            </children>
+            <padding>
+                <Insets top="5.0" />
+            </padding>
+        </VBox>
+        <VBox fx:id="labelVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
+            <children>
+                <Label fx:id="paymentIdInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="customerInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="staffInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="rentalInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="amountInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="paymentDateInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+            </children>
+            <padding>
+                <Insets right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+        <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
+            <children>
+                <Label fx:id="paymentIdLabel" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <ComboBox fx:id="enterCustomer" prefWidth="150.0" />
+                <ComboBox fx:id="enterStaff" prefWidth="150.0" />
+                <ComboBox fx:id="enterRental" prefWidth="150.0" />
+                <TextField fx:id="enterAmount" />
+                <DatePicker fx:id="enterPaymentDatePicker" />
+                <TextField fx:id="enterPaymentTime" promptText="HH:mm:ss" />
+            </children>
+            <padding>
+                <Insets right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>
