@@ -46,11 +46,12 @@
 
         <VBox alignment="TOP_RIGHT" layoutX="300.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
             <children>
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Kund namn:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Uthyrnings datum:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Tillbaka datum:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Inventory Film namn:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Anställds namn:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Uthyrnings ID:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Uthyrningsdatum:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Återlämningsdatum:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Film (lager):" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Kund:" />
+                <Label prefHeight="26.0" styleClass="smalllabel" text="Personal:" />
             </children>
             <padding>
                 <Insets top="5.0" />
@@ -59,11 +60,12 @@
 
         <VBox fx:id="labelVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0">
             <children>
-                <Label fx:id="customerInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
-                <Label fx:id="rentalDateInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
-                <Label fx:id="returnDateInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
-                <Label fx:id="inventoryInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
-                <Label fx:id="staffInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
+                <Label fx:id="rentalIdInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="rentalDateInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="returnDateInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="inventoryInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="customerInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <Label fx:id="staffInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
             </children>
             <padding>
                 <Insets top="5.0" right="5.0" />
@@ -72,10 +74,11 @@
 
         <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="525.0" prefWidth="150.0" spacing="5.0" visible="false">
             <children>
-                <ComboBox fx:id="enterCustomer" prefWidth="150.0" />
-                <DatePicker fx:id="enterRentalDatePicker" prefWidth="150.0" />
-                <DatePicker fx:id="enterReturnDatePicker" prefWidth="150.0" />
+                <Label fx:id="rentalIdLabel" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
+                <DatePicker fx:id="enterRentalDate" prefWidth="150.0" />
+                <DatePicker fx:id="enterReturnDate" prefWidth="150.0" />
                 <ComboBox fx:id="enterInventory" prefWidth="150.0" />
+                <ComboBox fx:id="enterCustomer" prefWidth="150.0" />
                 <ComboBox fx:id="enterStaff" prefWidth="150.0" />
 
             </children>

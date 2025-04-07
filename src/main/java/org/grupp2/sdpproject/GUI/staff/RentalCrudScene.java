@@ -10,17 +10,9 @@ import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.*;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.PrecisionModel;
 
-import javax.swing.text.DateFormatter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class RentalCrudScene {
 
@@ -33,22 +25,21 @@ public class RentalCrudScene {
     @FXML private Label warningText;
     @FXML private VBox labelVBOX;
     @FXML private VBox textFieldVBOX;
-    @FXML private Label customerInfo;
+    @FXML private Label rentalIdInfo;
     @FXML private Label rentalDateInfo;
     @FXML private Label returnDateInfo;
     @FXML private Label inventoryInfo;
-    @FXML private Label paymentInfo;
+    @FXML private Label customerInfo;
     @FXML private Label staffInfo;
-    @FXML private TextField enterName;
+    @FXML private Label rentalIdLabel;
     @FXML private ComboBox<Customer> enterCustomer;
     @FXML private ComboBox<Inventory> enterInventory;
-    //@FXML private ComboBox<Payment> enterPayment;
     @FXML private ComboBox<Staff> enterStaff;
     @FXML private ListView<Rental> rentalListView;
-    @FXML private DatePicker enterRentalDatePicker;
-    @FXML private DatePicker enterReturnDatePicker;
+    @FXML private DatePicker enterRentalDate;
+    @FXML private DatePicker enterReturnDate;
 
-    private ObservableList<Rental> allRental = FXCollections.observableArrayList();
+    private final ObservableList<Rental> allRental = FXCollections.observableArrayList();
     private Rental rental;
     private final DAOManager daoManager = DAOManager.getInstance();
 
@@ -70,13 +61,20 @@ public class RentalCrudScene {
         labelVBOX.setVisible(true);
 
         rental = rentalListView.getSelectionModel().getSelectedItem();
-        
-        customerInfo.setText(rental.getCustomer().getFirstName());
-        rentalDateInfo.setText(rental.getRentalDate().toString());
-        returnDateInfo.setText(rental.getReturnDate().toString());
-        inventoryInfo.setText(rental.getInventory().getFilm().getTitle());
-        staffInfo.setText(rental.getStaff().getFirstName());
 
+        if (rental != null) {
+            rentalIdInfo.setText(String.valueOf(rental.getRentalId()));
+            rentalDateInfo.setText(rental.getRentalDate().toString());
+            if (rental.getReturnDate() != null) {
+                returnDateInfo.setText(rental.getReturnDate().toString());
+            } else {
+                returnDateInfo.setText("");
+            }
+            inventoryInfo.setText(rental.getInventory().getFilm().getTitle() + " (ID: " + rental.getInventory().getInventoryId() + ")");
+            customerInfo.setText(rental.getCustomer().toString());
+            staffInfo.setText(rental.getStaff().toString());
+            lastUpdate.setText(rental.getLastUpdated().toString());
+        }
     }
 
     @FXML
@@ -86,6 +84,12 @@ public class RentalCrudScene {
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
         rental = new Rental();
+        rentalIdLabel.setText("(Auto-genererat)");
+        enterRentalDate.setValue(null);
+        enterReturnDate.setValue(null);
+        enterInventory.setValue(null);
+        enterCustomer.setValue(null);
+        enterStaff.setValue(null);
         lastUpdate.setText("");
     }
 
@@ -96,10 +100,18 @@ public class RentalCrudScene {
             textFieldVBOX.setVisible(true);
             confirmUpdateButton.setVisible(true);
             confirmNewButton.setVisible(false);
+
             rental = rentalListView.getSelectionModel().getSelectedItem();
-
-            //enterName.setText(rental.getCustomer().getFirstName());
-
+            rentalIdLabel.setText(String.valueOf(rental.getRentalId()));
+            LocalDateTime rentalDateDateTime = ((java.sql.Timestamp) rental.getRentalDate()).toLocalDateTime();
+            enterRentalDate.setValue(rentalDateDateTime.toLocalDate());
+            if (rental.getReturnDate() != null) {
+                LocalDateTime returnDateDateTime = ((java.sql.Timestamp) rental.getReturnDate()).toLocalDateTime();
+                enterReturnDate.setValue(returnDateDateTime.toLocalDate());
+            }
+            enterInventory.setValue(rental.getInventory());
+            enterCustomer.setValue(rental.getCustomer());
+            enterStaff.setValue(rental.getStaff());
             lastUpdate.setText(rental.getLastUpdated().toString());
         }
     }
@@ -125,30 +137,55 @@ public class RentalCrudScene {
         allRental.addAll(daoManager.findAll(Rental.class));
         rentalListView.setItems(allRental);
 
+        // Inventory list
+        ObservableList<Inventory> allInventories = FXCollections.observableArrayList();
+        allInventories.addAll(daoManager.findAll(Inventory.class));
+        enterInventory.setItems(allInventories);
+
+        // Customer list
+        ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+        allCustomers.addAll(daoManager.findAll(Customer.class));
+        enterCustomer.setItems(allCustomers);
+
+        // Staff list
+        ObservableList<Staff> allStaff = FXCollections.observableArrayList();
+        allStaff.addAll(daoManager.findAll(Staff.class));
+        enterStaff.setItems(allStaff);
+
     }
 
     public void initialize() {
         populateLists();
-
-        enterCustomer.setItems(FXCollections.observableArrayList(daoManager.findAll(Customer.class)));
-        enterInventory.setItems(FXCollections.observableArrayList(daoManager.findAll(Inventory.class)));
-        //enterPayment.setItems(FXCollections.observableArrayList(daoManager.findAll(Payment.class)));
-        enterStaff.setItems(FXCollections.observableArrayList(daoManager.findAll(Staff.class)));
     }
 
     private boolean validateInput() {
+        if (enterRentalDate.getValue() == null) {
+            warningText.setText("Välj uthyrningsdatum!");
+            return false;
+        }
+        if (enterInventory.getSelectionModel().getSelectedItem() == null) {
+            warningText.setText("Välj en film från lagret!");
+            return false;
+        }
+        if (enterCustomer.getSelectionModel().getSelectedItem() == null) {
+            warningText.setText("Välj en kund!");
+            return false;
+        }
+        if (enterStaff.getSelectionModel().getSelectedItem() == null) {
+            warningText.setText("Välj personal!");
+            return false;
+        }
         return true;
     }
 
     private void populateRentalData() {
-
-        rental.setCustomer(enterCustomer.getSelectionModel().getSelectedItem());
-
-        rental.setRentalDate(java.sql.Date.valueOf(enterRentalDatePicker.getValue()));
-
-        rental.setReturnDate(java.sql.Date.valueOf(enterReturnDatePicker.getValue()));
-        rental.setInventory(enterInventory.getSelectionModel().getSelectedItem());
-        rental.setStaff(enterStaff.getSelectionModel().getSelectedItem());
+        rental.setRentalDate(Date.valueOf(enterRentalDate.getValue()));
+        if (enterReturnDate.getValue() != null) {
+            rental.setReturnDate(Date.valueOf(enterReturnDate.getValue()));
+        }
+        rental.setInventory(enterInventory.getValue());
+        rental.setCustomer(enterCustomer.getValue());
+        rental.setStaff(enterStaff.getValue());
     }
 
     @FXML
