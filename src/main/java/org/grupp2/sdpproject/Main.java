@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
-
 import java.io.IOException;
 
 public class Main extends Application {
@@ -15,6 +14,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
         launch();
 
         // Shutdown our DAOManager gracefully

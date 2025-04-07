@@ -84,4 +84,8 @@ public class Inventory {
         this.lastUpdated = lastUpdated;
     }
 
+    @Override
+    public String toString() {
+        return "Inventory Film:" + film;
+    }
 }
