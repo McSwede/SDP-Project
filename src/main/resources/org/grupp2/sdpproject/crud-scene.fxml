@@ -15,7 +15,7 @@
             <Button fx:id="rentalButton" mnemonicParsing="false" onAction="#enterRentalScene" prefWidth="111.0" styleClass="bigbutton" text="Uthyrningar" />
             <Button fx:id="employeeButton" mnemonicParsing="false" onAction="#enterStaffScene" prefWidth="111.0" styleClass="bigbutton" text="Anställda" />
             <Button fx:id="storeButton" mnemonicParsing="false" onAction="#enterStoreScene" prefWidth="111.0" styleClass="bigbutton" text="Butiker" />
-            <Button fx:id="inventoryButton" mnemonicParsing="false" prefWidth="111.0" styleClass="bigbutton" text="Lager" />
+            <Button fx:id="inventoryButton" mnemonicParsing="false" onAction="#enterInventoryScene" prefWidth="111.0" styleClass="bigbutton" text="Lager" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="150.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">

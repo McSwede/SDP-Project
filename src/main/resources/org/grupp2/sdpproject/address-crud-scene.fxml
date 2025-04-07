@@ -28,7 +28,7 @@
                         <VBox prefWidth="150.0" spacing="10.0">
                             <children>
                                 <Button fx:id="confirmNewButton" mnemonicParsing="false" onAction="#addAddress" styleClass="bigbutton" text="Lägg till" visible="false" />
-                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateAddress" styleClass="bigbutton" text="Uppdatera" visible="false" />
+                                <Button fx:id="confirmUpdateButton" mnemonicParsing="false" onAction="#updateAddress" styleClass="bigbutton" text="Spara" visible="false" />
                                 <Button mnemonicParsing="false" onAction="#enterMainMenu" styleClass="bigbutton" text="Huvudmeny" />
                             </children>
                             <padding>
