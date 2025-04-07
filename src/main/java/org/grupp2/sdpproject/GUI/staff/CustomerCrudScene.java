@@ -2,7 +2,6 @@ package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -18,9 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 
 public class CustomerCrudScene {
 
@@ -49,7 +46,6 @@ public class CustomerCrudScene {
     @FXML private DatePicker enterCreateDate;
 
     private final SceneController sceneController = SceneController.getInstance();
-    private final DAOManager daoManager = new DAOManager();
     private ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private Customer selectedCustomer;
 
@@ -127,7 +123,7 @@ public class CustomerCrudScene {
 
             lastUpdate.setText("");
             allCustomers.remove(selectedCustomer);
-            daoManager.delete(selectedCustomer);
+            DAOManager.getInstance().delete(selectedCustomer);
             selectedCustomer = null;
         }
         else {
@@ -140,7 +136,7 @@ public class CustomerCrudScene {
             populateData();
             varningText.setText("");
             allCustomers.add(selectedCustomer);
-            daoManager.save(selectedCustomer);
+            DAOManager.getInstance().save(selectedCustomer);
             selectedCustomer = null;
             customerView.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -153,7 +149,7 @@ public class CustomerCrudScene {
         if (validateFields()) {
             populateData();
             varningText.setText("");
-            daoManager.update(selectedCustomer);
+            DAOManager.getInstance().update(selectedCustomer);
             selectedCustomer = null;
             customerView.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
@@ -205,7 +201,7 @@ public class CustomerCrudScene {
     }
 
     @FXML private void enterMainMenu() {
-        sceneController.switchScene("main-menu");
+        sceneController.switchScene("crud");
     }
 
     @FXML private void enhanceText(MouseEvent event) {
@@ -218,15 +214,15 @@ public class CustomerCrudScene {
     }
 
     private void populateLists() {
-        allCustomers.addAll(daoManager.findAll(Customer.class));
+        allCustomers.addAll(DAOManager.getInstance().findAll(Customer.class));
         customerView.setItems(allCustomers);
 
         ObservableList<Address> adresses = FXCollections.observableArrayList();
-        adresses.addAll(daoManager.findAll(Address.class));
+        adresses.addAll(DAOManager.getInstance().findAll(Address.class));
         enterAddress.setItems(adresses);
 
         ObservableList<Store> stores = FXCollections.observableArrayList();
-        stores.addAll(daoManager.findAll(Store.class));
+        stores.addAll(DAOManager.getInstance().findAll(Store.class));
         enterStore.setItems(stores);
     }
 

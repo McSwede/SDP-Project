@@ -28,6 +28,8 @@ public class HibernateUtil {
             sessionFactory = configuration.buildSessionFactory();
             sessionFactory.openSession().close();
 
+            // We call the DAOManger just to run its constructor to do the setup in the background
+            DAOManager.getInstance();
 
             return true;
         } catch (Exception e) {

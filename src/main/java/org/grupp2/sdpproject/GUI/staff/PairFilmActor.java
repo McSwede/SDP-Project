@@ -27,14 +27,13 @@ public class PairFilmActor {
     private Actor actor;
     private ObservableList<Object> list = FXCollections.observableArrayList();
     private ObservableList<Object> fullList = FXCollections.observableArrayList();
-    private final DAOManager daoManager = new DAOManager();
 
     private void getActors() {
 
         if (film.getActorList() != null) {
             list.addAll(film.getActorList());
         }
-        fullList.addAll(daoManager.findAll(Actor.class));
+        fullList.addAll(DAOManager.getInstance().findAll(Actor.class));
         fullList.removeAll(list);
 
         ObjectList.setItems(list);
@@ -45,7 +44,7 @@ public class PairFilmActor {
         if (actor.getFilmList() != null) {
             list.addAll(actor.getFilmList());
         }
-        fullList.addAll(daoManager.findAll(Film.class));
+        fullList.addAll(DAOManager.getInstance().findAll(Film.class));
         fullList.removeAll(list);
 
         ObjectList.setItems(list);
