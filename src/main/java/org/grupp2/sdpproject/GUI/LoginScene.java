@@ -42,6 +42,7 @@ public class LoginScene {
         }
 
         // Login success
+        SessionManager.login(email);
         String welcomeMessage = "Login successful, welcome!";
         if (user.getRole() != null && user.getRole() == Role.CUSTOMER) {
             // Customer-specific behavior
