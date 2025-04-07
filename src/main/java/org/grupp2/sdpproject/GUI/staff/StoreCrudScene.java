@@ -152,6 +152,8 @@ public class StoreCrudScene {
             store = null;
             storeList.getSelectionModel().clearSelection();
             confirmNewButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
         }
     }
 
@@ -161,6 +163,12 @@ public class StoreCrudScene {
             populateStoreData();
             varningText.setText("");
             DAOManager.getInstance().update(store);
+
+            storeList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            store = null;
         }
     }
 

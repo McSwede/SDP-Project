@@ -160,6 +160,12 @@ public class InventoryCrudScene {
             populateInventoryData();
             varningText.setText("");
             DAOManager.getInstance().update(inventory);
+
+            inventoryList.getSelectionModel().clearSelection();
+            confirmUpdateButton.setVisible(false);
+            labelVBOX.setVisible(true);
+            textFieldVBOX.setVisible(false);
+            inventory = null;
         }
     }
 
