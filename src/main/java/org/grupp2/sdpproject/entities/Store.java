@@ -29,7 +29,7 @@ import java.util.List;
         @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
         private List<Customer> customers = new ArrayList<>();
 
-        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+        @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
         private List<Staff> staffList = new ArrayList<>();
 
         @Column(name = "last_update", nullable = false)

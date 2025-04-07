@@ -23,7 +23,7 @@ public class Inventory {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Rental> rentalList = new ArrayList<>();;
 
     @Column(name = "last_update", nullable = false)
@@ -84,4 +84,12 @@ public class Inventory {
         this.lastUpdated = lastUpdated;
     }
 
+    @Override
+    public String toString() {
+        return "Inventory{" +
+
+                ", film=" + film +
+
+                '}';
+    }
 }

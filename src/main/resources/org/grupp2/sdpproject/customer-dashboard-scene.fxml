@@ -17,7 +17,6 @@
     <!-- Buttons for various actions -->
     <Button fx:id="viewFilmssButton" text="View Available Films" onAction="#handleViewFilms"/>
     <Button fx:id="rentalHistoryButton" text="Rental History" onAction="#handleRentalHistory"/>
-    <Button fx:id="rentFilmButton" text="Rent a Film" onAction="#handleRentFilm"/>
     <Button fx:id="returnFilmButton" text="Return a Film" onAction="#handleReturnFilm"/>
     <Button fx:id="accountDetailsButton" text="Account Details" onAction="#handleAccountDetails"/>
     <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout"/>

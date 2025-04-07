@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.GUI.SceneController;
+import org.grupp2.sdpproject.Utils.SessionManager;
 import org.grupp2.sdpproject.entities.User;
 
 public class CustomerDashBoardScene {
@@ -14,23 +15,12 @@ public class CustomerDashBoardScene {
     @FXML private Label welcomeLabel;
     @FXML private Button viewFilmsButton;
     @FXML private Button rentalHistoryButton;
-    @FXML private Button rentFilmButton;
     @FXML private Button returnFilmButton;
     @FXML private Button accountDetailsButton;
     @FXML private Button logoutButton;
 
     private final SceneController sceneController = SceneController.getInstance();
-    private User loggedInCustomer;
-
-    // Method to set the logged-in customer and update the welcome label
-    public void setCustomer(User user) {
-        this.loggedInCustomer = user;
-        // Update the welcome label with the customer's first name
-        if (welcomeLabel != null && loggedInCustomer != null) {
-            welcomeLabel.setText("Welcome, " + loggedInCustomer.getCustomer().getFirstName());
-            System.out.println("loggedinuser" + loggedInCustomer.getCustomer().getFirstName());
-        }
-    }
+   // private String  userName = SessionManager.getLoggedInUser();
 
     // Method to update the welcome message
     public void updateWelcomeMessage(String welcomeMessage) {
@@ -38,7 +28,6 @@ public class CustomerDashBoardScene {
             welcomeLabel.setText(welcomeMessage);
         }
     }
-
 
     @FXML
     private void handleViewFilms() {
@@ -50,10 +39,6 @@ public class CustomerDashBoardScene {
         sceneController.switchScene("rental-history");
     }
 
-    @FXML
-    private void handleRentFilm() {
-        sceneController.switchScene("rent-film");
-    }
 
     @FXML
     private void handleReturnFilm() {
@@ -67,7 +52,7 @@ public class CustomerDashBoardScene {
 
     @FXML
     private void handleLogout() {
-        this.loggedInCustomer = null;
+        SessionManager.logout();
         sceneController.switchScene("login");
     }
 
