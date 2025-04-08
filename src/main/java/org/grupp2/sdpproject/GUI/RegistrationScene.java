@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import javafx.stage.FileChooser;
 import org.grupp2.sdpproject.Utils.DAOManager;
+import org.grupp2.sdpproject.Utils.PictureUtil;
 import org.grupp2.sdpproject.entities.*;
 import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
@@ -14,9 +14,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -165,20 +163,17 @@ public class RegistrationScene {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleUploadPicture() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Picture");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
-
-        File file = fileChooser.showOpenDialog(root.getScene().getWindow());
-        if (file != null) {
-            try {
-                pictureData = Files.readAllBytes(file.toPath());
-                statusLabel.setText("Picture uploaded successfully!");
-            } catch (IOException e) {
-                statusLabel.setText("Error uploading picture.");
+        try {
+            byte[] imageData = PictureUtil.handleImageUpload(root.getScene().getWindow());
+            if (imageData != null) {
+                pictureLabel.setText("Picture selected");
+                this.pictureData = imageData;
             }
+        } catch (IOException e) {
+            statusLabel.setText("Error uploading picture: " + e.getMessage());
         }
     }
 
