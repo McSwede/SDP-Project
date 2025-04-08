@@ -31,11 +31,11 @@ public class Film {
     @Column(name = "release_Year", columnDefinition = "YEAR(4)")
     private short releaseYear;
 
-    @ManyToOne(targetEntity = Language.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Language.class)
     @JoinColumn(name = "language_id", nullable = false)
     private Language language;
 
-    @ManyToOne(targetEntity = Language.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Language.class)
     @JoinColumn(name = "original_language_id")
     private Language originalLanguage;
 
@@ -58,9 +58,9 @@ public class Film {
     private Rating rating = Rating.G;
 
     @Column(name = "special_features", columnDefinition = "SET('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')")
-    private String specialFeatures; //Skulle kunna ändra till en enum av special features
+    private String specialFeatures;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}) //not sure about the cascade type
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),
@@ -68,7 +68,7 @@ public class Film {
     )
     private List<Actor> actorList = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER) //not sure about the cascade type
+    @ManyToMany()
     @JoinTable(
             name = "film_category",
             joinColumns = @JoinColumn(name = "film_id"),
@@ -76,7 +76,7 @@ public class Film {
     )
     private List<Category> categoryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "film", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "film", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Inventory> inventories = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)

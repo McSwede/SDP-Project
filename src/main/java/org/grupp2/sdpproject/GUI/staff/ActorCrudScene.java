@@ -42,7 +42,13 @@ public class ActorCrudScene {
         textFieldVBOX.setVisible(false);
         labelVBOX.setVisible(true);
 
-        selectedActor = actorList.getSelectionModel().getSelectedItem();
+        Actor basicActor = actorList.getSelectionModel().getSelectedItem();
+
+        selectedActor = DAOManager.getInstance().findByIdWithJoinFetch(Actor.class,
+                basicActor.getActorId(),
+                List.of("filmList"));
+
+        //selectedActor = actorList.getSelectionModel().getSelectedItem();
 
         firstNameInfo.setText(selectedActor.getFirstName());
         lastNameInfo.setText(selectedActor.getLastName());

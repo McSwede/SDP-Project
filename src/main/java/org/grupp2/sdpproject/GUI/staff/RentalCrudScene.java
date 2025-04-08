@@ -2,7 +2,10 @@ package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -12,10 +15,11 @@ import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.*;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RentalCrudScene {
-
     SceneController sceneController = SceneController.getInstance();
 
     @FXML private AnchorPane root;
@@ -39,9 +43,11 @@ public class RentalCrudScene {
     @FXML private DatePicker enterRentalDate;
     @FXML private DatePicker enterReturnDate;
 
-    private final ObservableList<Rental> allRental = FXCollections.observableArrayList();
+    private final ObservableList<Rental> allRentals = FXCollections.observableArrayList();
     private Rental rental;
     private final DAOManager daoManager = DAOManager.getInstance();
+    private int offset = 0;
+    private static final int LIMIT = 50;
 
     @FXML
     private void enhanceText(MouseEvent event) {
@@ -63,17 +69,26 @@ public class RentalCrudScene {
         rental = rentalListView.getSelectionModel().getSelectedItem();
 
         if (rental != null) {
+            rental = daoManager.findByIdWithJoinFetch(Rental.class,
+                    rental.getRentalId(),
+                    List.of("inventory", "customer", "staff", "inventory.film"));
+
             rentalIdInfo.setText(String.valueOf(rental.getRentalId()));
             rentalDateInfo.setText(rental.getRentalDate().toString());
-            if (rental.getReturnDate() != null) {
-                returnDateInfo.setText(rental.getReturnDate().toString());
-            } else {
-                returnDateInfo.setText("");
+            returnDateInfo.setText(rental.getReturnDate() != null ?
+                    rental.getReturnDate().toString() : "");
+
+            if (rental.getInventory() != null && rental.getInventory().getFilm() != null) {
+                inventoryInfo.setText(rental.getInventory().getFilm().getTitle() +
+                        " (ID: " + rental.getInventory().getInventoryId() + ")");
             }
-            inventoryInfo.setText(rental.getInventory().getFilm().getTitle() + " (ID: " + rental.getInventory().getInventoryId() + ")");
-            customerInfo.setText(rental.getCustomer().toString());
-            staffInfo.setText(rental.getStaff().toString());
-            lastUpdate.setText(rental.getLastUpdated().toString());
+
+            customerInfo.setText(rental.getCustomer() != null ?
+                    rental.getCustomer().toString() : "");
+            staffInfo.setText(rental.getStaff() != null ?
+                    rental.getStaff().toString() : "");
+            lastUpdate.setText(rental.getLastUpdated() != null ?
+                    rental.getLastUpdated().toString() : "");
         }
     }
 
@@ -91,6 +106,7 @@ public class RentalCrudScene {
         enterCustomer.setValue(null);
         enterStaff.setValue(null);
         lastUpdate.setText("");
+        warningText.setText("");
     }
 
     @FXML
@@ -100,31 +116,39 @@ public class RentalCrudScene {
             textFieldVBOX.setVisible(true);
             confirmUpdateButton.setVisible(true);
             confirmNewButton.setVisible(false);
+            warningText.setText("");
 
             rental = rentalListView.getSelectionModel().getSelectedItem();
             rentalIdLabel.setText(String.valueOf(rental.getRentalId()));
+
             LocalDateTime rentalDateDateTime = ((java.sql.Timestamp) rental.getRentalDate()).toLocalDateTime();
             enterRentalDate.setValue(rentalDateDateTime.toLocalDate());
+
             if (rental.getReturnDate() != null) {
                 LocalDateTime returnDateDateTime = ((java.sql.Timestamp) rental.getReturnDate()).toLocalDateTime();
                 enterReturnDate.setValue(returnDateDateTime.toLocalDate());
+            } else {
+                enterReturnDate.setValue(null);
             }
+
             enterInventory.setValue(rental.getInventory());
             enterCustomer.setValue(rental.getCustomer());
             enterStaff.setValue(rental.getStaff());
-            lastUpdate.setText(rental.getLastUpdated().toString());
+            lastUpdate.setText(rental.getLastUpdated() != null ?
+                    rental.getLastUpdated().toString() : "");
         }
     }
 
     @FXML
     private void removeSelected() {
         if (rental != null) {
-            allRental.remove(rentalListView.getSelectionModel().getSelectedItem());
+            allRentals.remove(rentalListView.getSelectionModel().getSelectedItem());
             textFieldVBOX.setVisible(false);
             labelVBOX.setVisible(false);
             lastUpdate.setText("");
             daoManager.delete(rental);
             rental = null;
+            warningText.setText("");
         }
     }
 
@@ -134,55 +158,172 @@ public class RentalCrudScene {
     }
 
     private void populateLists() {
-        allRental.addAll(daoManager.findAll(Rental.class));
-        rentalListView.setItems(allRental);
+        loadRentals(offset, LIMIT);
 
-        // Inventory list
-        ObservableList<Inventory> allInventories = FXCollections.observableArrayList();
-        allInventories.addAll(daoManager.findAll(Inventory.class));
-        enterInventory.setItems(allInventories);
+        enterInventory.setItems(FXCollections.observableArrayList());
+        enterInventory.setEditable(true);
+        enterInventory.setOnShowing(event -> {
+            if (enterInventory.getItems().isEmpty()) {
+                List<Inventory> inventories = daoManager.findAll(Inventory.class);
+                enterInventory.getItems().setAll(inventories);
+            }
+        });
 
-        // Customer list
-        ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-        allCustomers.addAll(daoManager.findAll(Customer.class));
-        enterCustomer.setItems(allCustomers);
+        enterCustomer.setItems(FXCollections.observableArrayList());
+        enterCustomer.setEditable(true);
+        enterCustomer.setOnShowing(event -> {
+            if (enterCustomer.getItems().isEmpty()) {
+                List<Customer> customers = daoManager.findAll(Customer.class);
+                enterCustomer.getItems().setAll(customers);
+            }
+        });
 
-        // Staff list
-        ObservableList<Staff> allStaff = FXCollections.observableArrayList();
-        allStaff.addAll(daoManager.findAll(Staff.class));
-        enterStaff.setItems(allStaff);
-
+        enterStaff.setItems(FXCollections.observableArrayList());
+        enterStaff.setEditable(true);
+        enterStaff.setOnShowing(event -> {
+            if (enterStaff.getItems().isEmpty()) {
+                List<Staff> staffList = daoManager.findAll(Staff.class);
+                enterStaff.getItems().setAll(staffList);
+            }
+        });
     }
 
-    public void initialize() {
+    @FXML
+    private void initialize() {
         populateLists();
+
+        rentalListView.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ScrollBar scrollBar = getVerticalScrollBar(rentalListView);
+            if (scrollBar != null) {
+                scrollBar.valueProperty().addListener((obs, oldVal, newVal) -> {
+                    if (newVal.doubleValue() >= scrollBar.getMax() - 0.1) {
+                        if (!rentalListView.getItems().isEmpty() &&
+                                rentalListView.getItems().size() == offset + LIMIT) {
+                            offset += LIMIT;
+                            loadRentalsAsync(offset, LIMIT);
+                        }
+                    }
+                });
+            }
+        });
+
+        enterReturnDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate rentalDate = enterRentalDate.getValue();
+                setDisable(empty || (rentalDate != null && date.isBefore(rentalDate)));
+            }
+        });
+
+        enterRentalDate.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                enterReturnDate.setValue(null);
+                enterReturnDate.setDisable(false);
+            } else {
+                enterReturnDate.setDisable(true);
+            }
+        });
+    }
+
+    private void loadRentalsAsync(int offset, int limit) {
+        Task<List<Rental>> loadTask = new Task<List<Rental>>() {
+            @Override
+            protected List<Rental> call() throws Exception {
+                return daoManager.findPaginated(Rental.class, offset, limit);
+            }
+        };
+
+        loadTask.setOnSucceeded(event -> {
+            List<Rental> rentals = loadTask.getValue();
+            if (!rentals.isEmpty()) {
+                allRentals.addAll(rentals);
+                rentalListView.setItems(allRentals);
+            }
+        });
+
+        loadTask.setOnFailed(event -> {
+            warningText.setText("Kunde inte ladda fler uthyrningar");
+            loadTask.getException().printStackTrace();
+        });
+
+        new Thread(loadTask).start();
+    }
+
+    private ScrollBar getVerticalScrollBar(ListView<?> listView) {
+        for (Node node : listView.lookupAll(".scroll-bar")) {
+            if (node instanceof ScrollBar) {
+                ScrollBar scrollBar = (ScrollBar) node;
+                if (scrollBar.getOrientation() == Orientation.VERTICAL) {
+                    return scrollBar;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void loadRentals(int offset, int limit) {
+        Task<List<Rental>> loadTask = new Task<List<Rental>>() {
+            @Override
+            protected List<Rental> call() throws Exception {
+                return daoManager.findPaginated(Rental.class, offset, limit);
+            }
+        };
+
+        loadTask.setOnSucceeded(event -> {
+            List<Rental> rentals = loadTask.getValue();
+            if (!rentals.isEmpty()) {
+                allRentals.addAll(rentals);
+                rentalListView.setItems(allRentals);
+            }
+        });
+
+        loadTask.setOnFailed(event -> {
+            warningText.setText("Kunde inte ladda uthyrningar");
+            loadTask.getException().printStackTrace();
+        });
+
+        new Thread(loadTask).start();
     }
 
     private boolean validateInput() {
+        warningText.setText("");
+
         if (enterRentalDate.getValue() == null) {
             warningText.setText("Välj uthyrningsdatum!");
             return false;
         }
-        if (enterInventory.getSelectionModel().getSelectedItem() == null) {
+
+        if (enterReturnDate.getValue() != null &&
+                enterReturnDate.getValue().isBefore(enterRentalDate.getValue())) {
+            warningText.setText("Returdatum måste vara efter uthyrningsdatum!");
+            return false;
+        }
+
+        if (enterInventory.getValue() == null) {
             warningText.setText("Välj en film från lagret!");
             return false;
         }
-        if (enterCustomer.getSelectionModel().getSelectedItem() == null) {
+
+        if (enterCustomer.getValue() == null) {
             warningText.setText("Välj en kund!");
             return false;
         }
-        if (enterStaff.getSelectionModel().getSelectedItem() == null) {
+
+        if (enterStaff.getValue() == null) {
             warningText.setText("Välj personal!");
             return false;
         }
+
         return true;
     }
 
     private void populateRentalData() {
-        rental.setRentalDate(Date.valueOf(enterRentalDate.getValue()));
-        if (enterReturnDate.getValue() != null) {
-            rental.setReturnDate(Date.valueOf(enterReturnDate.getValue()));
-        }
+        LocalDate rentalDate = enterRentalDate.getValue();
+        LocalDate returnDate = enterReturnDate.getValue();
+
+        rental.setRentalDate(Date.valueOf(rentalDate));
+        rental.setReturnDate(returnDate != null ? Date.valueOf(returnDate) : null);
         rental.setInventory(enterInventory.getValue());
         rental.setCustomer(enterCustomer.getValue());
         rental.setStaff(enterStaff.getValue());
@@ -193,7 +334,7 @@ public class RentalCrudScene {
         if (validateInput()) {
             populateRentalData();
             warningText.setText("");
-            allRental.add(rental);
+            allRentals.add(rental);
             daoManager.save(rental);
             rental = null;
             rentalListView.getSelectionModel().clearSelection();
