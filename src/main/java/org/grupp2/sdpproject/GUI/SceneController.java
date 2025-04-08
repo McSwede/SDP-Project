@@ -142,7 +142,7 @@ public class SceneController {
         try {
 
             FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("add-special-features.fxml"));
-            Scene scene = new Scene(xmlScene.load(), 600, 600);
+            Scene scene = new Scene(xmlScene.load(), 300, 300);
           
             AddSpecialFeatures controller = (AddSpecialFeatures) xmlScene.getController();
             controller.setFilm(film);

@@ -43,7 +43,7 @@ public class CrudScene {
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             soundManager.setGlobalVolume(newValue.doubleValue());
         });
-        volumeSlider.setValue(0.1);
+        volumeSlider.setValue(soundManager.getVolume());
     }
 
     @FXML private void enterFilmScene() {
@@ -75,8 +75,7 @@ public class CrudScene {
     }
 
     @FXML private void toggleTheme() {
-        sceneController.toggleDarkMode(this, colorScheme);
-        sceneController.toggleDarkMode(root, colorsheme);
+        sceneController.toggleDarkMode(root, colorScheme);
     }
 
     @FXML
@@ -88,11 +87,11 @@ public class CrudScene {
     @FXML private void toggleMusic() {
         if (soundManager.isPaused()) {
             soundManager.resumeCurrentMusic();
-            soundButton.setText("Mute music");
+            soundButton.setText("Pausa musik");
         }
         else {
             soundManager.pauseCurrentMusic();
-            soundButton.setText("Play music");
+            soundButton.setText("Spela musik");
         }
     }
 

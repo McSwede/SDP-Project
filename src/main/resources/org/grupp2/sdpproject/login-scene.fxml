@@ -3,16 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefHeight="422.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.LoginScene">
-    <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" text="Mörkt läge"
-            AnchorPane.topAnchor="10.0" AnchorPane.rightAnchor="10.0" styleClass="bigbutton"/>
+<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.LoginScene">
     <VBox alignment="CENTER" layoutX="225.0" layoutY="100" prefWidth="150.0" spacing="10">
         <Label style="-fx-font-size: 18px;" text="Inloggning" />
-        <TextField fx:id="emailField" promptText="Mejl" onKeyPressed="#keyPressed"/>
-        <PasswordField fx:id="passwordField" promptText="Lösenord" onKeyPressed="#keyPressed"/>
+        <TextField fx:id="emailField" onKeyPressed="#keyPressed" promptText="Mejl" />
+        <PasswordField fx:id="passwordField" onKeyPressed="#keyPressed" promptText="Lösenord" />
         <Button fx:id="loginButton" onAction="#handleLogin" onKeyPressed="#keyPressed" text="Logga in" />
-        <Button onAction="#handleLogin" text="Logga in" />
         <Hyperlink onAction="#switchToRegister" text="Registrera" />
         <Label fx:id="statusLabel" textFill="red" />
     </VBox>
+   <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
+      <children>
+          <Button fx:id="colorScheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Mörkt läge" />
+          <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="bigbutton" text="Pausa musik" />
+          <Slider fx:id="volumeSlider" blockIncrement="0.1" majorTickUnit="0.05" max="0.5" maxWidth="111.0" minorTickCount="1" onDragDetected="#handleVolumeChange" styleClass="slider" />
+      </children>
+   </VBox>
 </AnchorPane>
