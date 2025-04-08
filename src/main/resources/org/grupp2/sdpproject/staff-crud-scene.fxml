@@ -55,7 +55,6 @@
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Butik:" />
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Aktiv:" />
                 <Label prefHeight="26.0" styleClass="smalllabel" text="Användarnamn:" />
-                <Label prefHeight="26.0" styleClass="smalllabel" text="Lösenord:" />
             </children>
             <padding>
                 <Insets top="5.0" />
@@ -71,7 +70,6 @@
                 <Label fx:id="storeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
                 <Label fx:id="activeInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
                 <Label fx:id="usernameInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
-                <Label fx:id="passwordInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="140.0" styleClass="smalllabel" />
                 <ImageView fx:id="staffPicture" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
             </children>
             <padding>
@@ -88,7 +86,6 @@
                 <ComboBox fx:id="enterStore" prefWidth="150.0" />
                 <CheckBox fx:id="enterActive" mnemonicParsing="false" selected="true" text="Aktiv" />
                 <TextField fx:id="enterUsername" />
-                <TextField fx:id="enterPassword" />
                 <Button fx:id="uploadImageButton" mnemonicParsing="false" onAction="#handleUploadImage" prefWidth="150.0" text="Lägg till bild" />
             </children>
             <padding>

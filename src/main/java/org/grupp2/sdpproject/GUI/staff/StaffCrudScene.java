@@ -39,7 +39,6 @@ public class StaffCrudScene {
     @FXML private Label storeInfo;
     @FXML private Label activeInfo;
     @FXML private Label usernameInfo;
-    @FXML private Label passwordInfo;
     @FXML private ImageView staffPicture;
     @FXML private Button uploadImageButton;
     @FXML private TextField enterFirstName;
@@ -49,15 +48,11 @@ public class StaffCrudScene {
     @FXML private ComboBox<Store> enterStore;
     @FXML private CheckBox enterActive;
     @FXML private TextField enterUsername;
-    @FXML private TextField enterPassword;
     @FXML private ListView<Staff> staffList;
 
     private ObservableList<Staff> allStaff = FXCollections.observableArrayList();
     private Staff staff;
     private Image defaultImage;
-    private static final int MAX_IMAGE_SIZE = 65535; // 65535 bytes is the max size for a BLOB
-    private static final int INITIAL_TARGET_WIDTH = 200;
-    private static final int INITIAL_TARGET_HEIGHT = 200;
 
     @FXML
     private void enhanceText(MouseEvent event) {
@@ -93,7 +88,6 @@ public class StaffCrudScene {
         storeInfo.setText(staff.getStore().toString());
         activeInfo.setText(staff.isActive() ? "Aktiv" : "Inaktiv");
         usernameInfo.setText(staff.getUsername());
-        passwordInfo.setText("********"); // Don't show the actual password
     }
 
     @FXML
@@ -111,7 +105,6 @@ public class StaffCrudScene {
         enterStore.setValue(null);
         enterActive.setSelected(true);
         enterUsername.setText("");
-        enterPassword.setText("");
         staffPicture.setImage(defaultImage);
         lastUpdate.setText("");
     }
@@ -133,7 +126,6 @@ public class StaffCrudScene {
             enterStore.setValue(staff.getStore());
             enterActive.setSelected(staff.isActive());
             enterUsername.setText(staff.getUsername());
-            enterPassword.setText(staff.getPassword());
 
             if (staff.getPicture() != null && staff.getPicture().length > 0) {
                 Image image = new Image(new ByteArrayInputStream(staff.getPicture()));
@@ -221,14 +213,6 @@ public class StaffCrudScene {
             warningText.setText("Användarnamn får max vara 16 tecken!");
             return false;
         }
-        if (enterPassword.getText().isEmpty()) {
-            warningText.setText("Ange lösenord!");
-            return false;
-        }
-        if (enterPassword.getText().length() > 40) {
-            warningText.setText("Lösenord får max vara 40 tecken!");
-            return false;
-        }
         return true;
     }
 
@@ -240,7 +224,6 @@ public class StaffCrudScene {
         staff.setStore(enterStore.getValue());
         staff.setActive(enterActive.isSelected());
         staff.setUsername(enterUsername.getText());
-        staff.setPassword(enterPassword.getText());
     }
 
     @FXML
