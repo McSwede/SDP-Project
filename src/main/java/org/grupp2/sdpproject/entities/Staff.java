@@ -45,7 +45,7 @@ public class Staff {
     private String username;
 
     @Size(max = 40)
-    @Column(nullable = false, length = 40) // binary?
+    @Column(length = 40) // binary?
     private String password;
 
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)

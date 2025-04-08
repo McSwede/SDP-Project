@@ -132,7 +132,7 @@ public class RegistrationScene {
                 Staff staff = new Staff();
                 staff.setFirstName(firstName);
                 staff.setLastName(lastName);
-                staff.setPassword(password);
+                staff.setPassword(null);
                 staff.setAddress(address);
                 staff.setPicture(pictureData);
                 staff.setStore(selectedStore);
