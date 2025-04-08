@@ -172,7 +172,7 @@ public class RentalCrudScene {
         loadRentals(offset, LIMIT);
 
         enterInventory.setItems(FXCollections.observableArrayList());
-        enterInventory.setEditable(true);
+        //enterInventory.setEditable(true);
         enterInventory.setOnShowing(event -> {
             if (enterInventory.getItems().isEmpty()) {
                 List<Inventory> inventories = daoManager.findAll(Inventory.class);
@@ -181,7 +181,7 @@ public class RentalCrudScene {
         });
 
         enterCustomer.setItems(FXCollections.observableArrayList());
-        enterCustomer.setEditable(true);
+        //enterCustomer.setEditable(true);
         enterCustomer.setOnShowing(event -> {
             if (enterCustomer.getItems().isEmpty()) {
                 List<Customer> customers = daoManager.findAll(Customer.class);
@@ -190,7 +190,7 @@ public class RentalCrudScene {
         });
 
         enterStaff.setItems(FXCollections.observableArrayList());
-        enterStaff.setEditable(true);
+        //enterStaff.setEditable(true);
         enterStaff.setOnShowing(event -> {
             if (enterStaff.getItems().isEmpty()) {
                 List<Staff> staffList = daoManager.findAll(Staff.class);

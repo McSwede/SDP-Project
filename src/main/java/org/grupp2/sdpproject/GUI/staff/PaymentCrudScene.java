@@ -78,6 +78,8 @@ public class PaymentCrudScene {
                 payment.getPaymentId(),
                 List.of("customer", "staff", "rental"));
 
+        System.out.println(payment.getRental());
+
         if (payment != null) {
             paymentIdInfo.setText(String.valueOf(payment.getPaymentId()));
             customerInfo.setText(payment.getCustomer().toString());
@@ -118,7 +120,7 @@ public class PaymentCrudScene {
             confirmUpdateButton.setVisible(true);
             confirmNewButton.setVisible(false);
 
-            payment = paymentList.getSelectionModel().getSelectedItem();
+            //payment = paymentList.getSelectionModel().getSelectedItem();
             paymentIdLabel.setText(String.valueOf(payment.getPaymentId()));
             enterCustomer.setValue(payment.getCustomer());
             enterStaff.setValue(payment.getStaff());
@@ -153,7 +155,7 @@ public class PaymentCrudScene {
 
         // Load customer data on demand
         enterCustomer.setItems(FXCollections.observableArrayList());
-        enterCustomer.setEditable(true);
+        //enterCustomer.setEditable(true);
         enterCustomer.setOnShowing(event -> {
             if (enterCustomer.getItems().isEmpty()) {
                 List<Customer> customers = DAOManager.getInstance().findAll(Customer.class);
@@ -163,7 +165,7 @@ public class PaymentCrudScene {
 
         // Load staff data on demand
         enterStaff.setItems(FXCollections.observableArrayList());
-        enterStaff.setEditable(true);
+        //enterStaff.setEditable(true);
         enterStaff.setOnShowing(event -> {
             if (enterStaff.getItems().isEmpty()) {
                 List<Staff> staffList = DAOManager.getInstance().findAll(Staff.class);
@@ -173,7 +175,7 @@ public class PaymentCrudScene {
 
         // Load rental data on demand
         enterRental.setItems(FXCollections.observableArrayList());
-        enterRental.setEditable(true);
+        //enterRental.setEditable(true);
         enterRental.setOnShowing(event -> {
             if (enterRental.getItems().isEmpty()) {
                 List<Rental> rentals = DAOManager.getInstance().findAll(Rental.class);
