@@ -3,10 +3,10 @@ package org.grupp2.sdpproject.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.GUI.staff.AddSpecialFeatures;
-import org.grupp2.sdpproject.GUI.staff.CrudScene;
 import org.grupp2.sdpproject.GUI.staff.PairFilmActor;
 import org.grupp2.sdpproject.Main;
 import org.grupp2.sdpproject.Utils.ConfigManager;
@@ -141,7 +141,7 @@ public class SceneController {
         try {
 
             FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("add-special-features.fxml"));
-            Scene scene = new Scene(xmlScene.load(), 600, 600);
+            Scene scene = new Scene(xmlScene.load(), 300, 300);
           
             AddSpecialFeatures controller = (AddSpecialFeatures) xmlScene.getController();
             controller.setFilm(film);
@@ -162,21 +162,46 @@ public class SceneController {
         }
     }
 
+    public void openAccountDetailsScene() {
+        try {
+            FXMLLoader xmlScene = new FXMLLoader(Main.class.getResource("account-details-scene.fxml"));
+            Scene scene = new Scene(xmlScene.load(), 600, 800);
+
+            org.grupp2.sdpproject.GUI.customer.AccountDetailsScene controller = xmlScene.getController();
+
+            if (darkMode) {
+                controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+            } else {
+                controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+            }
+
+            // Create a new stage for the account details popup and show it modally
+            Stage popupStage = new Stage();
+            popupStage.setScene(scene);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public ConfigManager getConfigManager() {
         return configManager;
     }
     
-    public void toggleDarkMode(CrudScene controller, Button button) {
+    public void toggleDarkMode(AnchorPane root, Button button) {
 
         if (darkMode) {
             darkMode = false;
             button.setText("Mörkt läge");
-            controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+            root.getStylesheets().clear();
+            root.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
         }
         else {
             darkMode = true;
             button.setText("Ljust läge");
-            controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+            root.getStylesheets().clear();
+            root.getStylesheets().add(Main.class.getResource("dark-style.css").toExternalForm());
         }
 
         configManager.setDarkModeEnabled(darkMode);

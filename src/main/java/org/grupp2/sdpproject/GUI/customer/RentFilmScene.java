@@ -4,11 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.GUI.SceneController;
-import org.grupp2.sdpproject.Utils.HibernateUtil;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.SessionManager;
-import org.grupp2.sdpproject.dao.FilmDAO;
-import org.grupp2.sdpproject.dao.GenericDAO;
-import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
@@ -27,11 +24,7 @@ public class RentFilmScene {
     @FXML private TextField staffIdField;
     @FXML private DatePicker paymentDatePicker;
 
-    private final GenericDAO<Customer> customerDAO = new GenericDAO<>(Customer.class, HibernateUtil.getSessionFactory());
-    private final GenericDAO<Staff> staffDAO = new GenericDAO<>(Staff.class, HibernateUtil.getSessionFactory());
-    private final GenericDAO<Rental> rentalDAO = new GenericDAO<>(Rental.class, HibernateUtil.getSessionFactory());
-    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
-    private final FilmDAO filmDAO = new FilmDAO(HibernateUtil.getSessionFactory());
+    DAOManager daoManager = DAOManager.getInstance();
 
     private String loggedInUser;
     private Customer customer;
@@ -50,7 +43,11 @@ public class RentFilmScene {
     public void initialize() {
         this.loggedInUser = SessionManager.getLoggedInUser();
         if (filmTitle != null) {
-            Film selectedFilm = filmDAO.findByTitle(filmTitle);
+            Film selectedFilm = DAOManager.getInstance()
+                    .findByField(Film.class, "title", filmTitle)
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
             if (selectedFilm != null) {
                 var availableInventory = selectedFilm.getInventories().stream()
                         .filter(inv -> inv.getRentalList().stream()
@@ -61,7 +58,11 @@ public class RentFilmScene {
         }
 
         try {
-            User user = userDAO.findByEmail(loggedInUser);
+            User user = DAOManager.getInstance()
+                    .findByField(User.class, "email", loggedInUser)
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
             if (user != null && user.getCustomer() != null) {
                 customer = user.getCustomer();
                 customerIdField.setText(String.valueOf(customer.getCustomerId()));
@@ -106,7 +107,7 @@ public class RentFilmScene {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Initialization Error", "Could not load user information.");
+            showAlert("Error", "Kunde inte ladda kund information.");
         }
     }
 
@@ -119,7 +120,7 @@ public class RentFilmScene {
     @FXML
     private void handleSubmit() {
         try {
-            System.out.println("Logged-in user: " + loggedInUser);
+            System.out.println("Inloggad användare: " + loggedInUser);
 
             Inventory selectedInventory = inventoryCombo.getSelectionModel().getSelectedItem();
             LocalDate rentalDate = rentalDatePicker.getValue();
@@ -129,7 +130,7 @@ public class RentFilmScene {
             LocalDate paymentDate = paymentDatePicker.getValue();
 
             if (customer == null || staff == null) {
-                showAlert("Error", "Could not find customer or staff.");
+                showAlert("Error", "Kunde inte hitta kund eller anställd.");
                 return;
             }
 
@@ -144,7 +145,7 @@ public class RentFilmScene {
             Payment payment = new Payment(customer, staff, rental, amount, java.sql.Date.valueOf(paymentDate));
             rental.getPayments().add(payment);
 
-            rentalDAO.save(rental);
+            daoManager.save(rental);
             SceneController sceneController = SceneController.getInstance();
             sceneController.switchScene("rental-confirmation");
 
@@ -152,7 +153,11 @@ public class RentFilmScene {
 
             if (controller != null) {
                 controller.setRentalInfo(
-                        userDAO.findByEmail(loggedInUser).getCustomer().getFirstName(),
+                        DAOManager.getInstance()
+                                .findByField(User.class, "email", loggedInUser)
+                                .stream()
+                                .findFirst()
+                                .orElse(null).getCustomer().getFirstName(),
                         selectedInventory.getFilm().getTitle(),
                         rentalDate.toString(),
                         returnDate.toString(),
@@ -165,7 +170,7 @@ public class RentFilmScene {
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "There was an issue submitting the rental form. Please check your input.");
+            showAlert("Error", "Något gick fel vid uthyrningen, vänligen se över uppgifterna du angivit.");
         }
     }
 

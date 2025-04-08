@@ -3,10 +3,14 @@ package org.grupp2.sdpproject.Utils;
 import org.grupp2.sdpproject.dao.ActorDAO;
 import org.grupp2.sdpproject.dao.FilmDAO;
 import org.grupp2.sdpproject.dao.GenericDAO;
-import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.persister.entity.EntityPersister;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +28,6 @@ public class DAOManager {
         // Register non-generic entities here
         daoMap.put(Film.class, new FilmDAO(sessionFactory));
         daoMap.put(Actor.class, new ActorDAO(sessionFactory));
-        daoMap.put(UserDAO.class, new UserDAO(sessionFactory));
         //...
 
         // Start caching immediately
@@ -35,6 +38,7 @@ public class DAOManager {
     // Cache these entities immediately on startup
     private void initializeCaches() {
         cacheManager.initializeCachesFor(
+                User.class,
                 Film.class,
                 Actor.class,
                 Customer.class,
@@ -88,7 +92,47 @@ public class DAOManager {
      * @return The found entity or null if no matching entity exists
      */
     public <T> T findById(Class<T> entityClass, Object id) {
+        if (id == null) {
+            return null;
+        }
+
+        // 1. First try to get from cache using Hibernate's identifier
+        try {
+            List<T> cachedData = cacheManager.getCachedData(entityClass);
+            if (cachedData != null && !cachedData.isEmpty()) {
+                T cachedEntity = findInCacheById(entityClass, id, cachedData);
+                if (cachedEntity != null) {
+                    return cachedEntity;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Cache lookup failed!");
+        }
+
+        // 2. Fall back to database query
         return getDao(entityClass).findById(id);
+    }
+
+    /**
+     * Helper method to find entity by ID in cached data by using Hibernate's identifier
+     */
+    private <T> T findInCacheById(Class<T> entityClass, Object id, List<T> cachedData) {
+        try (Session session = sessionFactory.openSession()) {
+            SessionFactoryImplementor sfi = (SessionFactoryImplementor) sessionFactory;
+            EntityPersister persister = sfi.getMetamodel().entityPersister(entityClass);
+
+            for (T entity : cachedData) {
+                try {
+                    Object entityId = persister.getIdentifier(entity, (SharedSessionContractImplementor) session);
+                    if (id.equals(entityId)) {
+                        return entity;
+                    }
+                } catch (Exception e) {
+                }
+            }
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     /**
@@ -134,6 +178,66 @@ public class DAOManager {
      */
     public <T> List<T> findPaginated(Class<T> entityClass, int offset, int limit) {
         return getDao(entityClass).findPaginated(offset, limit);
+
+    public <T> List<T> findByField(Class<T> entityClass, String fieldName, Object value) {
+        // First try to find in cache
+        List<T> cachedData = cacheManager.getCachedData(entityClass);
+        if (cachedData != null && !cachedData.isEmpty()) {
+            List<T> filteredResults = cachedData.stream()
+                    .filter(item -> {
+                        try {
+                            Field field = entityClass.getDeclaredField(fieldName);
+                            field.setAccessible(true);
+                            Object fieldValue = field.get(item);
+                            return (fieldValue == null && value == null) ||
+                                    (fieldValue != null && fieldValue.equals(value));
+                        } catch (Exception e) {
+                            return false;
+                        }
+                    })
+                    .toList();
+
+            if (!filteredResults.isEmpty()) {
+                return filteredResults;
+            }
+        }
+
+        // If not found in cache or cache is empty, query database
+        return getDao(entityClass).findByField(fieldName, value);
+    }
+
+    public <T> List<T> findByFields(Class<T> entityClass, Map<String, Object> fields) {
+        // First try to find in cache
+        List<T> cachedData = cacheManager.getCachedData(entityClass);
+        if (cachedData != null && !cachedData.isEmpty()) {
+            List<T> filteredResults = cachedData.stream()
+                    .filter(item -> {
+                        try {
+                            for (Map.Entry<String, Object> entry : fields.entrySet()) {
+                                Field field = entityClass.getDeclaredField(entry.getKey());
+                                field.setAccessible(true);
+                                Object fieldValue = field.get(item);
+                                Object expectedValue = entry.getValue();
+
+                                if (!((fieldValue == null && expectedValue == null) ||
+                                        (fieldValue != null && fieldValue.equals(expectedValue)))) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        } catch (Exception e) {
+                            return false;
+                        }
+                    })
+                    .toList();
+
+            if (!filteredResults.isEmpty()) {
+                return filteredResults;
+            }
+        }
+
+        // If not found in cache or cache is empty, query database
+        return getDao(entityClass).findByFields(fields);
     }
 
     public static void shutdown() {

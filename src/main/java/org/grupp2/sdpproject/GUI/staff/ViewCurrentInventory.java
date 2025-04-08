@@ -9,9 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.GUI.SceneController;
-import org.grupp2.sdpproject.Utils.HibernateUtil;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.SessionManager;
-import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
@@ -32,7 +31,6 @@ public class ViewCurrentInventory {
     private final ObservableList<FilmInventoryItem> inventoryData = FXCollections.observableArrayList();
     private final FilteredList<FilmInventoryItem> filteredData = new FilteredList<>(inventoryData, p -> true);
 
-    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
     private Store currentStore;
 
     SceneController sceneController = SceneController.getInstance();
@@ -58,21 +56,25 @@ public class ViewCurrentInventory {
     private void loadCurrentUserStore() {
         String username = SessionManager.getLoggedInUser();
         if (username == null) {
-            showAlert("No user logged in");
+            showAlert("Ingen användare inloggad!");
             sceneController.switchScene("crud");
             return;
         }
 
-        User currentUser = userDAO.findByEmail(username);
+        User currentUser = DAOManager.getInstance()
+                .findByField(User.class, "email", username)
+                .stream()
+                .findFirst()
+                .orElse(null);
         if (currentUser == null || currentUser.getStaff() == null) {
-            showAlert("Current user is not staff");
+            showAlert("Nuvarande användare är inte anställd!");
             sceneController.switchScene("crud");
             return;
         }
 
         currentStore = currentUser.getStaff().getStore();
         if (currentStore == null) {
-            showAlert("Current user is not assigned to a store");
+            showAlert("Nuvarande användare tillhör ingen butik!");
             sceneController.switchScene("crud");
         }
     }

@@ -3,24 +3,34 @@ package org.grupp2.sdpproject.GUI.customer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.SessionManager;
-import org.grupp2.sdpproject.entities.User;
 
 public class CustomerDashBoardScene {
 
 
-   @FXML private VBox root;
+    @FXML private AnchorPane root;
     @FXML private Label welcomeLabel;
     @FXML private Button viewFilmsButton;
     @FXML private Button rentalHistoryButton;
     @FXML private Button returnFilmButton;
     @FXML private Button accountDetailsButton;
     @FXML private Button logoutButton;
+    @FXML private Button colorsheme;
 
     private final SceneController sceneController = SceneController.getInstance();
-   // private String  userName = SessionManager.getLoggedInUser();
+
+    @FXML
+    public void initialize() {
+        boolean isDarkMode = sceneController.isDarkMode();
+        colorsheme.setText(isDarkMode ? "Ljust läge" : "Mörkt läge");
+    }
+
+    @FXML
+    private void toggleTheme() {
+        sceneController.toggleDarkMode(root, colorsheme);
+    }
 
     // Method to update the welcome message
     public void updateWelcomeMessage(String welcomeMessage) {
@@ -47,7 +57,7 @@ public class CustomerDashBoardScene {
 
     @FXML
     private void handleAccountDetails() {
-        sceneController.switchScene("account-details");
+        sceneController.openAccountDetailsScene();
     }
 
     @FXML

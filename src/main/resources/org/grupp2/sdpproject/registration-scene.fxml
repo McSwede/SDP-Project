@@ -10,18 +10,18 @@
     </padding>
 
     <Label text="Register New User" />
-    <ComboBox fx:id="roleComboBox" promptText="Select Role" style="-fx-font-weight: normal;" />
-    <TextField fx:id="firstNameField" maxWidth="200.0" promptText="First Name" style="-fx-font-weight: normal;" />
-    <TextField fx:id="lastNameField" maxWidth="200.0" promptText="Last Name" style="-fx-font-weight: normal;" />
-    <TextField fx:id="emailField" maxWidth="200.0" promptText="Email" style="-fx-font-weight: normal;" />
-    <PasswordField fx:id="passwordField" maxWidth="200.0" promptText="Password" style="-fx-font-weight: normal;" />
+    <ComboBox fx:id="roleComboBox" promptText="Välj roll" style="-fx-font-weight: normal;" />
+    <TextField fx:id="firstNameField" maxWidth="200.0" promptText="Förnamn" style="-fx-font-weight: normal;" />
+    <TextField fx:id="lastNameField" maxWidth="200.0" promptText="Efternamn" style="-fx-font-weight: normal;" />
+    <TextField fx:id="emailField" maxWidth="200.0" promptText="Mejl" style="-fx-font-weight: normal;" />
+    <PasswordField fx:id="passwordField" maxWidth="200.0" promptText="Lösenord" style="-fx-font-weight: normal;" />
 
-    <ComboBox fx:id="storeComboBox" promptText="Select Store" style="-fx-font-weight: normal;" />
+    <ComboBox fx:id="storeComboBox" promptText="Välj butik" style="-fx-font-weight: normal;" />
     <CheckBox fx:id="activeCheckBox" style="-fx-font-weight: normal;" text="Active" />
 
     <HBox alignment="TOP_CENTER" spacing="5">
-        <Button fx:id="uploadPictureButton" onAction="#handleUploadPicture" style="-fx-font-weight: normal;" text="Upload Picture" />
-        <Label fx:id="pictureLabel" prefHeight="24.0" style="-fx-font-weight: normal;" styleClass="smalllabel" text="No file selected" />
+        <Button fx:id="uploadPictureButton" onAction="#handleUploadPicture" style="-fx-font-weight: normal;" text="Ladda upp bild" />
+        <Label fx:id="pictureLabel" prefHeight="24.0" style="-fx-font-weight: normal;" styleClass="smalllabel" text="" />
       <padding>
          <Insets bottom="5.0" top="5.0" />
       </padding>
@@ -29,6 +29,6 @@
 
     <Label fx:id="statusLabel" prefHeight="24.0" styleClass="message-label" />
 
-    <Button onAction="#handleRegister" style="-fx-font-weight: normal;" text="Register" />
-    <Button onAction="#switchToLogin" style="-fx-font-weight: normal;" text="Back to Login" />
+    <Button onAction="#handleRegister" style="-fx-font-weight: normal;" text="Registrera" />
+    <Button onAction="#switchToLogin" style="-fx-font-weight: normal;" text="Tillbaks till inloggning" />
 </VBox>

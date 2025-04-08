@@ -6,9 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
 import org.grupp2.sdpproject.GUI.SceneController;
-import org.grupp2.sdpproject.Utils.HibernateUtil;
-import org.grupp2.sdpproject.dao.RentalDAO;
-import org.grupp2.sdpproject.dao.UserDAO;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.Rental;
 import org.grupp2.sdpproject.Utils.SessionManager;
 import org.grupp2.sdpproject.entities.User;
@@ -19,8 +17,7 @@ public class RentalHistoryScene {
     @FXML private ListView<String> rentalHistoryList;
     @FXML private Button backButton;
 
-    private final RentalDAO rentalDAO = new RentalDAO(HibernateUtil.getSessionFactory());
-    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
+    DAOManager daoManager = DAOManager.getInstance();
 
 
     @FXML
@@ -31,19 +28,23 @@ public class RentalHistoryScene {
     private void loadRentalHistory() {
         try {
             String loggedInUserEmail = SessionManager.getLoggedInUser();
-            User user = userDAO.findByEmail(loggedInUserEmail);
+            User user = daoManager
+                    .findByField(User.class, "email", loggedInUserEmail)
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
             if (user != null && user.getCustomer() != null) {
-                List<Rental> rentals = rentalDAO.findRentalsByCustomerId(user.getCustomer().getCustomerId());
+                List<Rental> rentals = daoManager.findByField(Rental.class, "customer.customerId", user.getCustomer().getCustomerId());
 
                 // Populate the ListView with rental information
                 for (Rental rental : rentals) {
-                    String rentalInfo = "Film: " + rental.getInventory().getFilm().getTitle() + ", Rental Date: " + rental.getRentalDate();
+                    String rentalInfo = "Film: " + rental.getInventory().getFilm().getTitle() + ", Uthyrningsdatum: " + rental.getRentalDate();
                     rentalHistoryList.getItems().add(rentalInfo);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Could not load rental history.");
+            showAlert("Error", "Kunde inte ladda uthyrningshistoriken.");
         }
     }
 

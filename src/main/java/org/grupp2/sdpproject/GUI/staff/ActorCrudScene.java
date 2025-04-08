@@ -150,7 +150,7 @@ public class ActorCrudScene {
             return false;
         }
         else if (enterFirstName.getText().length() > 45) {
-            varningText.setText("förnamn kan bara vara 45 tecken");
+            varningText.setText("Förnamn kan bara vara 45 tecken");
             return false;
         }
         else if (enterLastName.getText().isEmpty()) {
@@ -158,7 +158,7 @@ public class ActorCrudScene {
             return false;
         }
         else if (enterLastName.getText().length() > 45) {
-            varningText.setText("efternamn kan bara vara 45 tecken");
+            varningText.setText("Efternamn kan bara vara 45 tecken");
             return false;
         }
         return true;
