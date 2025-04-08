@@ -99,6 +99,10 @@
 .table-view .viewport {
     -fx-hbar-policy: never;
 }
+.table-view .scroll-bar:horizontal {
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
 .table-view .scroll-bar:vertical {
     -fx-background-color: #2c2c43;
     -fx-pref-width: 12;

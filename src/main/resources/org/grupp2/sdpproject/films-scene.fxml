@@ -9,13 +9,13 @@
             <children>
                 <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Alla filmer" />
                 <TextField fx:id="searchField" maxWidth="300" promptText="Sök titel..." />
-                <TableView fx:id="filmTable" prefHeight="400.0">
+                <TableView fx:id="filmTable" maxWidth="580.0" prefHeight="271.0" prefWidth="560.0">
                     <columns>
-                        <TableColumn fx:id="titleColumn" prefWidth="200.0" text="Titel" />
-                        <TableColumn fx:id="releaseYearColumn" prefWidth="100.0" text="Utgivningsår" />
-                        <TableColumn fx:id="rentalRateColumn" prefWidth="100.0" text="Hyrespris" />
-                        <TableColumn fx:id="ratingColumn" prefWidth="100.0" text="Gradering" />
-                        <TableColumn fx:id="actionColumn" prefWidth="100.0" text="Hyr" />
+                        <TableColumn fx:id="titleColumn" maxWidth="190.0" prefWidth="190.0" resizable="false" text="Titel" />
+                        <TableColumn fx:id="releaseYearColumn" maxWidth="95.0" prefWidth="95.0" resizable="false" text="Utgivningsår" />
+                        <TableColumn fx:id="rentalRateColumn" maxWidth="80.0" resizable="false" text="Hyrespris" />
+                        <TableColumn fx:id="ratingColumn" maxWidth="80.0" resizable="false" text="Gradering" />
+                        <TableColumn fx:id="actionColumn" maxWidth="115.0" prefWidth="115.0" resizable="false" text="Hyr" />
                     </columns>
                 </TableView>
                 <Button fx:id="backButton" onAction="#handleBack" styleClass="bigbutton" text="Bakåt" />
