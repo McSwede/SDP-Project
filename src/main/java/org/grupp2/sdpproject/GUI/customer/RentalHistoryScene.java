@@ -13,7 +13,9 @@ import org.grupp2.sdpproject.entities.Rental;
 import org.grupp2.sdpproject.Utils.SessionManager;
 import org.grupp2.sdpproject.entities.User;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 public class RentalHistoryScene {
 
@@ -22,7 +24,7 @@ public class RentalHistoryScene {
     @FXML private Button backButton;
     @FXML private Button returnButton;
 
-    private List<Rental> currentRentals = new ArrayList<>();
+    private List<Rental> currentRentals;
     private int selectedRentalIndex = -1;
 
     private final DAOManager daoManager = DAOManager.getInstance();
@@ -61,16 +63,7 @@ public class RentalHistoryScene {
                     .orElse(null);
 
             if (user != null && user.getCustomer() != null) {
-                List<Rental> rentalIds = daoManager.findByField(Rental.class, "customer.customerId", user.getCustomer().getCustomerId());
-
-                for (Rental rental : rentalIds) {
-                    Rental fullRental = daoManager.findByIdWithJoinFetch(
-                            Rental.class,
-                            rental.getRentalId(),
-                            Arrays.asList("inventory", "inventory.film")
-                    );
-                    currentRentals.add(fullRental);
-                }
+                currentRentals = daoManager.findByField(Rental.class, "customer.customerId", user.getCustomer().getCustomerId());
 
                 // Sort rentals by rental date (newest first)
                 currentRentals.sort((r1, r2) -> r2.getRentalDate().compareTo(r1.getRentalDate()));
