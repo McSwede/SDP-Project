@@ -98,6 +98,36 @@ public class SceneController {
         }
     }
 
+    public void switchBigScene(String sceneName) {
+        System.out.println("[SceneController] Switching to scene: " + sceneName);
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource(sceneName + "-scene.fxml"));
+
+        try {
+            Scene scene = new Scene(loader.load(), 600, 800);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            // Cache the controller
+            Object controller = loader.getController();
+            controllers.put(sceneName, controller);
+
+            // Apply dark mode styling if applicable
+            if (controller != null) {
+                try {
+                    String styleSheet = darkMode
+                            ? Main.class.getResource("dark-style.css").toExternalForm()
+                            : Main.class.getResource("style.css").toExternalForm();
+
+                    controller.getClass().getMethod("setStyleSheet", String.class).invoke(controller, styleSheet);
+                } catch (NoSuchMethodException ignored) {
+                    // If the controller does not have setStyleSheet, do nothing
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean isDarkMode() {
         return darkMode;
     }

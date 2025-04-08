@@ -70,11 +70,11 @@
                 <Label fx:id="locationInfo" onMouseClicked="#enhanceText" prefHeight="26.0" prefWidth="270.0" styleClass="smalllabel" />
             </children>
             <padding>
-                <Insets top="5.0" right="5.0" />
+                <Insets right="5.0" top="5.0" />
             </padding>
         </VBox>
 
-        <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="525.0" prefWidth="150.0" spacing="5.0" visible="false">
+        <VBox fx:id="textFieldVBOX" layoutX="450.0" maxWidth="150.0" prefHeight="424.0" prefWidth="150.0" spacing="5.0" visible="false">
             <children>
                 <TextField fx:id="enterAddress" />
                 <TextField fx:id="enterAddress2" />
@@ -90,7 +90,7 @@
                 </HBox>
             </children>
             <padding>
-                <Insets top="5.0" right="5.0" />
+                <Insets right="5.0" top="5.0" />
             </padding>
         </VBox>
     </children>

@@ -28,6 +28,7 @@ public class FilmsScene {
     @FXML private Button backButton;
 
     private ObservableList<Film> allFilms = FXCollections.observableArrayList();
+    private SceneController sceneController = SceneController.getInstance();
 
     @FXML
     public void initialize() {
@@ -62,6 +63,8 @@ public class FilmsScene {
         Callback<TableColumn<Film, Void>, TableCell<Film, Void>> cellFactory = param -> new TableCell<>() {
             private final Button viewBtn = new Button("Visa mer");
 
+
+
             {
                 viewBtn.setOnAction(event -> {
                     Film selectedFilm = getTableView().getItems().get(getIndex());
@@ -75,6 +78,13 @@ public class FilmsScene {
                 if (empty) {
                     setGraphic(null);
                 } else {
+                    if (sceneController.isDarkMode()) {
+                        viewBtn.setStyle("-fx-background-color: #D97706; -fx-background-radius: 5;");
+                    }
+                    else {
+                        viewBtn.setStyle("-fx-background-color: #2a98ca; -fx-background-radius: 5;");
+                    }
+
                     setGraphic(viewBtn);
                 }
             }
@@ -83,8 +93,7 @@ public class FilmsScene {
     }
 
     private void viewMore(Film film) {
-        SceneController sceneController = SceneController.getInstance();
-        sceneController.switchScene("film-detail");
+        sceneController.switchBigScene("film-detail");
 
         FilmDetailScene controller = sceneController.getController("film-detail");
 

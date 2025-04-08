@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -8,25 +12,25 @@
 <?import javafx.scene.control.Label?>
 
 <?import javafx.scene.control.Slider?>
-<AnchorPane fx:id="root" prefWidth="600.0" prefHeight="400.0" stylesheets="@style.css"
+<AnchorPane fx:id="root" prefWidth="600.0" prefHeight="424.0" stylesheets="@style.css"
             xmlns="http://javafx.com/fxml" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene">
     <children>
 
-        <VBox spacing="20" alignment="center" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="0.0">
+        <VBox alignment="center" layoutY="25.0" spacing="20" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
 
-            <Label fx:id="welcomeLabel" text="Välkommen!" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Label fx:id="welcomeLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Välkommen!" />
 
-            <Button fx:id="viewFilmsButton" text="Se tillgängliga filmer" onAction="#handleViewFilms"/>
-            <Button fx:id="rentalHistoryButton" text="Uthyrningshistorik" onAction="#handleRentalHistory"/>
-            <Button fx:id="returnFilmButton" text="Returera en film" onAction="#handleReturnFilm"/>
-            <Button fx:id="accountDetailsButton" text="Mina sidor" onAction="#handleAccountDetails"/>
-            <Button fx:id="logoutButton" text="Logga ut" onAction="#handleLogout"/>
+            <Button fx:id="viewFilmsButton" onAction="#handleViewFilms" styleClass="bigbutton" text="Se tillgängliga filmer" />
+            <Button fx:id="rentalHistoryButton" onAction="#handleRentalHistory" styleClass="bigbutton" text="Uthyrningshistorik" />
+            <Button fx:id="returnFilmButton" onAction="#handleReturnFilm" styleClass="bigbutton" text="Returera en film" />
+            <Button fx:id="accountDetailsButton" onAction="#handleAccountDetails" styleClass="bigbutton" text="Mina sidor" />
+            <Button fx:id="logoutButton" onAction="#handleLogout" styleClass="bigbutton" text="Logga ut" />
         </VBox>
+
         <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
             <children>
                 <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Mörkt läge" />
