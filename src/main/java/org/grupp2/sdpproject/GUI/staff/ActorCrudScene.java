@@ -87,7 +87,6 @@ public class ActorCrudScene {
         confirmNewButton.setVisible(false);
         confirmUpdateButton.setVisible(true);
 
-        selectedActor = actorList.getSelectionModel().getSelectedItem();
         enterFirstName.setText(selectedActor.getFirstName());
         enterLastName.setText(selectedActor.getLastName());
         lastUpdate.setText(selectedActor.getLastUpdated().toString());
