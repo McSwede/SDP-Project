@@ -25,8 +25,8 @@
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
          <children>
-            <Button fx:id="colorScheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Dark mode" />
-            <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="bigbutton" text="Mute music" />
+            <Button fx:id="colorScheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Mörkt läge" />
+            <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="bigbutton" text="Pausa musik" />
             <Slider fx:id="volumeSlider" blockIncrement="0.1" majorTickUnit="0.05" max="0.5" maxWidth="111.0" minorTickCount="1" onDragDetected="#handleVolumeChange" styleClass="slider" />
             <Region VBox.vgrow="ALWAYS" />
             <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" styleClass="bigbutton" text="Logga ut" />

@@ -14,7 +14,7 @@ public class SoundManager {
     private MediaPlayer currentMusic;
     private List<MediaPlayer> playlist;
     private int currentTrackIndex = 0;
-    private double volume = 0.5; // Default volume (50%)
+    private double volume = 0.1; // Default volume (50%)
     private boolean isPaused = false;
 
     private SoundManager() {
@@ -176,5 +176,9 @@ public class SoundManager {
 
     public boolean isPaused() {
         return isPaused;
+    }
+
+    public double getVolume() {
+        return volume;
     }
 }

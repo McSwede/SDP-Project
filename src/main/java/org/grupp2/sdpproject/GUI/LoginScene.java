@@ -5,16 +5,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.SessionManager;
+import org.grupp2.sdpproject.Utils.SoundManager;
 import org.grupp2.sdpproject.entities.User;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
 import javafx.application.Platform;
-import java.io.IOException;
 
 public class LoginScene {
 
@@ -23,23 +24,31 @@ public class LoginScene {
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Label statusLabel;
-    @FXML private Button colorsheme;
+    @FXML private Button colorScheme;
+    @FXML private Button soundButton;
+    @FXML private Slider volumeSlider;
 
     private final SceneController sceneController = SceneController.getInstance();
+    private final SoundManager soundManager = SoundManager.getInstance();
 
     @FXML
     public void initialize() {
         boolean isDarkMode = sceneController.isDarkMode();
         if (isDarkMode) {
-            colorsheme.setText("Ljust läge");
+            colorScheme.setText("Ljust läge");
         } else {
-            colorsheme.setText("Mörkt läge");
+            colorScheme.setText("Mörkt läge");
         }
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            soundManager.setGlobalVolume(newValue.doubleValue());
+        });
+        volumeSlider.setValue(soundManager.getVolume());
     }
 
     @FXML
     private void toggleTheme() {
-        sceneController.toggleDarkMode(root, colorsheme);
+        sceneController.toggleDarkMode(root, colorScheme);
     }
 
     @FXML
@@ -109,5 +118,20 @@ public class LoginScene {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             loginButton.fire();
         }
+    }
+
+    @FXML private void toggleMusic() {
+        if (soundManager.isPaused()) {
+            soundManager.resumeCurrentMusic();
+            soundButton.setText("Pausa musik");
+        }
+        else {
+            soundManager.pauseCurrentMusic();
+            soundButton.setText("Spela musik");
+        }
+    }
+
+    @FXML private void handleVolumeChange(MouseEvent event) {
+        soundManager.setGlobalVolume(volumeSlider.getValue());
     }
 }
