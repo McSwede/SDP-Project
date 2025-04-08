@@ -100,6 +100,10 @@ public class DAOManager {
         return getDao(entityClass).findByIdWithJoinFetch(entityClass ,id, joinFetchProperties);
     }
 
+    public <T> T findByIdWithJoinFetchNested(Class<T> entityClass, Object id, List<String> joinFetchProperties) {
+        return getDao(entityClass).findByIdWithJoinFetchNested(entityClass ,id, joinFetchProperties);
+    }
+
     /**
      * Retrieves a paginated list of entities.
      * @param entityClass The class of the entity to retrieve

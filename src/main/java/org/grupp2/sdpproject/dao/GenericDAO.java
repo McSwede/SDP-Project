@@ -99,6 +99,35 @@ public class GenericDAO<T> {
         }
     }
 
+    public <T> T findByIdWithJoinFetchNested(Class<T> entityClass, Object id, List<String> joinFetchProperties) {
+        try (Session session = sessionFactory.openSession()) {
+            // Build the base query
+            StringBuilder queryBuilder = new StringBuilder("SELECT DISTINCT e FROM ");
+            queryBuilder.append(entityClass.getSimpleName()).append(" e ");
+
+            // Add all join fetch clauses
+            for (String joinPath : joinFetchProperties) {
+                String[] pathParts = joinPath.split("\\.");
+                StringBuilder currentPath = new StringBuilder("e");
+
+                // Build nested joins for each path part
+                for (String part : pathParts) {
+                    queryBuilder.append(" LEFT JOIN FETCH ").append(currentPath).append(".").append(part);
+                    currentPath.append(".").append(part);
+                }
+            }
+
+            // Add where clause
+            queryBuilder.append(" WHERE e.id = :id");
+
+            // Create and execute the query
+            return session.createQuery(queryBuilder.toString(), entityClass)
+                    .setParameter("id", id)
+                    .setHint("org.hibernate.cacheable", false) // Disable cache for fresh data
+                    .uniqueResult();
+        }
+    }
+
     /**
      * Retrieves a paginated list of entities.
      * @param offset The starting index for pagination
