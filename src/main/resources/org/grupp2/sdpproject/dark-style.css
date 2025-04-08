@@ -115,6 +115,9 @@
 .table-view .scroll-bar:vertical .thumb:hover {
     -fx-background-color: #FF8C00;
 }
+.table-view .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #b56305;
+}
 
 .list-view {
     -fx-background-color: #2c2c43;
@@ -151,4 +154,24 @@
 }
 .list-view .scroll-bar:vertical .thumb:hover {
     -fx-background-color: #FF8C00;
+}
+.list-view .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #b56305;
+}
+
+.slider {
+
+}
+.slider .track {
+    -fx-background-color: #34495e;
+    -fx-background-radius: 5;
+}
+.slider .thumb {
+    -fx-background-color: #D97706;
+}
+.slider .thumb:hover {
+    -fx-background-color: #FF8C00;
+}
+.slider .thumb:pressed {
+    -fx-background-color: #b56305;
 }

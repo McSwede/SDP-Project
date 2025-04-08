@@ -3,6 +3,8 @@ package org.grupp2.sdpproject.GUI;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.ENUM.Role;
@@ -91,5 +93,11 @@ public class LoginScene {
     public void setStyleSheet(String styleSheet) {
         root.getStylesheets().clear();
         root.getStylesheets().add(styleSheet);
+    }
+
+    @FXML private void keyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            loginButton.fire();
+        }
     }
 }

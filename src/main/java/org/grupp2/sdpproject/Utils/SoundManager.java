@@ -15,6 +15,7 @@ public class SoundManager {
     private List<MediaPlayer> playlist;
     private int currentTrackIndex = 0;
     private double volume = 0.5; // Default volume (50%)
+    private boolean isPaused = false;
 
     private SoundManager() {
         soundPlayers = new HashMap<>();
@@ -147,6 +148,7 @@ public class SoundManager {
      */
     public void pauseCurrentMusic() {
         if (currentMusic != null) {
+            isPaused = true;
             currentMusic.pause();
         }
     }
@@ -156,6 +158,7 @@ public class SoundManager {
      */
     public void resumeCurrentMusic() {
         if (currentMusic != null) {
+            isPaused = false;
             currentMusic.play();
         }
     }
@@ -169,5 +172,9 @@ public class SoundManager {
             player.dispose();
         }
         soundPlayers.clear();
+    }
+
+    public boolean isPaused() {
+        return isPaused;
     }
 }

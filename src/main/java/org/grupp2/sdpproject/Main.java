@@ -23,7 +23,7 @@ public class Main extends Application {
         soundManager.loadSound("jazzy", "/jazzy-slow-background-music-244598.mp3");
         soundManager.loadSound("lofi", "/lofi-vibes-113884.mp3");
         soundManager.playAllMusic();
-        soundManager.setGlobalVolume(0.4);
+        soundManager.setGlobalVolume(0.2);
 
         launch();
 
