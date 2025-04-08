@@ -10,12 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene;
-import org.grupp2.sdpproject.Utils.DAOManager;
-import org.grupp2.sdpproject.Utils.SessionManager;
-import org.grupp2.sdpproject.Utils.SoundManager;
+import org.grupp2.sdpproject.Utils.*;
 import org.grupp2.sdpproject.entities.User;
-import org.grupp2.sdpproject.Utils.PasswordUtil;
 import javafx.application.Platform;
+
+import java.io.IOException;
 
 public class LoginScene {
 
@@ -40,10 +39,22 @@ public class LoginScene {
             colorScheme.setText("Mörkt läge");
         }
 
+        ConfigManager configManager = sceneController.getConfigManager();
+        double savedVolume = Double.parseDouble(configManager.getProperty("music.volume", "0.1"));
+        soundManager.setGlobalVolume(savedVolume);
+        volumeSlider.setValue(savedVolume);
+
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            soundManager.setGlobalVolume(newValue.doubleValue());
+            double volume = newValue.doubleValue();
+            soundManager.setGlobalVolume(volume);
+
+            try {
+                configManager.setProperty("music.volume", String.valueOf(volume));
+                configManager.saveConfig();
+            } catch (IOException e) {
+                System.err.println("Failed to save volume setting: " + e.getMessage());
+            }
         });
-        volumeSlider.setValue(soundManager.getVolume());
     }
 
     @FXML
@@ -132,6 +143,14 @@ public class LoginScene {
     }
 
     @FXML private void handleVolumeChange(MouseEvent event) {
-        soundManager.setGlobalVolume(volumeSlider.getValue());
+        double volume = volumeSlider.getValue();
+        soundManager.setGlobalVolume(volume);
+
+        try {
+            sceneController.getConfigManager().setProperty("music.volume", String.valueOf(volume));
+            sceneController.getConfigManager().saveConfig();
+        } catch (IOException e) {
+            System.err.println("Failed to save volume setting: " + e.getMessage());
+        }
     }
 }
