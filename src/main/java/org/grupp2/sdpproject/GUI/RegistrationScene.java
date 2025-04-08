@@ -138,6 +138,7 @@ public class RegistrationScene {
                 staff.setStore(selectedStore);
                 staff.setActive(active);
                 staff.setUsername(email);
+                staff.setEmail(email);
 
                 daoManager.save(staff);
                 newUser.setStaff(staff);
