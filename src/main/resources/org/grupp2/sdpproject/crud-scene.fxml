@@ -26,6 +26,8 @@
       <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
          <children>
             <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Mörkt läge" />
+            <Region VBox.vgrow="ALWAYS" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" styleClass="bigbutton" text="Logga ut" />
          </children>
       </VBox>
    </children>

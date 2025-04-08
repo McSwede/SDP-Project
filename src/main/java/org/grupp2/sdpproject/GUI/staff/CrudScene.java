@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.GUI.SceneController;
+import org.grupp2.sdpproject.Utils.SessionManager;
 
 public class CrudScene {
 
@@ -20,6 +21,7 @@ public class CrudScene {
     @FXML private Button employeeButton;
     @FXML private Button storeButton;
     @FXML private Button inventoryButton;
+    @FXML private Button logoutButton;
     @FXML public Button viewCurrentInventoryButton;
 
     @FXML
@@ -63,6 +65,12 @@ public class CrudScene {
 
     @FXML private void toggleTheme() {
         sceneController.toggleDarkMode(this, colorsheme);
+    }
+
+    @FXML
+    private void handleLogout() {
+        SessionManager.logout();
+        sceneController.switchScene("login");
     }
 
     public void setStyleSheet(String styleSheet) {
