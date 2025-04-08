@@ -69,14 +69,14 @@ public class RentalCrudScene {
         rental = rentalListView.getSelectionModel().getSelectedItem();
 
         if (rental != null) {
-            // First fetch Rental with Inventory (but not Film)
+
             rental = daoManager.findByIdWithJoinFetch(Rental.class,
                     rental.getRentalId(),
                     List.of("inventory", "customer", "staff"));
 
-            // Then explicitly fetch the Film if needed
+
             if (rental.getInventory() != null) {
-                // Fetch Inventory with Film in a separate query
+
                 Inventory inventoryWithFilm = daoManager.findByIdWithJoinFetch(
                         Inventory.class,
                         rental.getInventory().getInventoryId(),
@@ -86,9 +86,13 @@ public class RentalCrudScene {
             }
 
             rentalIdInfo.setText(rental.toString());
+
             rentalDateInfo.setText(rental.getRentalDate().toString());
+
             returnDateInfo.setText(rental.getReturnDate().toString());
+
             inventoryInfo.setText(rental.getInventory().getFilm().getTitle());
+
             customerInfo.setText(rental.getCustomer() != null ?
                     rental.getCustomer().getFirstName() : "");
             staffInfo.setText(rental.getStaff() != null ?
