@@ -15,7 +15,7 @@
                         <TableColumn fx:id="releaseYearColumn" maxWidth="95.0" prefWidth="95.0" resizable="false" text="Utgivningsår" />
                         <TableColumn fx:id="rentalRateColumn" maxWidth="80.0" resizable="false" text="Hyrespris" />
                         <TableColumn fx:id="ratingColumn" maxWidth="80.0" resizable="false" text="Gradering" />
-                        <TableColumn fx:id="actionColumn" maxWidth="115.0" prefWidth="115.0" resizable="false" text="Hyr" />
+                        <TableColumn fx:id="actionColumn" maxWidth="115.0" prefWidth="115.0" resizable="false" text="Mer info" />
                     </columns>
                 </TableView>
                 <Button fx:id="backButton" onAction="#handleBack" styleClass="bigbutton" text="Bakåt" />
