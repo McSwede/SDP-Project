@@ -1,71 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.grupp2.sdpproject.GUI.customer.FilmDetailScene"
-            prefWidth="700.0" prefHeight="600.0" fx:id="root">
+<AnchorPane fx:id="root" prefHeight="800.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.customer.FilmDetailScene">
     <children>
-        <VBox spacing="10.0" alignment="TOP_LEFT" >
+        <VBox alignment="TOP_LEFT" prefWidth="600.0" spacing="10.0">
             <padding>
-                <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
             <children>
-                <Label text="Film Detaljer" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Film Detaljer" />
 
                 <GridPane hgap="10" vgap="10">
                     <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" />
-                        <ColumnConstraints prefWidth="500.0"/>
+                        <ColumnConstraints prefWidth="400.0" />
                     </columnConstraints>
                     <children>
-                        <Label text="Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                        <Label fx:id="titleLabel" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Title:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="titleLabel" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                        <TextArea fx:id="descriptionArea" GridPane.rowIndex="1" GridPane.columnIndex="1" editable="false" wrapText="true" prefRowCount="3"/>
+                        <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextArea fx:id="descriptionArea" editable="false" prefRowCount="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                        <Label text="Release Year:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                        <Label fx:id="releaseYearLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <Label text="Release Year:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label fx:id="releaseYearLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                        <Label text="Language:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                        <Label fx:id="languageLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                        <Label text="Language:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label fx:id="languageLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                        <Label text="Original Language:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                        <Label fx:id="originalLanguageLabel" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        <Label text="Original Language:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <Label fx:id="originalLanguageLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                        <Label text="Rental Duration:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                        <Label fx:id="rentalDurationLabel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        <Label text="Rental Duration:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <Label fx:id="rentalDurationLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-                        <Label text="Rental Rate:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                        <Label fx:id="rentalRateLabel" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                        <Label text="Rental Rate:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                        <Label fx:id="rentalRateLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                        <Label text="Length:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-                        <Label fx:id="lengthLabel" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                        <Label text="Length:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                        <Label fx:id="lengthLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                        <Label text="Replacement Cost:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-                        <Label fx:id="replacementCostLabel" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                        <Label text="Replacement Cost:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                        <Label fx:id="replacementCostLabel" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-                        <Label text="Rating:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
-                        <Label fx:id="ratingLabel" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                        <Label text="Rating:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                        <Label fx:id="ratingLabel" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-                        <Label text="Special Features:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
-                        <Label fx:id="specialFeaturesLabel" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+                        <Label text="Special Features:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                        <Label fx:id="specialFeaturesLabel" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
-                        <Label text="Actors:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
-                        <TextArea fx:id="actorsArea" GridPane.rowIndex="11" GridPane.columnIndex="1" editable="false" wrapText="true" prefRowCount="3"/>
+                        <Label text="Actors:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                        <TextArea fx:id="actorsArea" editable="false" prefRowCount="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
-                        <Label text="Categories:" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
-                        <TextArea fx:id="categoriesArea" GridPane.rowIndex="12" GridPane.columnIndex="1" editable="false" wrapText="true" prefRowCount="2"/>
+                        <Label text="Categories:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                        <TextArea fx:id="categoriesArea" editable="false" prefRowCount="2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                     </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
 
-                <HBox spacing="10" alignment="CENTER_RIGHT">
-                    <Button fx:id="backButton" text="Bakåt" onAction="#handleBack" />
-                    <Button fx:id="rentButton" text="Hyr film" onAction="#handleRent"
-                            style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Button fx:id="backButton" onAction="#handleBack" styleClass="bigbutton" text="Bakåt" />
+                    <Button fx:id="rentButton" onAction="#handleRent" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" styleClass="bigbutton" text="Hyr film" />
                 </HBox>
             </children>
         </VBox>
