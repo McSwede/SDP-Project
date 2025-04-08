@@ -57,6 +57,9 @@
 
                 <Label text="Telefon:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
                 <TextField fx:id="phoneField" promptText="Ange telefonnummer" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                <Label fx:id="successLabel" text=""
+                       GridPane.rowIndex="13" GridPane.columnIndex="0" GridPane.columnSpan="2"
+                       style="-fx-font-style: italic;"/>
             <rowConstraints>
                <RowConstraints />
                <RowConstraints />
