@@ -79,7 +79,7 @@ public class RegistrationScene {
             return;
         }
 
-        if (daoManager.findByField(User.class, "email", email) != null) {
+        if (!daoManager.findByField(User.class, "email", email).isEmpty()) {
             statusLabel.setText("Mejladress redan i bruk.");
             return;
         }
