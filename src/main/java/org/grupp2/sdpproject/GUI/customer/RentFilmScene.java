@@ -107,7 +107,7 @@ public class RentFilmScene {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Initialization Error", "Could not load user information.");
+            showAlert("Error", "Kunde inte ladda kund information.");
         }
     }
 
@@ -120,7 +120,7 @@ public class RentFilmScene {
     @FXML
     private void handleSubmit() {
         try {
-            System.out.println("Logged-in user: " + loggedInUser);
+            System.out.println("Inloggad användare: " + loggedInUser);
 
             Inventory selectedInventory = inventoryCombo.getSelectionModel().getSelectedItem();
             LocalDate rentalDate = rentalDatePicker.getValue();
@@ -130,7 +130,7 @@ public class RentFilmScene {
             LocalDate paymentDate = paymentDatePicker.getValue();
 
             if (customer == null || staff == null) {
-                showAlert("Error", "Could not find customer or staff.");
+                showAlert("Error", "Kunde inte hitta kund eller anställd.");
                 return;
             }
 
@@ -170,7 +170,7 @@ public class RentFilmScene {
 
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "There was an issue submitting the rental form. Please check your input.");
+            showAlert("Error", "Något gick fel vid uthyrningen, vänligen se över uppgifterna du angivit.");
         }
     }
 

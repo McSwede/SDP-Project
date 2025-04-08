@@ -12,13 +12,13 @@
     </padding>
 
     <!-- Welcome Label -->
-    <Label fx:id="welcomeLabel" text="Welcome, Customer" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label fx:id="welcomeLabel" text="Välkommen!" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
     <!-- Buttons for various actions -->
-    <Button fx:id="viewFilmssButton" text="View Available Films" onAction="#handleViewFilms"/>
-    <Button fx:id="rentalHistoryButton" text="Rental History" onAction="#handleRentalHistory"/>
-    <Button fx:id="returnFilmButton" text="Return a Film" onAction="#handleReturnFilm"/>
-    <Button fx:id="accountDetailsButton" text="Account Details" onAction="#handleAccountDetails"/>
-    <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout"/>
+    <Button fx:id="viewFilmssButton" text="Se tillgängliga filmer" onAction="#handleViewFilms"/>
+    <Button fx:id="rentalHistoryButton" text="Uthyrningshistorik" onAction="#handleRentalHistory"/>
+    <Button fx:id="returnFilmButton" text="Returera en film" onAction="#handleReturnFilm"/>
+    <Button fx:id="accountDetailsButton" text="Mina sidor" onAction="#handleAccountDetails"/>
+    <Button fx:id="logoutButton" text="Logga ut" onAction="#handleLogout"/>
 
 </VBox>

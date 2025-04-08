@@ -25,7 +25,7 @@
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
          <children>
-            <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Dark mode" />
+            <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Mörkt läge" />
          </children>
       </VBox>
    </children>

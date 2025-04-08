@@ -17,10 +17,10 @@ public class RentalConfirmationScene {
     private Text rentalPriceText;
 
     public void setRentalInfo(String username, String filmTitle, String rentalDate, String returnDate, String price) {
-        thankYouMessage.setText("Thanks, " + username + ", for renting this movie!");
-        filmTitleText.setText("Title: " + filmTitle);
-        rentalDateText.setText("Rental Date: " + rentalDate);
-        returnDateText.setText("Return Date: " + returnDate);
-        rentalPriceText.setText("Rental Price: " + price + " SEK");
+        thankYouMessage.setText("Tack, " + username + ", för att du hyrt denna film!");
+        filmTitleText.setText("Titel: " + filmTitle);
+        rentalDateText.setText("Uthyrningsdatum: " + rentalDate);
+        returnDateText.setText("Återlämningsdatum: " + returnDate);
+        rentalPriceText.setText("Hyr pris: " + price + " SEK");
     }
 }
