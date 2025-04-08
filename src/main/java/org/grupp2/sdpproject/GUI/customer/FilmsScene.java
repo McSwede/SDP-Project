@@ -45,8 +45,7 @@ public class FilmsScene {
     }
 
     private void loadFilms() {
-        DAOManager daoManager = new DAOManager();
-        allFilms.setAll(daoManager.findAll(Film.class));
+        allFilms.setAll(DAOManager.getInstance().findAll(Film.class));
         filmTable.setItems(allFilms);
     }
 
