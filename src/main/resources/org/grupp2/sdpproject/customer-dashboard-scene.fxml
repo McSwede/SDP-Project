@@ -4,7 +4,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefHeight="424.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene">
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.Slider?>
+<AnchorPane fx:id="root" prefWidth="600.0" prefHeight="424.0" stylesheets="@style.css"
+            xmlns="http://javafx.com/fxml" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene">
     <children>
 
         <VBox alignment="center" layoutY="25.0" spacing="20" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
@@ -20,6 +30,13 @@
             <Button fx:id="accountDetailsButton" onAction="#handleAccountDetails" styleClass="bigbutton" text="Mina sidor" />
             <Button fx:id="logoutButton" onAction="#handleLogout" styleClass="bigbutton" text="Logga ut" />
         </VBox>
-        <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Mörkt läge" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+
+        <VBox alignment="TOP_CENTER" layoutX="462.0" prefHeight="424.0" prefWidth="138.0" styleClass="vbox">
+            <children>
+                <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" styleClass="bigbutton" text="Mörkt läge" />
+                <Button fx:id="soundButton" mnemonicParsing="false" onAction="#toggleMusic" styleClass="bigbutton" text="Pausa musik" />
+                <Slider fx:id="volumeSlider" blockIncrement="0.1" majorTickUnit="0.05" max="0.5" maxWidth="111.0" minorTickCount="1" onDragDetected="#handleVolumeChange" styleClass="slider" />
+            </children>
+        </VBox>
     </children>
 </AnchorPane>

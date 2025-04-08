@@ -165,6 +165,21 @@ public class DAOManager {
         cacheManager.invalidateCache(entity.getClass());
     }
 
+    public <T> T findByIdWithJoinFetch(Class<T> entityClass, Object id, List<String> joinFetchProperties) {
+        return getDao(entityClass).findByIdWithJoinFetch(entityClass ,id, joinFetchProperties);
+    }
+
+    /**
+     * Retrieves a paginated list of entities.
+     * @param entityClass The class of the entity to retrieve
+     * @param offset The starting index for the pagination
+     * @param limit The number of entities to retrieve
+     * @return A list of entities
+     */
+    public <T> List<T> findPaginated(Class<T> entityClass, int offset, int limit) {
+        return getDao(entityClass).findPaginated(offset, limit);
+    }
+
     public <T> List<T> findByField(Class<T> entityClass, String fieldName, Object value) {
         // First try to find in cache
         List<T> cachedData = cacheManager.getCachedData(entityClass);
@@ -232,4 +247,5 @@ public class DAOManager {
             instance = null;
         }
     }
+
 }

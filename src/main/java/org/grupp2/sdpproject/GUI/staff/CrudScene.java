@@ -7,8 +7,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.GUI.SceneController;
+import org.grupp2.sdpproject.Utils.ConfigManager;
 import org.grupp2.sdpproject.Utils.SoundManager;
 import org.grupp2.sdpproject.Utils.SessionManager;
+
+import java.io.IOException;
 
 public class CrudScene {
 
@@ -40,10 +43,22 @@ public class CrudScene {
             colorScheme.setText("Mörkt läge");
         }
 
+        ConfigManager configManager = sceneController.getConfigManager();
+        double savedVolume = Double.parseDouble(configManager.getProperty("music.volume", "0.1"));
+        soundManager.setGlobalVolume(savedVolume);
+        volumeSlider.setValue(savedVolume);
+
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            soundManager.setGlobalVolume(newValue.doubleValue());
+            double volume = newValue.doubleValue();
+            soundManager.setGlobalVolume(volume);
+
+            try {
+                configManager.setProperty("music.volume", String.valueOf(volume));
+                configManager.saveConfig();
+            } catch (IOException e) {
+                System.err.println("Failed to save volume setting: " + e.getMessage());
+            }
         });
-        volumeSlider.setValue(soundManager.getVolume());
     }
 
     @FXML private void enterFilmScene() {
@@ -103,7 +118,15 @@ public class CrudScene {
     }
 
     @FXML private void handleVolumeChange(MouseEvent event) {
-        soundManager.setGlobalVolume(volumeSlider.getValue());
+        double volume = volumeSlider.getValue();
+        soundManager.setGlobalVolume(volume);
+
+        try {
+            sceneController.getConfigManager().setProperty("music.volume", String.valueOf(volume));
+            sceneController.getConfigManager().saveConfig();
+        } catch (IOException e) {
+            System.err.println("Failed to save volume setting: " + e.getMessage());
+        }
     }
 
 }

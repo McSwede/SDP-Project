@@ -9,6 +9,7 @@ import org.grupp2.sdpproject.entities.Category;
 import org.grupp2.sdpproject.entities.Film;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class FilmDetailScene {
@@ -60,6 +61,8 @@ public class FilmDetailScene {
         ratingLabel.setText(film.getRating() != null ? film.getRating().toString() : "-");
         specialFeaturesLabel.setText(film.getSpecialFeatures() != null ? String.join(", ", film.getSpecialFeatures()) : "-");
 
+        List<String> fetchProperties = List.of("actorList", "categoryList");
+        film = DAOManager.getInstance().findByIdWithJoinFetch(Film.class, film.getFilmId(), fetchProperties);
         actorsArea.setText(
                 film.getActorList() != null && !film.getActorList().isEmpty()
                         ? film.getActorList().stream()

@@ -2,7 +2,11 @@ package org.grupp2.sdpproject.GUI.staff;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -13,10 +17,11 @@ import org.grupp2.sdpproject.Utils.TextformatUtil;
 import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
+import java.util.List;
 
 public class PaymentCrudScene {
 
@@ -46,6 +51,8 @@ public class PaymentCrudScene {
 
     private final ObservableList<Payment> allPayments = FXCollections.observableArrayList();
     private Payment payment;
+    private int offset = 0; // Offset for pagination
+    private static final int LIMIT = 100; // Number of records per page
 
     @FXML
     private void enhanceText(MouseEvent event) {
@@ -65,6 +72,12 @@ public class PaymentCrudScene {
         labelVBOX.setVisible(true);
 
         payment = paymentList.getSelectionModel().getSelectedItem();
+
+        // Fetch customer, staff, and rental info using join fetch
+        payment = DAOManager.getInstance().findByIdWithJoinFetch(Payment.class,
+                payment.getPaymentId(),
+                List.of("customer", "staff", "rental"));
+
         if (payment != null) {
             paymentIdInfo.setText(String.valueOf(payment.getPaymentId()));
             customerInfo.setText(payment.getCustomer().toString());
@@ -136,30 +149,120 @@ public class PaymentCrudScene {
     }
 
     private void populateLists() {
-        allPayments.addAll(DAOManager.getInstance().findAll(Payment.class));
-        paymentList.setItems(allPayments);
+        loadPayments(offset, LIMIT);
 
-        // Customer list
-        ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-        allCustomers.addAll(DAOManager.getInstance().findAll(Customer.class));
-        enterCustomer.setItems(allCustomers);
+        // Load customer data on demand
+        enterCustomer.setItems(FXCollections.observableArrayList());
+        enterCustomer.setEditable(true);
+        enterCustomer.setOnShowing(event -> {
+            if (enterCustomer.getItems().isEmpty()) {
+                List<Customer> customers = DAOManager.getInstance().findAll(Customer.class);
+                enterCustomer.getItems().setAll(customers);
+            }
+        });
 
-        // Staff list
-        ObservableList<Staff> allStaff = FXCollections.observableArrayList();
-        allStaff.addAll(DAOManager.getInstance().findAll(Staff.class));
-        enterStaff.setItems(allStaff);
+        // Load staff data on demand
+        enterStaff.setItems(FXCollections.observableArrayList());
+        enterStaff.setEditable(true);
+        enterStaff.setOnShowing(event -> {
+            if (enterStaff.getItems().isEmpty()) {
+                List<Staff> staffList = DAOManager.getInstance().findAll(Staff.class);
+                enterStaff.getItems().setAll(staffList);
+            }
+        });
 
-        // Rental list
-        ObservableList<Rental> allRentals = FXCollections.observableArrayList();
-        allRentals.addAll(DAOManager.getInstance().findAll(Rental.class));
-        enterRental.setItems(allRentals);
+        // Load rental data on demand
+        enterRental.setItems(FXCollections.observableArrayList());
+        enterRental.setEditable(true);
+        enterRental.setOnShowing(event -> {
+            if (enterRental.getItems().isEmpty()) {
+                List<Rental> rentals = DAOManager.getInstance().findAll(Rental.class);
+                enterRental.getItems().setAll(rentals);
+            }
+        });
     }
 
     public void initialize() {
-        populateLists();
+        populateLists(); // Populate the lists for the ComboBoxes
 
         TextformatUtil textFormatter = new TextformatUtil();
         enterAmount.setTextFormatter(textFormatter.bigDecimalFormatter(5, 2));
+
+        // Attach a listener to the scroll event for infinite scroll
+
+
+        paymentList.heightProperty().addListener((observable, oldValue, newValue) -> {
+            ScrollBar scrollBar = getVerticalScrollBar(paymentList);
+            if (scrollBar != null) {
+                scrollBar.valueProperty().addListener((obs, oldVal, newVal) -> {
+                    // Calculate if the scrollbar is near the bottom
+                    double scrollbarPosition = scrollBar.getValue();
+                    double maxScroll = scrollBar.getMax();
+
+                    // If the scrollbar is near the bottom (you can adjust the threshold)
+                    if (scrollbarPosition >= maxScroll - 0.1) {
+                        if (paymentList.getItems().size() > 0 &&
+                                paymentList.getItems().size() == offset + LIMIT) {
+                            // Increment the offset and trigger the background task to load the next page of data
+                            offset += LIMIT;
+                            loadPaymentsAsync(offset, LIMIT);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private ScrollBar getVerticalScrollBar(ListView<?> listView) {
+        for (Node node : listView.lookupAll(".scroll-bar")) {
+            if (node instanceof ScrollBar) {
+                ScrollBar scrollBar = (ScrollBar) node;
+                if (scrollBar.getOrientation() == Orientation.VERTICAL) {
+                    return scrollBar;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void loadPaymentsAsync(int offset, int limit) {
+        // Create a Task to fetch data in the background
+        Task<List<Payment>> loadTask = new Task<List<Payment>>() {
+            @Override
+            protected List<Payment> call() throws Exception {
+                // Fetch the next page of payments using DAOManager
+                return DAOManager.getInstance().findPaginated(Payment.class, offset, limit);
+            }
+        };
+
+        // When the task succeeds, update the ObservableList on the JavaFX Application thread
+        loadTask.setOnSucceeded(event -> {
+            List<Payment> payments = loadTask.getValue();
+            if (!payments.isEmpty()) {
+                // Add the new payments to the existing ObservableList
+                allPayments.addAll(payments);
+                // Ensure the ListView is updated
+                paymentList.setItems(allPayments);
+            }
+        });
+
+        // Handle any errors that might occur during fetching
+        loadTask.setOnFailed(event -> {
+            Throwable exception = loadTask.getException();
+            exception.printStackTrace();  // Log or show error message
+        });
+
+        // Start the task in a new background thread
+        new Thread(loadTask).start();
+
+        System.out.println("Offset: " + offset);
+    }
+
+    private void loadPayments(int offset, int limit) {
+        System.out.println("Offset: " + offset);
+        List<Payment> payments = DAOManager.getInstance().findPaginated(Payment.class, offset, limit);
+        allPayments.addAll(payments);
+        paymentList.setItems(allPayments);
     }
 
     private boolean validateInput() {

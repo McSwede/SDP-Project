@@ -15,7 +15,7 @@ public class Inventory {
     @Column(name = "inventory_id", nullable = false)
     private int inventoryId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "film_id", nullable = false)
     private Film film;
 
@@ -23,7 +23,7 @@ public class Inventory {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "inventory", cascade = CascadeType.ALL)
     private List<Rental> rentalList = new ArrayList<>();;
 
     @Column(name = "last_update", nullable = false)
