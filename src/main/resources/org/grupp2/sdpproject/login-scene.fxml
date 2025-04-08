@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="root" prefHeight="422.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.LoginScene">
+    <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" text="Mörkt läge"
+            AnchorPane.topAnchor="10.0" AnchorPane.rightAnchor="10.0" styleClass="bigbutton"/>
     <VBox alignment="CENTER" layoutX="225.0" layoutY="100" prefWidth="150.0" spacing="10">
         <Label style="-fx-font-size: 18px;" text="Inloggning" />
         <TextField fx:id="emailField" promptText="Mejl" />
