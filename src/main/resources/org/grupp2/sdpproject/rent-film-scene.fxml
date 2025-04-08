@@ -1,76 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.grupp2.sdpproject.GUI.customer.RentFilmScene"
-      spacing="15" alignment="TOP_CENTER"
-      style="-fx-background-color: #f5f5f5;"
-      prefWidth="450" prefHeight="500">
+<VBox alignment="TOP_CENTER" prefHeight="500" prefWidth="450" spacing="15" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.customer.RentFilmScene">
 
     <padding>
-        <Insets top="20" right="25" bottom="20" left="25"/>
+        <Insets bottom="20" left="25" right="25" top="20" />
     </padding>
 
-    <Label text="Film uthyrnings formulär" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2a5885;"/>
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2a5885;" text="Film uthyrnings formulär" />
 
     <GridPane hgap="10" vgap="12">
         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" prefWidth="120"/>
-            <ColumnConstraints halignment="LEFT" prefWidth="250"/>
+            <ColumnConstraints halignment="RIGHT" prefWidth="120" />
+            <ColumnConstraints halignment="LEFT" prefWidth="250" />
         </columnConstraints>
 
         <!-- Film Information Section -->
-        <Label text="Film information:" style="-fx-font-weight: bold; -fx-underline: true;"
-               GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+        <Label style="-fx-font-weight: bold; -fx-underline: true;" text="Film information:" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-        <Label text="Titel:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <Label fx:id="filmTitleLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"
-               style="-fx-font-weight: bold;"/>
+        <Label text="Titel:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="filmTitleLabel" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Lager ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="inventoryCombo" GridPane.rowIndex="2" GridPane.columnIndex="1"
-                  promptText="Välj lagervara"/>
+        <Label text="Lager ID:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ComboBox fx:id="inventoryCombo" promptText="Välj lagervara" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
         <!-- Rental Period Section -->
-        <Label text="Uthyrningsperiod:" style="-fx-font-weight: bold; -fx-underline: true;"
-               GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+        <Label style="-fx-font-weight: bold; -fx-underline: true;" text="Uthyrningsperiod:" GridPane.columnSpan="2" GridPane.rowIndex="3" />
 
-        <Label text="Uthyrningsdatum:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="rentalDatePicker" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+        <Label text="Uthyrningsdatum:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <DatePicker fx:id="rentalDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Label text="Returdatum:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="returnDatePicker" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-
-        <!-- Customer Information Section -->
-        <Label text="Kund information:" style="-fx-font-weight: bold; -fx-underline: true;"
-               GridPane.rowIndex="6" GridPane.columnSpan="2"/>
-
-        <Label text="Kund ID:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-        <TextField fx:id="customerIdField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-
-        <Label text="Anställd ID:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-        <TextField fx:id="staffIdField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+        <Label text="Returdatum:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <DatePicker fx:id="returnDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
         <!-- Payment Information Section -->
-        <Label text="Betalnings information:" style="-fx-font-weight: bold; -fx-underline: true;"
-               GridPane.rowIndex="9" GridPane.columnSpan="2"/>
+        <Label style="-fx-font-weight: bold; -fx-underline: true;" text="Betalnings information:" GridPane.columnSpan="2" GridPane.rowIndex="9" />
 
-        <Label text="Antal:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
-        <TextField fx:id="amountField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
-
-        <Label text="Betalningsdatum:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
-        <DatePicker fx:id="paymentDatePicker" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+        <Label text="Pris:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+        <TextField fx:id="amountField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 
     <!-- Action Buttons -->
-    <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 15 0 0 0;">
-        <Button text="Bakåt" onAction="#handleBack"
-                style="-fx-background-color: #e0e0e0; -fx-text-fill: #333; -fx-pref-width: 100;"/>
-        <Button text="Hyr film" onAction="#handleSubmit"
-                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 120;"/>
+    <HBox alignment="CENTER_RIGHT" spacing="15" style="-fx-padding: 15 0 0 0;">
+        <Button onAction="#handleBack" style="-fx-background-color: #e0e0e0; -fx-text-fill: #333; -fx-pref-width: 100;" text="Bakåt" />
+        <Button onAction="#handleSubmit" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-width: 120;" text="Hyr film" />
     </HBox>
 </VBox>
