@@ -69,6 +69,7 @@ public class RentalHistoryScene {
                             rental.getRentalId(),
                             Arrays.asList("inventory", "inventory.film")
                     );
+                    currentRentals.clear();
                     currentRentals.add(fullRental);
                 }
 
