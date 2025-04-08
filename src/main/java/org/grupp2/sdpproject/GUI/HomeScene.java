@@ -25,12 +25,12 @@ public class HomeScene {
         String loggedInUser = SessionManager.getLoggedInUser();
 
         if (loggedInUser == null) {
-            welcomeLabel.setText("Welcome!");
+            welcomeLabel.setText("Välkommen!");
             loginButton.setVisible(true);
             registerButton.setVisible(true);
             logoutButton.setVisible(false);
         } else {
-            welcomeLabel.setText("Welcome, " + loggedInUser + "!");
+            welcomeLabel.setText("Välkommen, " + loggedInUser + "!");
             loginButton.setVisible(false);
             registerButton.setVisible(false);
             logoutButton.setVisible(true);

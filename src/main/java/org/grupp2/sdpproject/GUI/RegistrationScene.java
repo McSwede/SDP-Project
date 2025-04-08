@@ -34,7 +34,6 @@ public class RegistrationScene {
     @FXML private TextField lastNameField;
     @FXML private CheckBox activeCheckBox;
     @FXML private ComboBox<Store> storeComboBox;
-    @FXML private TextField usernameField;
     @FXML private Button uploadPictureButton;
 
     private byte[] pictureData;
@@ -43,6 +42,8 @@ public class RegistrationScene {
     @FXML
     public void initialize() {
         roleComboBox.getItems().addAll(Role.CUSTOMER, Role.STAFF);
+        roleComboBox.setValue(Role.CUSTOMER);
+        uploadPictureButton.setVisible(false);
         storeComboBox.getItems().addAll(DAOManager.getInstance().findAll(Store.class));
         // Set up the listener for role selection
         roleComboBox.valueProperty().addListener((observable, oldValue, newValue) -> handleRoleChange(newValue));
@@ -53,12 +54,10 @@ public class RegistrationScene {
     private void handleRoleChange(Role role) {
         if (role == Role.CUSTOMER) {
             // Hide staff-specific fields
-            usernameField.setVisible(false);
             uploadPictureButton.setVisible(false);
             pictureLabel.setText("");
         } else if (role == Role.STAFF) {
             // Hide customer-specific fields
-            usernameField.setVisible(true);
             uploadPictureButton.setVisible(true);
             activeCheckBox.setVisible(true);
             storeComboBox.setVisible(true);
@@ -73,26 +72,20 @@ public class RegistrationScene {
         String lastName = lastNameField.getText();
         boolean active = activeCheckBox.isSelected();
         Store selectedStore = storeComboBox.getValue();
-        String username = emailField.getText();
         DAOManager daoManager = DAOManager.getInstance();
 
         if (email.isEmpty() || password.isEmpty() || role == null || firstName.isEmpty() || lastName.isEmpty()) {
-            statusLabel.setText("All fields are required.");
+            statusLabel.setText("Alla fält måste fyllas i!");
             return;
         }
 
         if (daoManager.findByField(User.class, "email", email) != null) {
-            statusLabel.setText("Email is already registered.");
+            statusLabel.setText("Mejladress redan i bruk.");
             return;
         }
 
-        if (role == Role.CUSTOMER && selectedStore == null) {
-            statusLabel.setText("Please select a store.");
-            return;
-        }
-        if (role == Role.STAFF && (selectedStore == null || username.isEmpty())) {
-            statusLabel.setText("Please select a store and enter a username.");
-            return;
+        if (selectedStore == null) {
+            statusLabel.setText("Vänligen välj en affär.");
         }
 
         String hashedPassword = PasswordUtil.hashPassword(password);
@@ -145,21 +138,21 @@ public class RegistrationScene {
                 staff.setPicture(pictureData);
                 staff.setStore(selectedStore);
                 staff.setActive(active);
-                staff.setUsername(username);
+                staff.setUsername(email);
 
                 daoManager.save(staff);
                 newUser.setStaff(staff);
             }
 
             daoManager.save(newUser);
-            statusLabel.setText("Registration successful!");
+            statusLabel.setText("Registrering genomförd!");
 
             PauseTransition delay = new PauseTransition(Duration.seconds(3));
             delay.setOnFinished(event -> switchToLogin());
             delay.play();
 
         } catch (Exception e) {
-            statusLabel.setText("Registration failed: " + e.getMessage());
+            statusLabel.setText("Registrering misslyckades: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -169,11 +162,11 @@ public class RegistrationScene {
         try {
             byte[] imageData = PictureUtil.handleImageUpload(root.getScene().getWindow());
             if (imageData != null) {
-                pictureLabel.setText("Picture selected");
+                pictureLabel.setText("Bild vald");
                 this.pictureData = imageData;
             }
         } catch (IOException e) {
-            statusLabel.setText("Error uploading picture: " + e.getMessage());
+            statusLabel.setText("Fel vid uppladdning av bild: " + e.getMessage());
         }
     }
 

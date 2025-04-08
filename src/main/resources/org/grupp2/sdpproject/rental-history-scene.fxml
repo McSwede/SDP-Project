@@ -7,9 +7,9 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.grupp2.sdpproject.GUI.customer.RentalHistoryScene" fx:id="root"
       spacing="20" alignment="center">
-    <Label fx:id="titleLabel" text="Your Rental History" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label fx:id="titleLabel" text="Din uthyrningshistorik" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
     <ListView fx:id="rentalHistoryList" />
 
-    <Button fx:id="backButton" text="Back" onAction="#handleBack" />
+    <Button fx:id="backButton" text="Bakåt" onAction="#handleBack" />
 </VBox>

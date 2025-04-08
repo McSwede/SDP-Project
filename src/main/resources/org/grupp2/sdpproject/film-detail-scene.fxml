@@ -13,7 +13,7 @@
                 <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
             </padding>
             <children>
-                <Label text="Film Details" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                <Label text="Film Detaljer" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
                 <GridPane hgap="10" vgap="10">
                     <columnConstraints>
@@ -63,8 +63,8 @@
                 </GridPane>
 
                 <HBox spacing="10" alignment="CENTER_RIGHT">
-                    <Button fx:id="backButton" text="Back" onAction="#handleBack" />
-                    <Button fx:id="rentButton" text="Rent Movie" onAction="#handleRent"
+                    <Button fx:id="backButton" text="Bakåt" onAction="#handleBack" />
+                    <Button fx:id="rentButton" text="Hyr film" onAction="#handleRent"
                             style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"/>
                 </HBox>
             </children>

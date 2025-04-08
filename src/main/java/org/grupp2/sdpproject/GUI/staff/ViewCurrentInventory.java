@@ -56,7 +56,7 @@ public class ViewCurrentInventory {
     private void loadCurrentUserStore() {
         String username = SessionManager.getLoggedInUser();
         if (username == null) {
-            showAlert("No user logged in");
+            showAlert("Ingen användare inloggad!");
             sceneController.switchScene("crud");
             return;
         }
@@ -67,14 +67,14 @@ public class ViewCurrentInventory {
                 .findFirst()
                 .orElse(null);
         if (currentUser == null || currentUser.getStaff() == null) {
-            showAlert("Current user is not staff");
+            showAlert("Nuvarande användare är inte anställd!");
             sceneController.switchScene("crud");
             return;
         }
 
         currentStore = currentUser.getStaff().getStore();
         if (currentStore == null) {
-            showAlert("Current user is not assigned to a store");
+            showAlert("Nuvarande användare tillhör ingen butik!");
             sceneController.switchScene("crud");
         }
     }

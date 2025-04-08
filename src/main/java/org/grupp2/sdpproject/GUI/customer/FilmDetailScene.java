@@ -44,7 +44,7 @@ public class FilmDetailScene {
 
     private void showFilmDetails(Film film) {
         if (film == null) {
-            titleLabel.setText("Film not found");
+            titleLabel.setText("Film kunde inte hittas");
             return;
         }
 

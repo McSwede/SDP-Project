@@ -60,7 +60,7 @@ public class FilmsScene {
 
     private void addActionButtonToTable() {
         Callback<TableColumn<Film, Void>, TableCell<Film, Void>> cellFactory = param -> new TableCell<>() {
-            private final Button viewBtn = new Button("View More");
+            private final Button viewBtn = new Button("Visa mer");
 
             {
                 viewBtn.setOnAction(event -> {
