@@ -94,9 +94,9 @@ public class RentalCrudScene {
             inventoryInfo.setText(rental.getInventory().getFilm().getTitle());
 
             customerInfo.setText(rental.getCustomer() != null ?
-                    rental.getCustomer().getFirstName() : "");
+                    rental.getCustomer().getFirstName() + " " + rental.getCustomer().getLastName() : "");
             staffInfo.setText(rental.getStaff() != null ?
-                    rental.getStaff().getFirstName() : "");
+                    rental.getStaff().getFirstName() + " " + rental.getStaff().getLastName() : "");
             lastUpdate.setText(rental.getLastUpdated() != null ?
                     rental.getLastUpdated().toString() : "");
 
