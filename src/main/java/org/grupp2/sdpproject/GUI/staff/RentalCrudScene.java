@@ -69,26 +69,37 @@ public class RentalCrudScene {
         rental = rentalListView.getSelectionModel().getSelectedItem();
 
         if (rental != null) {
+            // First fetch Rental with Inventory (but not Film)
             rental = daoManager.findByIdWithJoinFetch(Rental.class,
                     rental.getRentalId(),
-                    List.of("inventory", "customer", "staff", "inventory.film"));
+                    List.of("inventory", "customer", "staff"));
 
-            rentalIdInfo.setText(String.valueOf(rental.getRentalId()));
-            rentalDateInfo.setText(rental.getRentalDate().toString());
-            returnDateInfo.setText(rental.getReturnDate() != null ?
-                    rental.getReturnDate().toString() : "");
-
-            if (rental.getInventory() != null && rental.getInventory().getFilm() != null) {
-                inventoryInfo.setText(rental.getInventory().getFilm().getTitle() +
-                        " (ID: " + rental.getInventory().getInventoryId() + ")");
+            // Then explicitly fetch the Film if needed
+            if (rental.getInventory() != null) {
+                // Fetch Inventory with Film in a separate query
+                Inventory inventoryWithFilm = daoManager.findByIdWithJoinFetch(
+                        Inventory.class,
+                        rental.getInventory().getInventoryId(),
+                        List.of("film")
+                );
+                rental.setInventory(inventoryWithFilm);
             }
 
+            rentalIdInfo.setText(rental.toString());
+
+            rentalDateInfo.setText(rental.getRentalDate().toString());
+
+            returnDateInfo.setText(rental.getReturnDate().toString());
+
+            inventoryInfo.setText(rental.getInventory().getFilm().getTitle());
+
             customerInfo.setText(rental.getCustomer() != null ?
-                    rental.getCustomer().toString() : "");
+                    rental.getCustomer().getFirstName() : "");
             staffInfo.setText(rental.getStaff() != null ?
-                    rental.getStaff().toString() : "");
+                    rental.getStaff().getFirstName() : "");
             lastUpdate.setText(rental.getLastUpdated() != null ?
                     rental.getLastUpdated().toString() : "");
+
         }
     }
 

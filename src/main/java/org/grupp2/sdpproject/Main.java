@@ -26,13 +26,5 @@ public class Main extends Application {
 
         launch();
 
-
-        // Shutdown our DAOManager gracefully
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            DAOManager.shutdown();
-        }));
-
-
     }
 }
