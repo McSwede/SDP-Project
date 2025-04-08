@@ -1,5 +1,7 @@
 package org.grupp2.sdpproject.Utils;
 
+import org.grupp2.sdpproject.entities.User;
+
 public class SessionManager {
     private static String loggedInUser = null;
 
@@ -14,4 +16,8 @@ public class SessionManager {
     public static String getLoggedInUser() {
         return loggedInUser;
     }
+
 }
+
+
+

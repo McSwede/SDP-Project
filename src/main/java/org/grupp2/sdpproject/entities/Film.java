@@ -76,7 +76,7 @@ public class Film {
     )
     private List<Category> categoryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "film", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "film", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Inventory> inventories = new ArrayList<>();
 
     @Column(name = "last_update", nullable = false)

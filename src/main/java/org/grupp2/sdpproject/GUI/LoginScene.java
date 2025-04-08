@@ -9,7 +9,9 @@ import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene;
 import org.grupp2.sdpproject.Utils.HibernateUtil;
 import org.grupp2.sdpproject.Utils.SessionManager;
+import org.grupp2.sdpproject.dao.GenericDAO;
 import org.grupp2.sdpproject.dao.UserDAO;
+import org.grupp2.sdpproject.entities.Film;
 import org.grupp2.sdpproject.entities.User;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
 import javafx.application.Platform;
@@ -24,6 +26,7 @@ public class LoginScene {
     @FXML private Label statusLabel;
 
     private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
+   // private final GenericDAO<User> userAO = new GenericDAO<>(User.class, HibernateUtil.getSessionFactory());
 
     private final SceneController sceneController = SceneController.getInstance();
 
@@ -43,13 +46,15 @@ public class LoginScene {
 
         // Login success
         SessionManager.login(email);
-        String welcomeMessage = "Login successful, welcome!";
+        String welcomeMessage;
         if (user.getRole() != null && user.getRole() == Role.CUSTOMER) {
             // Customer-specific behavior
+            welcomeMessage =  "Login successful, welcome! " + user.getCustomer().getFirstName();;
             navigateToDashboard("customer-dashboard", user,welcomeMessage);
             statusLabel.setText(welcomeMessage);
         } else if (user.getRole() == Role.STAFF) {
             // Staff-specific behavior
+            welcomeMessage =  "Login successful, welcome! " + user.getStaff().getFirstName();;
             statusLabel.setText(welcomeMessage);
             navigateToDashboard("crud",user,welcomeMessage);
         }
@@ -63,9 +68,9 @@ public class LoginScene {
                 sceneController.switchScene(scene);
 
                 if (scene.equals("customer-dashboard")) {
-                    CustomerDashBoardScene dashboardScene = (CustomerDashBoardScene) sceneController.getController("customer-dashboard");
+                    CustomerDashBoardScene dashboardScene =  sceneController.getController("customer-dashboard");
                     if (dashboardScene != null) {
-                        dashboardScene.setCustomer(user);
+                       // dashboardScene.setCustomer(user);
                         dashboardScene.updateWelcomeMessage(welcomeMessage);
                     } else {
                         System.err.println("Error: CustomerDashBoardScene controller is null after switching scene.");
@@ -75,7 +80,6 @@ public class LoginScene {
         });
         delay.play();
     }
-
 
 
     // Switch to the registration scene

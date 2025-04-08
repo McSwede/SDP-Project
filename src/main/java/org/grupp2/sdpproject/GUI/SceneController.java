@@ -69,6 +69,7 @@ public class SceneController {
 
 
   public void switchScene(String sceneName) {
+      System.out.println("[SceneController] Switching to scene: " + sceneName);
       FXMLLoader loader = new FXMLLoader(Main.class.getResource(sceneName + "-scene.fxml"));
 
         try {
