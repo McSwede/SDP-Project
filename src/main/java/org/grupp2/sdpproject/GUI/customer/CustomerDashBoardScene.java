@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.SessionManager;
-import org.grupp2.sdpproject.entities.User;
 
 public class CustomerDashBoardScene {
 
@@ -20,7 +19,6 @@ public class CustomerDashBoardScene {
     @FXML private Button logoutButton;
 
     private final SceneController sceneController = SceneController.getInstance();
-   // private String  userName = SessionManager.getLoggedInUser();
 
     // Method to update the welcome message
     public void updateWelcomeMessage(String welcomeMessage) {

@@ -7,11 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import org.grupp2.sdpproject.ENUM.Role;
 import org.grupp2.sdpproject.GUI.customer.CustomerDashBoardScene;
-import org.grupp2.sdpproject.Utils.HibernateUtil;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.SessionManager;
-import org.grupp2.sdpproject.dao.GenericDAO;
-import org.grupp2.sdpproject.dao.UserDAO;
-import org.grupp2.sdpproject.entities.Film;
 import org.grupp2.sdpproject.entities.User;
 import org.grupp2.sdpproject.Utils.PasswordUtil;
 import javafx.application.Platform;
@@ -25,7 +22,7 @@ public class LoginScene {
     @FXML private Button loginButton;
     @FXML private Label statusLabel;
 
-    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
+    //private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
    // private final GenericDAO<User> userAO = new GenericDAO<>(User.class, HibernateUtil.getSessionFactory());
 
     private final SceneController sceneController = SceneController.getInstance();
@@ -36,7 +33,11 @@ public class LoginScene {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        User user = userDAO.findByEmail(email);
+        User user = DAOManager.getInstance()
+                .findByField(User.class, "email", email)
+                .stream()
+                .findFirst()
+                .orElse(null);//userDAO.findByEmail(email);
 
         // If user doesn't exist or password is incorrect
         if (user == null || !PasswordUtil.checkPassword(password, user.getPassword())) {
