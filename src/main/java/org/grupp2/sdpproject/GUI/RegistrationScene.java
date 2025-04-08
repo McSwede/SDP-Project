@@ -132,12 +132,13 @@ public class RegistrationScene {
                 Staff staff = new Staff();
                 staff.setFirstName(firstName);
                 staff.setLastName(lastName);
-                staff.setPassword(password);
+                staff.setPassword(null);
                 staff.setAddress(address);
                 staff.setPicture(pictureData);
                 staff.setStore(selectedStore);
                 staff.setActive(active);
                 staff.setUsername(email);
+                staff.setEmail(email);
 
                 daoManager.save(staff);
                 newUser.setStaff(staff);
