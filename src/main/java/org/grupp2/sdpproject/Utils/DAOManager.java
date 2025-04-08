@@ -38,6 +38,7 @@ public class DAOManager {
     // Cache these entities immediately on startup
     private void initializeCaches() {
         cacheManager.initializeCachesFor(
+                User.class,
                 Film.class,
                 Actor.class,
                 Customer.class,
@@ -46,8 +47,7 @@ public class DAOManager {
                 Rental.class,
                 Staff.class,
                 Store.class,
-                Inventory.class,
-                User.class
+                Inventory.class
         );
     }
 

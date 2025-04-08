@@ -38,13 +38,13 @@ public class RentalHistoryScene {
 
                 // Populate the ListView with rental information
                 for (Rental rental : rentals) {
-                    String rentalInfo = "Film: " + rental.getInventory().getFilm().getTitle() + ", Rental Date: " + rental.getRentalDate();
+                    String rentalInfo = "Film: " + rental.getInventory().getFilm().getTitle() + ", Uthyrningsdatum: " + rental.getRentalDate();
                     rentalHistoryList.getItems().add(rentalInfo);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Could not load rental history.");
+            showAlert("Error", "Kunde inte ladda uthyrningshistoriken.");
         }
     }
 

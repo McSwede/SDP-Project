@@ -23,15 +23,27 @@ public class LoginScene {
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Label statusLabel;
-
-    //private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
-   // private final GenericDAO<User> userAO = new GenericDAO<>(User.class, HibernateUtil.getSessionFactory());
+    @FXML private Button colorsheme;
 
     private final SceneController sceneController = SceneController.getInstance();
 
+    @FXML
+    public void initialize() {
+        boolean isDarkMode = sceneController.isDarkMode();
+        if (isDarkMode) {
+            colorsheme.setText("Ljust läge");
+        } else {
+            colorsheme.setText("Mörkt läge");
+        }
+    }
 
     @FXML
-    public void handleLogin() throws IOException {
+    private void toggleTheme() {
+        sceneController.toggleDarkMode(root, colorsheme);
+    }
+
+    @FXML
+    public void handleLogin() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
@@ -39,11 +51,11 @@ public class LoginScene {
                 .findByField(User.class, "email", email)
                 .stream()
                 .findFirst()
-                .orElse(null);//userDAO.findByEmail(email);
+                .orElse(null);
 
         // If user doesn't exist or password is incorrect
         if (user == null || !PasswordUtil.checkPassword(password, user.getPassword())) {
-            statusLabel.setText("Invalid email or password.");
+            statusLabel.setText("Felaktig mejl eller lösenord.");
             return;
         }
 
@@ -52,19 +64,19 @@ public class LoginScene {
         String welcomeMessage;
         if (user.getRole() != null && user.getRole() == Role.CUSTOMER) {
             // Customer-specific behavior
-            welcomeMessage =  "Login successful, welcome! " + user.getCustomer().getFirstName();;
-            navigateToDashboard("customer-dashboard", user,welcomeMessage);
+            welcomeMessage =  "Välkommen " + user.getCustomer().getFirstName() + "!";
+            navigateToDashboard("customer-dashboard", welcomeMessage);
             statusLabel.setText(welcomeMessage);
         } else if (user.getRole() == Role.STAFF) {
             // Staff-specific behavior
-            welcomeMessage =  "Login successful, welcome! " + user.getStaff().getFirstName();;
+            welcomeMessage =  "Välkommen " + user.getStaff().getFirstName() + "!";
             statusLabel.setText(welcomeMessage);
-            navigateToDashboard("crud",user,welcomeMessage);
+            navigateToDashboard("crud", welcomeMessage);
         }
     }
 
     // Helper method to navigate after a delay
-    private void navigateToDashboard(String scene, User user, String welcomeMessage) {
+    private void navigateToDashboard(String scene, String welcomeMessage) {
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> {
             Platform.runLater(() -> {
@@ -73,7 +85,6 @@ public class LoginScene {
                 if (scene.equals("customer-dashboard")) {
                     CustomerDashBoardScene dashboardScene =  sceneController.getController("customer-dashboard");
                     if (dashboardScene != null) {
-                       // dashboardScene.setCustomer(user);
                         dashboardScene.updateWelcomeMessage(welcomeMessage);
                     } else {
                         System.err.println("Error: CustomerDashBoardScene controller is null after switching scene.");
@@ -83,7 +94,6 @@ public class LoginScene {
         });
         delay.play();
     }
-
 
     // Switch to the registration scene
     public void switchToRegister() {

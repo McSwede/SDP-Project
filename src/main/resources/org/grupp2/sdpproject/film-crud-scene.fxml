@@ -52,7 +52,7 @@
             <Label prefHeight="26.0" styleClass="smalllabel" text="Hyrespris:" />
             <Label prefHeight="26.0" styleClass="smalllabel" text="Längd:" />
             <Label prefHeight="26.0" styleClass="smalllabel" text="Ersättningspris:" />
-            <Label prefHeight="26.0" styleClass="smalllabel" text="gradering:" />
+            <Label prefHeight="26.0" styleClass="smalllabel" text="Gradering:" />
             <Label prefHeight="26.0" styleClass="smalllabel" text="Specialinnehåll:" />
             <Label prefHeight="26.0" styleClass="smalllabel" text="Skådespelare:" />
             <Label prefHeight="26.0" styleClass="smalllabel" text="Kategori:" />

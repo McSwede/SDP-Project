@@ -3,6 +3,7 @@ package org.grupp2.sdpproject.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.grupp2.sdpproject.GUI.staff.AddSpecialFeatures;
@@ -166,17 +167,19 @@ public class SceneController {
         return configManager;
     }
     
-    public void toggleDarkMode(CrudScene controller, Button button) {
+    public void toggleDarkMode(AnchorPane root, Button button) {
 
         if (darkMode) {
             darkMode = false;
             button.setText("Mörkt läge");
-            controller.setStyleSheet(Main.class.getResource("style.css").toExternalForm());
+            root.getStylesheets().clear();
+            root.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
         }
         else {
             darkMode = true;
             button.setText("Ljust läge");
-            controller.setStyleSheet(Main.class.getResource("dark-style.css").toExternalForm());
+            root.getStylesheets().clear();
+            root.getStylesheets().add(Main.class.getResource("dark-style.css").toExternalForm());
         }
 
         configManager.setDarkModeEnabled(darkMode);

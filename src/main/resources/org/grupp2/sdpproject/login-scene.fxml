@@ -4,12 +4,15 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="root" prefHeight="422.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.LoginScene">
+    <Button fx:id="colorsheme" mnemonicParsing="false" onAction="#toggleTheme" text="Mörkt läge"
+            AnchorPane.topAnchor="10.0" AnchorPane.rightAnchor="10.0" styleClass="bigbutton"/>
     <VBox alignment="CENTER" layoutX="225.0" layoutY="100" prefWidth="150.0" spacing="10">
-        <Label style="-fx-font-size: 18px;" text="Login" />
-        <TextField fx:id="emailField" promptText="Email" onKeyPressed="#keyPressed"/>
-        <PasswordField fx:id="passwordField" promptText="Password" onKeyPressed="#keyPressed"/>
-        <Button fx:id="loginButton" onAction="#handleLogin" onKeyPressed="#keyPressed" text="Login" />
-        <Hyperlink onAction="#switchToRegister" text="Register" />
+        <Label style="-fx-font-size: 18px;" text="Inloggning" />
+        <TextField fx:id="emailField" promptText="Mejl" onKeyPressed="#keyPressed"/>
+        <PasswordField fx:id="passwordField" promptText="Lösenord" onKeyPressed="#keyPressed"/>
+        <Button fx:id="loginButton" onAction="#handleLogin" onKeyPressed="#keyPressed" text="Logga in" />
+        <Button onAction="#handleLogin" text="Logga in" />
+        <Hyperlink onAction="#switchToRegister" text="Registrera" />
         <Label fx:id="statusLabel" textFill="red" />
     </VBox>
 </AnchorPane>
