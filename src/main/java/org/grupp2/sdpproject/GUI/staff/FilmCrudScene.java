@@ -139,6 +139,9 @@ public class FilmCrudScene {
             categoryInfo.setText("");
         }
 
+
+
+
     }
 
     @FXML private void addNew() {
@@ -168,7 +171,6 @@ public class FilmCrudScene {
             confirmUpdateButton.setVisible(true);
             confirmNewButton.setVisible(false);
 
-            film = filmList.getSelectionModel().getSelectedItem();
             enterTitle.setText(film.getTitle());
             enterDescription.setText(film.getDescription());
             enterReleaseYear.setText(String.valueOf(film.getReleaseYear()));
@@ -181,6 +183,8 @@ public class FilmCrudScene {
             enterLength.setText(String.valueOf(film.getLength()));
             enterReplacementCost.setText(String.valueOf(film.getReplacementCost()));
             enterRating.setValue(film.getRating());
+            System.out.println("Hello");
+            System.out.println(film.getCategoryList().getFirst());
             if (film.getCategoryList() != null) {
                 Category category = film.getCategoryList().getFirst();
                 enterCategory.setValue(category);
