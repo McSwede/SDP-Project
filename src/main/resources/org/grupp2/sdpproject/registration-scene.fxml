@@ -21,7 +21,7 @@
 
     <HBox alignment="TOP_CENTER" spacing="5">
         <Button fx:id="uploadPictureButton" onAction="#handleUploadPicture" style="-fx-font-weight: normal;" text="Ladda upp bild" />
-        <Label fx:id="pictureLabel" prefHeight="24.0" style="-fx-font-weight: normal;" styleClass="smalllabel" text="Ingen fil vald" />
+        <Label fx:id="pictureLabel" prefHeight="24.0" style="-fx-font-weight: normal;" styleClass="smalllabel" text="" />
       <padding>
          <Insets bottom="5.0" top="5.0" />
       </padding>
