@@ -111,10 +111,9 @@ public class RegistrationScene {
                         return c;
                     });
 
-            Address address = new Address("Example Address", "Suite 101", "District Example", city, "12345", "+46 123 456 789");
             GeometryFactory geometryFactory = new GeometryFactory();
             Point location = geometryFactory.createPoint(new Coordinate(18.6435, 63.8255));
-            address.setLocation(location);
+            Address address = new Address("Example Address", "Suite 101", "District Example", city, "12345", "+46 123 456 789", location);
             address.setLastUpdated(LocalDateTime.now());
             daoManager.save(address);
 

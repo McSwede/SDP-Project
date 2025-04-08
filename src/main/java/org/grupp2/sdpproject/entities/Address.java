@@ -58,13 +58,14 @@ public class Address {
     public Address() {
     }
 
-    public Address(String address, String address2, String district, City city, String postalCode, String phone) {
+    public Address(String address, String address2, String district, City city, String postalCode, String phone, Point location) {
         this.address = address;
         this.address2 = address2;
         this.district = district;
         this.city = city;
         this.postalCode = postalCode;
         this.phone = phone;
+        this.location = location;
     }
 
     @PreUpdate

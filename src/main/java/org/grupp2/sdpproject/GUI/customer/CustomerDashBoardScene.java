@@ -57,7 +57,7 @@ public class CustomerDashBoardScene {
 
     @FXML
     private void handleAccountDetails() {
-        sceneController.switchScene("account-details");
+        sceneController.openAccountDetailsScene();
     }
 
     @FXML
