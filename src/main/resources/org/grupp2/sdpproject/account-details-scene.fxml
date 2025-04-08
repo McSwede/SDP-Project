@@ -1,84 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefWidth="600" prefHeight="800" stylesheets="@style.css"
-            xmlns="http://javafx.com/fxml" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.grupp2.sdpproject.GUI.customer.AccountDetailsScene">
+<AnchorPane fx:id="root" prefHeight="800" prefWidth="600" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.grupp2.sdpproject.GUI.customer.AccountDetailsScene">
     <children>
-        <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
-              AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
-            <Label text="Mina sidor" style="-fx-font-size: 28px; -fx-font-weight: bold;" alignment="CENTER"/>
-            <Separator/>
+        <VBox layoutY="-7.0" prefHeight="800.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" style="-fx-font-size: 28px; -fx-font-weight: bold;" text="Mina sidor" />
+            <Separator />
 
-            <GridPane hgap="15" vgap="15">
+            <GridPane hgap="15" prefHeight="600.0" prefWidth="560.0" vgap="13.0">
                 <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
                 <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" percentWidth="30"/>
-                    <ColumnConstraints halignment="LEFT" percentWidth="70"/>
+                    <ColumnConstraints halignment="RIGHT" percentWidth="30" />
+                    <ColumnConstraints halignment="LEFT" percentWidth="70" />
                 </columnConstraints>
 
-                <Label text="Förnamn:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="firstNameField" promptText="Förnamn" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Förnamn:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="firstNameField" promptText="Förnamn" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="Efternamn:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="lastNameField" promptText="Efternamn" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Efternamn:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="lastNameField" promptText="Efternamn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="emailField" promptText="Email" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="emailField" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Nytt lösenord:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <PasswordField fx:id="newPasswordField" promptText="Ange nytt lösenord" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Nytt lösenord:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <PasswordField fx:id="newPasswordField" promptText="Ange nytt lösenord" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                <Label text="Bekräfta lösenord:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <PasswordField fx:id="confirmPasswordField" promptText="Bekräfta nytt lösenord" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label text="Bekräfta lösenord:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <PasswordField fx:id="confirmPasswordField" promptText="Bekräfta nytt lösenord" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
 
-                <Label text="Adressinformation:" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2"
-                       GridPane.halignment="LEFT" style="-fx-font-weight: bold; -fx-underline: true;"/>
+                <Label style="-fx-font-weight: bold; -fx-underline: true;" text="Adressinformation:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
 
-                <Label text="Gata:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                <TextField fx:id="addressField" promptText="Ange gatuadress" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <Label text="Gata:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="addressField" promptText="Ange gatuadress" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                <Label text="Adress 2:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-                <TextField fx:id="address2Field" promptText="Ange eventuell adress2" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <Label text="Adress 2:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <TextField fx:id="address2Field" promptText="Ange eventuell adress2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                <Label text="Distrikt:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-                <TextField fx:id="districtField" promptText="Ange distrikt" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                <Label text="Distrikt:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+                <TextField fx:id="districtField" promptText="Ange distrikt" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-                <Label text="Postnummer:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
-                <TextField fx:id="postalCodeField" promptText="Ange postnummer" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                <Label text="Postnummer:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+                <TextField fx:id="postalCodeField" promptText="Ange postnummer" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-                <Label text="Stad:" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
-                <TextField fx:id="cityField" promptText="Ange stad" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+                <Label text="Stad:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+                <TextField fx:id="cityField" promptText="Ange stad" GridPane.columnIndex="1" GridPane.rowIndex="11" />
 
-                <Label text="Land:" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
-                <TextField fx:id="countryField" promptText="Ange land" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+                <Label text="Land:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+                <TextField fx:id="countryField" promptText="Ange land" GridPane.columnIndex="1" GridPane.rowIndex="12" />
 
-                <Label text="Telefon:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
-                <TextField fx:id="phoneField" promptText="Ange telefonnummer" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
-
-                <Label fx:id="successLabel" text=""
-                       GridPane.rowIndex="13" GridPane.columnIndex="0" GridPane.columnSpan="2"
-                       style="-fx-font-style: italic;"/>
+                <Label text="Telefon:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+                <TextField fx:id="phoneField" promptText="Ange telefonnummer" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
 
-            <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="saveButton" text="Spara ändringar" onAction="#handleSaveChanges"/>
-                <Button fx:id="backButton" text="Tillbaka" onAction="#handleBack"/>
+            <HBox alignment="CENTER" spacing="20">
+                <Button fx:id="saveButton" onAction="#handleSaveChanges" styleClass="bigbutton" text="Spara ändringar" />
+                <Button fx:id="backButton" onAction="#handleBack" styleClass="bigbutton" text="Tillbaka" />
             </HBox>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
         </VBox>
     </children>
 </AnchorPane>

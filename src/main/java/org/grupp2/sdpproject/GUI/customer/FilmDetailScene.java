@@ -92,7 +92,7 @@ public class FilmDetailScene {
         String titleText = titleLabel.getText();
         RentFilmScene.setRentalAmount(rentalAmount);
         RentFilmScene.setTitle(titleText);
-        sceneController.switchScene("rent-film");
+        sceneController.switchBigScene("rent-film");
     }
 
     public void setStyleSheet(String styleSheet) {
