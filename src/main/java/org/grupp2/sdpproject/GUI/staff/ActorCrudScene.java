@@ -82,15 +82,17 @@ public class ActorCrudScene {
     
     
     @FXML private void updateSelected() {
-        varningText.setText("");
-        labelVBOX.setVisible(false);
-        textFieldVBOX.setVisible(true);
-        confirmNewButton.setVisible(false);
-        confirmUpdateButton.setVisible(true);
+        if (actorList.getSelectionModel().getSelectedItem() != null) {
+            varningText.setText("");
+            labelVBOX.setVisible(false);
+            textFieldVBOX.setVisible(true);
+            confirmNewButton.setVisible(false);
+            confirmUpdateButton.setVisible(true);
 
-        enterFirstName.setText(selectedActor.getFirstName());
-        enterLastName.setText(selectedActor.getLastName());
-        lastUpdate.setText(selectedActor.getLastUpdated().toString());
+            enterFirstName.setText(selectedActor.getFirstName());
+            enterLastName.setText(selectedActor.getLastName());
+            lastUpdate.setText(selectedActor.getLastUpdated().toString());
+        }
     }
 
 
