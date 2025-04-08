@@ -3,13 +3,17 @@ package org.grupp2.sdpproject.Utils;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SoundManager {
     private static SoundManager instance;
     private Map<String, MediaPlayer> soundPlayers;
     private MediaPlayer currentMusic;
+    private List<MediaPlayer> playlist;
+    private int currentTrackIndex = 0;
     private double volume = 0.5; // Default volume (50%)
 
     private SoundManager() {
@@ -85,6 +89,38 @@ public class SoundManager {
             System.err.println("Music not found: " + name);
         }
     }
+
+    public void playAllMusic() {
+        stopCurrentMusic();
+
+        if (soundPlayers.isEmpty()) {
+            System.err.println("No music loaded.");
+            return;
+        }
+
+        playlist = new ArrayList<>(soundPlayers.values());
+        currentTrackIndex = 0;
+
+        playTrack(currentTrackIndex);
+    }
+
+    private void playTrack(int index) {
+        if (index >= playlist.size()) {
+            // Restart playlist when it ends
+            currentTrackIndex = 0;
+            index = 0;
+        }
+
+        currentMusic = playlist.get(index);
+        currentMusic.setVolume(volume);
+        currentMusic.setOnEndOfMedia(() -> {
+            currentTrackIndex++;
+            playTrack(currentTrackIndex);
+        });
+
+        currentMusic.play();
+    }
+
 
     /**
      * Sets the global volume (0.0 to 1.0)
