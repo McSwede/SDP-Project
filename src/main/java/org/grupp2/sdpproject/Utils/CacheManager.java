@@ -9,6 +9,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+/*
+*
+* This class is not used, but we kept it since we are proud of it.
+* It may not have been the best solution, but it was one hell of a solution.
+*
+ */
 public class CacheManager {
     private final Map<Class<?>, CacheEntry<?>> cache = new HashMap<>();
     private final ExecutorService executor;
