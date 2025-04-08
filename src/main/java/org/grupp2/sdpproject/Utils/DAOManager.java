@@ -178,6 +178,7 @@ public class DAOManager {
      */
     public <T> List<T> findPaginated(Class<T> entityClass, int offset, int limit) {
         return getDao(entityClass).findPaginated(offset, limit);
+    }
 
     public <T> List<T> findByField(Class<T> entityClass, String fieldName, Object value) {
         // First try to find in cache
