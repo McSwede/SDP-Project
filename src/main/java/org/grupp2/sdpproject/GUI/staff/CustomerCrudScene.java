@@ -81,6 +81,7 @@ public class CustomerCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        customerView.getSelectionModel().clearSelection();
 
         selectedCustomer = new Customer();
         enterFirstName.clear();

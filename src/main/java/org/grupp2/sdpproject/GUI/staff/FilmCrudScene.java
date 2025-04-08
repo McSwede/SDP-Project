@@ -149,6 +149,7 @@ public class FilmCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        filmList.getSelectionModel().clearSelection();
         film = new Film();
         enterTitle.setText("");
         enterDescription.setText("");

@@ -87,6 +87,7 @@ public class AddressCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        addressList.getSelectionModel().clearSelection();
         address = new Address();
         enterAddress.setText("");
         enterAddress2.setText("");

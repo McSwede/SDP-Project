@@ -109,6 +109,7 @@ public class RentalCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        rentalListView.getSelectionModel().clearSelection();
         rental = new Rental();
         rentalIdLabel.setText("(Auto-genererat)");
         enterRentalDate.setValue(null);
