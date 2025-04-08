@@ -103,6 +103,7 @@ public class StaffCrudScene {
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
         uploadImageButton.setVisible(true);
+        staffList.getSelectionModel().clearSelection();
         staff = new Staff();
         enterFirstName.setText("");
         enterLastName.setText("");

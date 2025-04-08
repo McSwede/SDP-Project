@@ -65,6 +65,7 @@ public class InventoryCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        inventoryList.getSelectionModel().clearSelection();
         inventory = new Inventory();
         inventoryIdLabel.setText("(Auto-genererat)");
         enterFilm.setValue(null);

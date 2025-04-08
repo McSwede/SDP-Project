@@ -72,6 +72,7 @@ public class ActorCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        actorList.getSelectionModel().clearSelection();
 
         selectedActor = new Actor();
         enterFirstName.clear();

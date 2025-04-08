@@ -101,6 +101,7 @@ public class PaymentCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        paymentList.getSelectionModel().clearSelection();
         payment = new Payment();
         paymentIdLabel.setText("(Auto-generated)");
         enterCustomer.setValue(null);

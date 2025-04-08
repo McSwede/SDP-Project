@@ -68,6 +68,7 @@ public class StoreCrudScene {
         textFieldVBOX.setVisible(true);
         confirmNewButton.setVisible(true);
         confirmUpdateButton.setVisible(false);
+        storeList.getSelectionModel().clearSelection();
         store = new Store();
         enterManager.setValue(null);
         enterAddress.setValue(null);
