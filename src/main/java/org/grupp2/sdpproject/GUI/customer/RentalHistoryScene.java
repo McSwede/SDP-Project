@@ -64,7 +64,7 @@ public class RentalHistoryScene {
                 List<Rental> rentalIds = daoManager.findByField(Rental.class, "customer.customerId", user.getCustomer().getCustomerId());
 
                 for (Rental rental : rentalIds) {
-                    Rental fullRental = daoManager.findByIdWithJoinFetch(
+                    Rental fullRental = daoManager.findByIdWithJoinFetchNested(
                             Rental.class,
                             rental.getRentalId(),
                             Arrays.asList("inventory", "inventory.film")

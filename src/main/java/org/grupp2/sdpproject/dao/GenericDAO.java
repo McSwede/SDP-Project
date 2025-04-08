@@ -77,6 +77,30 @@ public class GenericDAO<T> {
 
     public <T> T findByIdWithJoinFetch(Class<T> entityClass, Object id, List<String> joinFetchProperties) {
         try (Session session = sessionFactory.openSession()) {
+            // First query to fetch the main entity
+            StringBuilder queryBuilder = new StringBuilder("SELECT e FROM ");
+            queryBuilder.append(entityClass.getSimpleName()).append(" e ");
+            queryBuilder.append("WHERE e.id = :id");
+
+            // Fetch the main entity first
+            T entity = session.createQuery(queryBuilder.toString(), entityClass)
+                    .setParameter("id", id)
+                    .uniqueResult();
+
+            // Fetch each property (collection) individually if needed
+            for (String joinProp : joinFetchProperties) {
+                String joinQuery = "SELECT e FROM " + entityClass.getSimpleName() + " e LEFT JOIN FETCH e." + joinProp + " WHERE e.id = :id";
+                session.createQuery(joinQuery, entityClass)
+                        .setParameter("id", id)
+                        .uniqueResult();
+            }
+
+            return entity;
+        }
+    }
+
+    public <T> T findByIdWithJoinFetchNested(Class<T> entityClass, Object id, List<String> joinFetchProperties) {
+        try (Session session = sessionFactory.openSession()) {
             // Build the base query
             StringBuilder queryBuilder = new StringBuilder("SELECT DISTINCT e FROM ");
             queryBuilder.append(entityClass.getSimpleName()).append(" e ");
