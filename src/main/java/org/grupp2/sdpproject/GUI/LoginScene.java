@@ -22,9 +22,6 @@ public class LoginScene {
     @FXML private Button loginButton;
     @FXML private Label statusLabel;
 
-    //private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
-   // private final GenericDAO<User> userAO = new GenericDAO<>(User.class, HibernateUtil.getSessionFactory());
-
     private final SceneController sceneController = SceneController.getInstance();
 
 
@@ -37,7 +34,7 @@ public class LoginScene {
                 .findByField(User.class, "email", email)
                 .stream()
                 .findFirst()
-                .orElse(null);//userDAO.findByEmail(email);
+                .orElse(null);
 
         // If user doesn't exist or password is incorrect
         if (user == null || !PasswordUtil.checkPassword(password, user.getPassword())) {
