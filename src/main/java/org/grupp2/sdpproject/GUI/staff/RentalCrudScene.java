@@ -86,13 +86,9 @@ public class RentalCrudScene {
             }
 
             rentalIdInfo.setText(rental.toString());
-
             rentalDateInfo.setText(rental.getRentalDate().toString());
-
             returnDateInfo.setText(rental.getReturnDate().toString());
-
             inventoryInfo.setText(rental.getInventory().getFilm().getTitle());
-
             customerInfo.setText(rental.getCustomer() != null ?
                     rental.getCustomer().getFirstName() : "");
             staffInfo.setText(rental.getStaff() != null ?
