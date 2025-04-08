@@ -95,24 +95,27 @@ public class CustomerCrudScene {
     }
 
     @FXML private void updateSelected() {
-        varningText.setText("");
-        labelVBOX.setVisible(false);
-        textFieldVBOX.setVisible(true);
-        confirmNewButton.setVisible(false);
-        confirmUpdateButton.setVisible(true);
+        if (customerView.getSelectionModel().getSelectedItem() != null) {
+            varningText.setText("");
+            labelVBOX.setVisible(false);
+            textFieldVBOX.setVisible(true);
+            confirmNewButton.setVisible(false);
+            confirmUpdateButton.setVisible(true);
 
-        selectedCustomer = customerView.getSelectionModel().getSelectedItem();
-        enterFirstName.setText(selectedCustomer.getFirstName());
-        enterLastName.setText(selectedCustomer.getLastName());
-        enterEmail.setText(selectedCustomer.getEmail());
-        enterAddress.setValue(selectedCustomer.getAddress());
-        enterStore.setValue(selectedCustomer.getStore());
-        enterActive.setSelected(selectedCustomer.isActive());
-        Date utilDate = selectedCustomer.getCreateDate();
-        LocalDate localDate = utilDate.toInstant()         // Konvertera till Instant
-                .atZone(ZoneId.systemDefault())  // Ange tidszonen
-                .toLocalDate();
-        enterCreateDate.setValue(localDate);
+            selectedCustomer = customerView.getSelectionModel().getSelectedItem();
+            enterFirstName.setText(selectedCustomer.getFirstName());
+            enterLastName.setText(selectedCustomer.getLastName());
+            enterEmail.setText(selectedCustomer.getEmail());
+            enterAddress.setValue(selectedCustomer.getAddress());
+            enterStore.setValue(selectedCustomer.getStore());
+            enterActive.setSelected(selectedCustomer.isActive());
+            Date utilDate = selectedCustomer.getCreateDate();
+            LocalDate localDate = utilDate.toInstant()         // Konvertera till Instant
+                    .atZone(ZoneId.systemDefault())  // Ange tidszonen
+                    .toLocalDate();
+            enterCreateDate.setValue(localDate);
+        }
+
     }
 
     @FXML private void removeSelected() {
