@@ -12,6 +12,7 @@ import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.TextformatUtil;
 import org.grupp2.sdpproject.entities.*;
+import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -77,6 +78,13 @@ public class FilmCrudScene {
         labelVBOX.setVisible(true);
 
         film = filmList.getSelectionModel().getSelectedItem();
+
+        List<String> fetchProperties = List.of("actorList", "categoryList", "inventories");
+
+        // Fetch the film with the required collections
+        film = DAOManager.getInstance().findByIdWithJoinFetch(Film.class,
+                film.getFilmId(), fetchProperties);
+
         System.out.println(film.getSpecialFeatures());
         titleInfo.setText(film.getTitle());
         descriptionInfo.setText(film.getDescription());

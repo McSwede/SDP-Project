@@ -16,7 +16,7 @@ public class Payment {
     @Column(name = "payment_id")
     private short paymentId;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
