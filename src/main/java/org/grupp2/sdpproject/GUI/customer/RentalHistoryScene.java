@@ -5,6 +5,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.VBox;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.Rental;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class RentalHistoryScene {
 
+    @FXML private VBox root;
     @FXML private ListView<String> rentalHistoryList;
     @FXML private Button backButton;
 
@@ -59,5 +61,10 @@ public class RentalHistoryScene {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }

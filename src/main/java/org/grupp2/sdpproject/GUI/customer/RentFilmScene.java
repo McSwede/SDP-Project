@@ -15,7 +15,7 @@ import java.util.List;
 
 public class RentFilmScene {
 
-    @FXML private VBox rootVBox;
+    @FXML private VBox root;
     @FXML private Label filmTitleLabel;
     @FXML private ComboBox<Inventory> inventoryCombo;
     @FXML private DatePicker rentalDatePicker;
@@ -98,6 +98,17 @@ public class RentFilmScene {
                         }
                     }
                 });
+                returnDatePicker.setDayCellFactory(picker -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate date, boolean empty) {
+                        super.updateItem(date, empty);
+                        if (date.isBefore(rentalDatePicker.getValue().plusDays(1))) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #EEEEEE;");
+                        }
+                    }
+                });
+
 
             }
         } catch (Exception e) {
@@ -162,5 +173,10 @@ public class RentFilmScene {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void setStyleSheet(String styleSheet) {
+        root.getStylesheets().clear();
+        root.getStylesheets().add(styleSheet);
     }
 }
