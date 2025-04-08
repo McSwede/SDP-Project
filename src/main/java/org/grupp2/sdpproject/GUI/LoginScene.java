@@ -21,9 +21,24 @@ public class LoginScene {
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Label statusLabel;
+    @FXML private Button colorsheme;
 
     private final SceneController sceneController = SceneController.getInstance();
 
+    @FXML
+    public void initialize() {
+        boolean isDarkMode = sceneController.isDarkMode();
+        if (isDarkMode) {
+            colorsheme.setText("Ljust läge");
+        } else {
+            colorsheme.setText("Mörkt läge");
+        }
+    }
+
+    @FXML
+    private void toggleTheme() {
+        sceneController.toggleDarkMode(root, colorsheme);
+    }
 
     @FXML
     public void handleLogin() {

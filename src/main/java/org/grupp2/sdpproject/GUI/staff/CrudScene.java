@@ -64,7 +64,7 @@ public class CrudScene {
     }
 
     @FXML private void toggleTheme() {
-        sceneController.toggleDarkMode(this, colorsheme);
+        sceneController.toggleDarkMode(root, colorsheme);
     }
 
     @FXML
