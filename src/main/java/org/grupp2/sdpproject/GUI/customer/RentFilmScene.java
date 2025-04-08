@@ -11,6 +11,7 @@ import org.grupp2.sdpproject.entities.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RentFilmScene {
 
@@ -20,9 +21,6 @@ public class RentFilmScene {
     @FXML private DatePicker rentalDatePicker;
     @FXML private DatePicker returnDatePicker;
     @FXML private TextField amountField;
-    @FXML private TextField customerIdField;
-    @FXML private TextField staffIdField;
-    @FXML private DatePicker paymentDatePicker;
 
     DAOManager daoManager = DAOManager.getInstance();
 
@@ -49,6 +47,11 @@ public class RentFilmScene {
                     .findFirst()
                     .orElse(null);
             if (selectedFilm != null) {
+                selectedFilm = DAOManager.getInstance().findByIdWithJoinFetch(Film.class, selectedFilm.getFilmId(), List.of("inventories"));
+                for (Inventory inventory : selectedFilm.getInventories()) {
+                    Inventory inventoryWithRentals = DAOManager.getInstance().findByIdWithJoinFetch(Inventory.class, inventory.getInventoryId(), List.of("rentalList"));
+                    inventory.setRentalList(inventoryWithRentals.getRentalList());
+                }
                 var availableInventory = selectedFilm.getInventories().stream()
                         .filter(inv -> inv.getRentalList().stream()
                                 .noneMatch(r -> r.getReturnDate() == null))
@@ -65,20 +68,15 @@ public class RentFilmScene {
                     .orElse(null);
             if (user != null && user.getCustomer() != null) {
                 customer = user.getCustomer();
-                customerIdField.setText(String.valueOf(customer.getCustomerId()));
-                customerIdField.setEditable(false);
 
                 Store store = customer.getStore();
                 if (store != null && !store.getStaffList().isEmpty()) {
                     staff = store.getStaffList().get(0);
-                    staffIdField.setText(String.valueOf(staff.getStaffId()));
-                    staffIdField.setEditable(false);
-                } else {
-                    staffIdField.setText("N/A");
                 }
 
                 if (rentalAmount != null) {
                     amountField.setText(rentalAmount.toString());
+                    amountField.setEditable(false);
                 } else {
                     amountField.setText("");
                 }
@@ -101,9 +99,6 @@ public class RentFilmScene {
                     }
                 });
 
-            } else {
-                customerIdField.setText("N/A");
-                staffIdField.setText("N/A");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,7 +122,7 @@ public class RentFilmScene {
             LocalDate returnDate = returnDatePicker.getValue();
             double amountDouble = Double.parseDouble(amountField.getText());
             BigDecimal amount = BigDecimal.valueOf(amountDouble);
-            LocalDate paymentDate = paymentDatePicker.getValue();
+            LocalDate paymentDate = LocalDate.now();
 
             if (customer == null || staff == null) {
                 showAlert("Error", "Kunde inte hitta kund eller anställd.");
@@ -146,27 +141,14 @@ public class RentFilmScene {
             rental.getPayments().add(payment);
 
             daoManager.save(rental);
-            SceneController sceneController = SceneController.getInstance();
-            sceneController.switchScene("rental-confirmation");
 
-            RentalConfirmationScene controller = sceneController.getController("rental-confirmation");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bekräftelse");
+            alert.setHeaderText(null);
+            alert.setContentText("Tack för din bokning!");
+            alert.showAndWait();
 
-            if (controller != null) {
-                controller.setRentalInfo(
-                        DAOManager.getInstance()
-                                .findByField(User.class, "email", loggedInUser)
-                                .stream()
-                                .findFirst()
-                                .orElse(null).getCustomer().getFirstName(),
-                        selectedInventory.getFilm().getTitle(),
-                        rentalDate.toString(),
-                        returnDate.toString(),
-                        rentalAmount.toString()
-                );
-            } else {
-                System.err.println("Error: RentalConFirmationScene controller is null");
-
-            }
+            SceneController.getInstance().switchScene("customer-dashboard");
 
         } catch (Exception e) {
             e.printStackTrace();

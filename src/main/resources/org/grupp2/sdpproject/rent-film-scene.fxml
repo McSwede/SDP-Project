@@ -36,23 +36,11 @@
         <Label text="Returdatum:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
         <DatePicker fx:id="returnDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-        <!-- Customer Information Section -->
-        <Label style="-fx-font-weight: bold; -fx-underline: true;" text="Kund information:" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-
-        <Label text="Kund ID:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-        <TextField fx:id="customerIdField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-
-        <Label text="Anställd ID:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-        <TextField fx:id="staffIdField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-
         <!-- Payment Information Section -->
         <Label style="-fx-font-weight: bold; -fx-underline: true;" text="Betalnings information:" GridPane.columnSpan="2" GridPane.rowIndex="9" />
 
-        <Label text="Antal:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-        <TextField fx:id="amountField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-
-        <Label text="Betalningsdatum:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
-        <DatePicker fx:id="paymentDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+        <Label text="Pris:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+        <TextField fx:id="amountField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
       <rowConstraints>
          <RowConstraints />
          <RowConstraints />
