@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.grupp2.sdpproject.GUI.SceneController;
 import org.grupp2.sdpproject.Utils.DAOManager;
-import org.grupp2.sdpproject.Utils.PasswordUtil;
 import org.grupp2.sdpproject.Utils.PictureUtil;
 import org.grupp2.sdpproject.entities.*;
 
@@ -241,7 +240,7 @@ public class StaffCrudScene {
         staff.setStore(enterStore.getValue());
         staff.setActive(enterActive.isSelected());
         staff.setUsername(enterUsername.getText());
-        staff.setPassword(PasswordUtil.hashPassword(enterPassword.getText()));
+        staff.setPassword(enterPassword.getText());
     }
 
     @FXML
