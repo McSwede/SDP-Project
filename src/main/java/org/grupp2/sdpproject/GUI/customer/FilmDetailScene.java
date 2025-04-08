@@ -4,12 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.GUI.SceneController;
-import org.grupp2.sdpproject.Utils.HibernateUtil;
-import org.grupp2.sdpproject.dao.GenericDAO;
-import org.grupp2.sdpproject.entities.Actor;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.entities.Category;
 import org.grupp2.sdpproject.entities.Film;
-import org.grupp2.sdpproject.entities.User;
 
 import java.math.BigDecimal;
 import java.util.stream.Collectors;
@@ -34,13 +31,10 @@ public class FilmDetailScene {
     @FXML private Button rentButton;
 
 
-    private final GenericDAO<Film> filmDAO = new GenericDAO<>(Film.class, HibernateUtil.getSessionFactory());
     private final SceneController sceneController = SceneController.getInstance();
 
-    private  User loggedInUser;
-
     public void loadFilmById(int filmId) {
-        Film film = filmDAO.findById(filmId);
+        Film film = DAOManager.getInstance().findById(Film.class, filmId);
         if (film != null) {
             showFilmDetails(film); // Use your existing setFilm method to display the film details
         } else {

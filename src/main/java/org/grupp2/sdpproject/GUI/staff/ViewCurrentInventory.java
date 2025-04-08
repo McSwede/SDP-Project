@@ -9,9 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import org.grupp2.sdpproject.GUI.SceneController;
-import org.grupp2.sdpproject.Utils.HibernateUtil;
+import org.grupp2.sdpproject.Utils.DAOManager;
 import org.grupp2.sdpproject.Utils.SessionManager;
-import org.grupp2.sdpproject.dao.UserDAO;
 import org.grupp2.sdpproject.entities.*;
 
 import java.math.BigDecimal;
@@ -32,7 +31,6 @@ public class ViewCurrentInventory {
     private final ObservableList<FilmInventoryItem> inventoryData = FXCollections.observableArrayList();
     private final FilteredList<FilmInventoryItem> filteredData = new FilteredList<>(inventoryData, p -> true);
 
-    private final UserDAO userDAO = new UserDAO(HibernateUtil.getSessionFactory());
     private Store currentStore;
 
     SceneController sceneController = SceneController.getInstance();
@@ -63,7 +61,11 @@ public class ViewCurrentInventory {
             return;
         }
 
-        User currentUser = userDAO.findByEmail(username);
+        User currentUser = DAOManager.getInstance()
+                .findByField(User.class, "email", username)
+                .stream()
+                .findFirst()
+                .orElse(null);
         if (currentUser == null || currentUser.getStaff() == null) {
             showAlert("Current user is not staff");
             sceneController.switchScene("crud");

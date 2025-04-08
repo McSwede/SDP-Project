@@ -3,8 +3,10 @@ package org.grupp2.sdpproject.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Map;
 
 public class GenericDAO<T> {
 
@@ -73,5 +75,30 @@ public class GenericDAO<T> {
         }
     }
 
+    public List<T> findByField(String fieldName, Object value) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "from " + entityClass.getSimpleName() + " where " + fieldName + " = :value";
+            return session.createQuery(hql, entityClass)
+                    .setParameter("value", value)
+                    .list();
+        }
+    }
 
+    public List<T> findByFields(Map<String, Object> fields) {
+        try (Session session = sessionFactory.openSession()) {
+            StringBuilder hql = new StringBuilder("from " + entityClass.getSimpleName() + " where ");
+            int index = 0;
+            for (String key : fields.keySet()) {
+                if (index++ > 0) hql.append(" and ");
+                hql.append(key).append(" = :").append(key);
+            }
+
+            Query<T> query = session.createQuery(hql.toString(), entityClass);
+            for (Map.Entry<String, Object> entry : fields.entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+
+            return query.list();
+        }
+    }
 }
